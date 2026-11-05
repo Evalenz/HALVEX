@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@200;300;400;500&family=IBM+Plex+Serif:ital,wght@1,200;1,300&display=swap">
-<link rel="preload" as="image" href="img/monolito-h.jpg">
+<link rel="preload" as="image" href="seq/f000.jpg">
 <style>
 /*
   HALVEX · Dirección: lujo silencioso.
@@ -92,44 +92,55 @@ button{font:inherit;color:inherit}
 .menu li a:hover .ital{opacity:1}
 .menu .foot{display:flex;justify-content:space-between;gap:20px;padding:24px 0 28px;color:var(--mute-d)}
 
-/* ------------------------------------------------------------ hero */
-.hero{position:relative;height:330vh}
-.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--night)}
-.scene{position:absolute;inset:0;background:#000 url(img/monolito-h.jpg) 50% 58%/cover no-repeat;transform:scale(var(--ss,1.14));will-change:transform}
-@media (max-aspect-ratio:4/5){.scene{background-image:url(img/monolito-v.jpg);background-position:50% 60%}}
-.ap{position:absolute;inset:0;width:100%;height:100%}
-.ap .ln{fill:none;stroke:var(--bone);stroke-width:1;vector-effect:non-scaling-stroke}
-.ap .cl{fill:none;stroke:rgba(242,241,236,.38);stroke-width:1;vector-effect:non-scaling-stroke}
-.mark{position:absolute;left:0;right:0;top:var(--wmy,72%);display:flex;flex-direction:column;align-items:center;gap:26px;pointer-events:none}
-.mark h1{display:block;width:clamp(170px,19vw,300px);line-height:0}
-.mark h1 svg{width:100%;height:auto;fill:var(--bone);overflow:visible}
-.mark h1 .lt{transform:translateY(118%);transform-box:fill-box}
-.mark h1 svg{clip-path:inset(-2% -1% 0 -1%)}
-.mark .tag{color:var(--mute-d);opacity:0;transition:opacity 1.4s var(--out)}
-.is-ready .mark .tag{opacity:1}
-.cue{position:absolute;left:50%;bottom:calc(30px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--mute-d);opacity:0;transition:opacity 1.4s var(--out) .3s}
-.is-ready .cue{opacity:1}
+/* ------------------------------------------------------------ hero · punto de vista
+   Dos esculturas a distinta profundidad. Solo desde un punto exacto forman el isotipo. */
+.hero{position:relative;height:600vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#000}
+#cv{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.6s var(--soft)}
+.is-loaded #cv{opacity:var(--cvo,1)}
+.ap{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.ap .br{fill:none;stroke:var(--bone);stroke-width:1;vector-effect:non-scaling-stroke}
+.loader{position:absolute;left:50%;top:50%;width:1px;height:26vh;transform:translate(-50%,-50%);pointer-events:none;transition:opacity 1s var(--soft)}
+.loader i{position:absolute;left:0;bottom:0;width:1px;height:100%;background:var(--bone);transform:scaleY(var(--lp,0));transform-origin:50% 100%;transition:transform .5s var(--out);box-shadow:0 0 14px rgba(255,248,236,.55)}
+.is-loaded .loader{opacity:0}
+.cap1{position:absolute;left:var(--gl);top:calc(118px + env(safe-area-inset-top,0px));color:var(--mute-d);opacity:0;transition:opacity 1.6s var(--out) .4s}
+.is-ready .cap1{opacity:var(--c1o,1)}
+.read{position:absolute;right:var(--gr);bottom:calc(36px + env(safe-area-inset-bottom,0px));color:var(--mute-d);text-align:right;display:grid;gap:10px;opacity:0;transition:opacity 1.6s var(--out) .6s}
+.is-ready .read{opacity:var(--rdo,1)}
+.read dl{display:grid;grid-template-columns:auto 7.5ch;column-gap:18px;row-gap:4px}
+.read dd{color:var(--bone);font-variant-numeric:tabular-nums}
+.read .lvl{position:relative;width:180px;height:9px;justify-self:end;background:linear-gradient(var(--line-d),var(--line-d)) 0 50%/100% 1px no-repeat}
+.read .lvl::before{content:"";position:absolute;left:50%;top:0;width:1px;height:100%;background:var(--mute-d)}
+.read .lvl i{position:absolute;top:1px;left:var(--lx,100%);width:7px;height:7px;background:var(--bone);transform:translateX(-50%) rotate(45deg) scale(.75)}
+.read .st{color:var(--bone);letter-spacing:.14em}
+.say1{position:absolute;left:var(--gl);bottom:calc(clamp(44px,9vh,96px) + env(safe-area-inset-bottom,0px));width:min(640px,80vw);height:3em;pointer-events:none}
+.say1 p{text-wrap:balance;position:absolute;left:0;bottom:0;width:100%;font-weight:200;font-size:clamp(30px,3.3vw,58px);line-height:1.08;letter-spacing:-.032em;color:var(--bone);opacity:0;transform:translateY(24px)}
+.say1 p b{font-weight:400}
+.mark{position:absolute;left:0;right:0;top:var(--wmy,72%);display:flex;flex-direction:column;align-items:center;gap:22px;pointer-events:none;opacity:0}
+.mark h1{display:block;width:clamp(170px,17vw,280px);line-height:0}
+.mark h1 svg{width:100%;height:auto;fill:var(--bone)}
+.mark .claim{text-wrap:balance;font-weight:300;font-size:clamp(16px,1.25vw,19px);color:#C9CACD;text-align:center;padding:0 24px}
+.mark .claim b{font-weight:400;color:var(--bone)}
+.hcta{position:absolute;right:var(--gr);bottom:calc(36px + env(safe-area-inset-bottom,0px));color:var(--bone);opacity:0;pointer-events:none}
+.hcta.on{pointer-events:auto}
+.cue{position:absolute;left:50%;bottom:calc(30px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--mute-d);opacity:0;transition:opacity 1.4s var(--out) .9s}
+.is-ready .cue{opacity:var(--cuo,1)}
 .cue i{width:1px;height:46px;background:linear-gradient(var(--mute-d),var(--mute-d)) 0 0/1px 0 no-repeat,rgba(242,241,236,.16);animation:cue 2.6s var(--io) infinite}
 @keyframes cue{0%{background-size:1px 0;background-position:0 0}45%{background-size:1px 100%;background-position:0 0}55%{background-size:1px 100%;background-position:0 100%}100%{background-size:1px 0;background-position:0 100%}}
-.corner{position:absolute;color:var(--mute-d);opacity:0;transition:opacity 1.4s var(--out) .2s}
-.is-ready .corner{opacity:1}
-.corner.a{left:var(--gl);bottom:calc(32px + env(safe-area-inset-bottom,0px))}
-.corner.b{right:var(--gr);bottom:calc(32px + env(safe-area-inset-bottom,0px));text-align:right}
-@media (max-width:720px){.corner{display:none}}
-.copy::before{content:"";position:absolute;left:0;right:0;bottom:0;height:70vh;background:linear-gradient(180deg,rgba(7,7,8,0),rgba(7,7,8,.55));opacity:var(--co,0);pointer-events:none}
-.copy{position:absolute;left:0;right:0;bottom:0;padding-bottom:calc(clamp(40px,8vh,96px) + env(safe-area-inset-bottom,0px));pointer-events:none}
-.copy .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:end}
-.copy h2{grid-column:1/7;font-weight:200;font-size:clamp(42px,4.8vw,86px);line-height:1.02;letter-spacing:-.04em}
-.copy h2 b{font-weight:400}
-.copy h2 .row{display:block;overflow:hidden;padding-bottom:.08em}
-.copy h2 .row>span{display:block;transform:translateY(var(--cy,110%))}
-.copy .side{grid-column:9/13;justify-self:end;max-width:330px;opacity:var(--so,0);transform:translateY(calc((1 - var(--so,0)) * 18px));pointer-events:auto}
-.copy .side p{color:#C9CACD;font-size:16px;line-height:1.55}
-.cta{display:inline-flex;align-items:center;gap:16px;margin-top:22px;font-size:15px;font-weight:400}
+.cta{display:inline-flex;align-items:center;gap:16px;font-size:15px;font-weight:400}
 .cta .ar{position:relative;width:44px;height:1px;background:currentColor;transition:width .8s var(--out)}
 .cta .ar::after{content:"";position:absolute;right:0;top:-4px;width:8px;height:8px;border-top:1px solid currentColor;border-right:1px solid currentColor;transform:rotate(45deg)}
 .cta:hover .ar{width:76px}
-@media (max-width:900px){.copy h2{grid-column:1/-1}.copy .side{grid-column:1/-1;justify-self:start;margin-top:24px}}
+@media (max-width:720px){
+  .cap1{top:calc(92px + env(safe-area-inset-top,0px))}
+  .read{left:var(--gl);right:var(--gr);top:calc(92px + env(safe-area-inset-top,0px));bottom:auto;text-align:left}
+  .read dl{grid-template-columns:auto auto;justify-content:space-between}
+  .read .lvl{justify-self:stretch;width:auto}
+  .cap1{display:none}
+  .say1{bottom:calc(64px + env(safe-area-inset-bottom,0px));width:auto;right:var(--gr)}
+  .hcta{left:var(--gl);right:auto;bottom:calc(30px + env(safe-area-inset-bottom,0px))}
+  .cue{display:none}
+}
 
 /* ------------------------------------------------------------ comunes */
 .sec{position:relative}
@@ -190,7 +201,7 @@ button{font:inherit;color:inherit}
 .cine .txt h2 .row:nth-child(2)>span{transition-delay:.1s}
 .cine .txt p{grid-column:9/13;justify-self:end;max-width:320px;color:#D3D4D7;font-size:16px;opacity:var(--tp,0);transition:opacity 1.4s var(--out) .25s}
 .cine .lab{position:absolute;top:calc(110px + env(safe-area-inset-top,0px));left:var(--gl);color:var(--bone);opacity:var(--tp,0);transition:opacity 1.4s var(--out)}
-@media (max-width:900px){.cine .txt h2,.cine .txt p{grid-column:1/-1}.cine .txt p{justify-self:start;margin-top:20px}}
+@media (max-width:900px){.cine .frame::after{background:linear-gradient(180deg,rgba(7,7,8,0) 15%,rgba(7,7,8,.92) 100%)}.cine .txt h2,.cine .txt p{grid-column:1/-1}.cine .txt p{justify-self:start;margin-top:20px}}
 
 /* ------------------------------------------------------------ 04 sectores */
 .sec4 .top{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:end;margin-bottom:clamp(70px,11vh,130px)}
@@ -282,17 +293,11 @@ footer .meta{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;
 footer .meta a:hover{color:var(--bone)}
 
 /* ------------------------------------------------------------ movimiento reducido */
-.static-scene{display:none}
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}
-  .nav,.mark .tag,.cue,.corner{opacity:1}
-  .mark h1 .lt{transform:none}
+  .nav,.cue,.cap1{opacity:1}
   .hero{height:auto}.stage{position:relative}
-  .scene,.copy,.cue{display:none}
-  .static-scene{display:block;position:relative;height:100svh;background:#000 url(img/monolito-h.jpg) center/cover}
-  .static-scene .copy{display:block}
-  .static-scene .copy h2 .row>span{transform:none}
-  .static-scene .copy .side{opacity:1;transform:none}.static-scene .copy::before{opacity:1}
+  .loader,.say1,.read,.cue{display:none}
   .rise{opacity:1;transform:none}
   .enf .say .w{opacity:1}
   .caps{height:auto}.caps .pin{position:relative;height:auto}
@@ -355,56 +360,37 @@ footer .meta a:hover{color:var(--bone)}
 </div>
 
 <main>
-  <!-- HERO · el vacío entre las cuñas se construye, se abre y se atraviesa -->
+  <!-- HERO · Punto de vista: dos esculturas que solo desde un punto exacto forman el isotipo -->
   <section class="hero d" id="inicio" data-bg="night" data-tone="d" aria-label="Inicio">
     <div class="stage" id="stage">
-      <div class="scene" id="scene" role="img" aria-label="Las dos cuñas del isotipo de HALVEX como esculturas de metal negro, con una línea de luz que atraviesa el vértice"></div>
+      <canvas id="cv" role="img" aria-label="Dos cuñas de metal negro, separadas en el espacio, que al alinearse desde un punto exacto forman el isotipo de HALVEX"></canvas>
+      <div class="loader" id="loader" aria-hidden="true"><i></i></div>
       <svg class="ap" id="ap" aria-hidden="true">
-        <defs>
-          <clipPath id="fillclip" clipPathUnits="userSpaceOnUse"><rect id="fillrect" x="0" y="20" width="200" height="0"/></clipPath>
-        </defs>
         <g id="apg">
-          <path id="shroud" fill="#070708" fill-rule="evenodd" d=""/>
-          <polygon id="cover" fill="#070708" points="60,20 140,20 103.8,172 96.2,172"/>
-          <g id="cons" opacity="0">
-            <path class="cl hz" d="M100 20H-700" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/><path class="cl hz" d="M100 20H900" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
-            <path class="cl" id="ax" d="M100 20V186" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1" style="stroke-dasharray:.012 .012"/>
-            <circle id="vx" cx="100" cy="180" r="1.6" fill="#F2F1EC" opacity="0"/>
-          </g>
-          <g id="wedges" clip-path="url(#fillclip)" fill="#EDEBE6">
-            <path id="wl" d="M24 20H60L96.2 172Z"/>
-            <path id="wr" d="M176 20H140L103.8 172Z"/>
-          </g>
-          <g id="outl">
-            <path class="ln" id="ol" d="M24 20H60L96.2 172Z" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
-            <path class="ln" id="or" d="M176 20H140L103.8 172Z" pathLength="1" stroke-dasharray="1" stroke-dashoffset="1"/>
-          </g>
+          <polygon id="hole" fill="#F6F5F1" opacity="0" points="60,20 140,20 103.8,172 96.2,172"/>
+          <g id="logo" fill="#EDEBE6" opacity="0"><path d="M24 20H60L96.2 172Z"/><path d="M176 20H140L103.8 172Z"/></g>
+          <g id="brk" opacity="0"><path class="br" id="bk"/></g>
         </g>
       </svg>
+      <p class="cap1 mono" id="cap1">01 · Punto de vista</p>
+      <div class="say1" id="say1" aria-hidden="true">
+        <p>Desde cualquier ángulo,<br>dos piezas.</p>
+        <p>Solo desde un punto exacto,<br><b>una forma.</b></p>
+      </div>
+      <div class="read mono" id="read" aria-hidden="true">
+        <dl><dt>Ángulo</dt><dd id="rA">46,0°</dd><dt>Distancia</dt><dd id="rD">4,60 m</dd></dl>
+        <div class="lvl"><i></i></div>
+        <span class="st" id="rS">Buscando</span>
+      </div>
       <div class="mark" id="mark">
         <h1><span class="sr">HALVEX. Tecnología para decisiones que no admiten error.</span>
-          <svg viewBox="0 -4 552 108" aria-hidden="true">
-            <g class="lt"><path d="M0 0H15V43H63V0H78V100H63V57H15V100H0Z"/></g>
-            <g class="lt"><path d="M102 100L146 -3L190 100H173.6L146 37.3L118.4 100Z"/></g>
-            <g class="lt"><path d="M214 0H229V85H276V100H214Z"/></g>
-            <g class="lt"><path d="M268 0H284.4L312 62.7L339.6 0H356L312 103Z"/></g>
-            <g class="lt"><path d="M378 0H440V15H393V42.5H434V57.5H393V85H440V100H378Z"/></g>
-            <g class="lt"><path d="M464 0H482L508 37.14L534 0H552L517 50L552 100H534L508 62.86L482 100H464L499 50Z"/></g>
-          </svg>
+          <svg viewBox="0 -4 552 108" aria-hidden="true"><use href="#wm"/></svg>
         </h1>
-        <p class="tag mono">Inteligencia artificial · Seguridad · Defensa</p>
+        <p class="claim" aria-hidden="true">Tecnología para decisiones que <b>no admiten error.</b></p>
       </div>
-      <p class="corner a mono">Madrid<br>40.4168° N · 3.7038° O</p>
-      <p class="corner b mono">Edición 2026</p>
+      <a class="hcta cta" id="hcta" href="#contacto">Hablar con nuestro equipo <span class="ar"></span></a>
       <div class="cue mono" id="cue" aria-hidden="true"><span>Desplace</span><i></i></div>
-      <div class="copy" id="copy">
-        <div class="wrap">
-          <h2><span class="row"><span>Tecnología para</span></span><span class="row"><span>decisiones que</span></span><span class="row"><span><b>no admiten error.</b></span></span></h2>
-          <div class="side"><p>Inteligencia artificial, sistemas de seguridad y software para defensa, instituciones y grandes empresas.</p><a class="cta" href="#contacto">Hablar con nuestro equipo <span class="ar"></span></a></div>
-        </div>
-      </div>
     </div>
-    <div class="static-scene"><div class="copy"><div class="wrap"><p class="sr">Tecnología para decisiones que no admiten error.</p><h2 aria-hidden="true"><span class="row"><span>Tecnología para</span></span><span class="row"><span>decisiones que</span></span><span class="row"><span><b>no admiten error.</b></span></span></h2><div class="side"><p>Inteligencia artificial, sistemas de seguridad y software para defensa, instituciones y grandes empresas.</p><a class="cta" href="#contacto">Hablar con nuestro equipo <span class="ar"></span></a></div></div></div></div>
   </section>
 
   <!-- 01 · ENFOQUE -->
@@ -623,96 +609,118 @@ footer .meta a:hover{color:var(--bone)}
     }
   });
 
-  /* ---------------- HERO */
-  var ap = $('ap'), apg = $('apg'), shroud = $('shroud'), cover = $('cover'), wedges = $('wedges'),
-      wl = $('wl'), wr = $('wr'), fillrect = $('fillrect'), outl = $('outl'), ol = $('ol'), orr = $('or'),
-      cons = $('cons'), hz = D.querySelectorAll('.hz'), ax = $('ax'), vx = $('vx'), mark = $('mark'), scene = $('scene'),
-      copy = $('copy'), cue = $('cue'), hero = $('inicio'), stage = $('stage');
-  var copyRows = copy.querySelectorAll('h2 .row > span'), side = copy.querySelector('.side');
-  var letters = mark.querySelectorAll('.lt');
-  var VW = 0, VH = 0, s0 = 1, s1 = 1, ty1 = 96, cy0 = 0.42, aper = 0, aperT = 0;
-  var K = 36.2 / 152;
+  /* ---------------- HERO · Punto de vista */
+  var NF = 60, PATH = 'seq/f', EXT = '.jpg';
+  /* posición del isotipo en la imagen final (Blender, coordenadas normalizadas) */
+  var ISO = { x0: 0.35663, y0: 0.35663, x1: 0.64337 };
+  var stage = $('stage'), cv = $('cv'), cx2 = cv.getContext('2d'), loader = $('loader'), ap = $('ap'), apg = $('apg'),
+      hole = $('hole'), logo = $('logo'), brk = $('brk'), bk = $('bk'), mark = $('mark'), hero = $('inicio'),
+      cap1 = $('cap1'), read = $('read'), rA = $('rA'), rD = $('rD'), rS = $('rS'), lvl = read.querySelector('.lvl'),
+      sayP = $('say1').querySelectorAll('p'), hcta = $('hcta'), cue = $('cue');
+  var frames = new Array(NF), loaded = 0, VW = 0, VH = 0, DPR = 1, IMG = 960, s0 = 1, s1 = 1, ty1 = 96, isoX = 0, isoY = 0;
+  var auto = 0, autoT0 = 0, AUTO_TO = 9, lastDraw = -1;
   function layout() {
-    VW = stage.clientWidth; VH = stage.clientHeight;
+    VW = stage.clientWidth; VH = stage.clientHeight; DPR = Math.min(W.devicePixelRatio || 1, 2);
+    cv.width = Math.round(VW * DPR); cv.height = Math.round(VH * DPR);
     ap.setAttribute('viewBox', '0 0 ' + VW + ' ' + VH);
-    var isoPx = Math.min(VH * (VW < 720 ? 0.34 : 0.40), VW * 0.6);
-    s0 = isoPx / 152;
-    cy0 = VW < 720 ? 0.40 : 0.42;
-    s1 = (VW + 0.4763 * VH) / 80 * 1.18;
+    var c = Math.max(VW, VH) / 1;  /* la imagen es cuadrada: cubre el lado mayor */
+    var side = Math.max(VW, VH), ox = (VW - side) / 2, oy = (VH - side) / 2;
+    s0 = (ISO.x1 - ISO.x0) * side / 152;
+    isoX = ox + ISO.x0 * side; isoY = oy + ISO.y0 * side;   /* pantalla de (24,20) */
+    s1 = (VW + 0.4763 * VH) / 80 * 1.2;
     ty1 = 20 + VH / (2 * s1) * 1.04;
-    var big = 1e5;
-    shroud.setAttribute('d', 'M' + (-big) + ' ' + (-big) + 'H' + big + 'V' + big + 'H' + (-big) + 'Z');
-    mark.style.setProperty('--wmy', ((VH * cy0 + isoPx * 0.5) / VH * 100 + (VW < 720 ? 6 : 7)) + '%');
+    var bottom = isoY + 152 * s0;
+    mark.style.setProperty('--wmy', ((bottom + (VW < 720 ? 46 : 54)) / VH * 100) + '%');
+    var m = 16, L = 14;
+    bk.setAttribute('d', ['M', 24 - m, 20 - m + L, 'V', 20 - m, 'H', 24 - m + L, 'M', 176 + m - L, 20 - m, 'H', 176 + m, 'V', 20 - m + L,
+      'M', 176 + m, 172 + m - L, 'V', 172 + m, 'H', 176 + m - L, 'M', 24 - m + L, 172 + m, 'H', 24 - m, 'V', 172 + m - L].join(' '));
+    lastDraw = -1;
   }
-  function holePts(a) {
-    return (60 - a) + ',20 ' + (140 + a) + ',20 ' + (103.8 + a) + ',172 ' + (96.2 - a) + ',172';
+  function draw(fi) {
+    var i0 = Math.floor(fi), i1 = Math.min(NF - 1, i0 + 1), fr = fi - i0;
+    while (i0 > 0 && !frames[i0]) i0--;
+    if (!frames[i0]) return;
+    var key = i0 * 1000 + Math.round(fr * 60);
+    if (key === lastDraw) return; lastDraw = key;
+    var side = Math.max(cv.width, cv.height), oy = (cv.height - side) / 2;
+    /* en formato vertical el encuadre sigue a las esculturas y termina centrado en el punto de vista */
+    var fx = lerp(0.64, 0.5, sm(Math.min(1, fi / (NF - 1) / 0.85)));
+    var ox = clamp(cv.width / 2 - fx * side, cv.width - side, 0);
+    cx2.globalAlpha = 1; cx2.drawImage(frames[i0], ox, oy, side, side);
+    if (fr > 0.02 && frames[i1]) { cx2.globalAlpha = fr; cx2.drawImage(frames[i1], ox, oy, side, side); cx2.globalAlpha = 1; }
   }
-  function setShroud(a) {
-    var big = 1e5;
-    shroud.setAttribute('d', 'M' + (-big) + ' ' + (-big) + 'H' + big + 'V' + big + 'H' + (-big) + 'Z' +
-      'M' + (60 - a) + ' 20H' + (140 + a) + 'L' + (103.8 + a) + ' 172H' + (96.2 - a) + 'Z');
-  }
-  /* secuencia de apertura */
-  var introT0 = 0, introDone = false, introP = 0;
-  var T = { draw: [0, 1150], cons: [150, 1100], fill: [750, 1850], line: [1650, 2100], vx: [1050, 1500], vxo: [1900, 2500], consO: [1900, 2600], word: 1700, ready: 2150, end: 2700 };
-  function intro(now) {
-    if (!introT0) introT0 = now;
-    var t = now - introT0;
-    var d = eOut(seg(t, T.draw[0], T.draw[1]));
-    ol.setAttribute('stroke-dashoffset', 1 - d); orr.setAttribute('stroke-dashoffset', 1 - d);
-    var c = eOut(seg(t, T.cons[0], T.cons[1]));
-    hz[0].setAttribute('stroke-dashoffset', 1 - c); hz[1].setAttribute('stroke-dashoffset', 1 - c); ax.setAttribute('stroke-dashoffset', 1 - c);
-    cons.setAttribute('opacity', (1 - seg(t, T.consO[0], T.consO[1])).toFixed(3));
-    var f = eIO(seg(t, T.fill[0], T.fill[1]));
-    fillrect.setAttribute('height', (152 * f + 0.5).toFixed(2));
-    outl.setAttribute('opacity', (1 - seg(t, T.line[0], T.line[1])).toFixed(3));
-    vx.setAttribute('opacity', (eOut(seg(t, T.vx[0], T.vx[1])) * (1 - seg(t, T.vxo[0], T.vxo[1]))).toFixed(3));
-    if (t >= T.word && !letters[0].style.transition) {
-      letters.forEach(function (l, i) { l.style.transition = 'transform 1.5s cubic-bezier(.16,1,.3,1) ' + (i * 0.07) + 's'; l.style.transform = 'none'; });
+  function load() {
+    var order = [];
+    for (var i = 0; i < NF; i++) order.push(i);
+    var started = false, t0 = performance.now();
+    function start() {
+      if (started) return; started = true;
+      root.classList.add('is-loaded'); autoT0 = performance.now();
+      setTimeout(function () { root.classList.add('is-ready'); }, 900);
     }
-    if (t >= T.ready) root.classList.add('is-ready');
-    if (t >= T.end) { introDone = true; }
+    order.forEach(function (i) {
+      var im = new Image(); im.decoding = 'async';
+      im.onload = im.onerror = function () {
+        if (im.naturalWidth) { frames[i] = im; IMG = im.naturalWidth; }
+        loaded++; loader.style.setProperty('--lp', (loaded / NF).toFixed(3));
+        var ready = true; for (var k = 0; k <= AUTO_TO; k++) if (!frames[k]) ready = false;
+        if ((ready && performance.now() - t0 > 1400) || loaded === NF) setTimeout(start, Math.max(0, 1400 - (performance.now() - t0)));
+      };
+      im.src = PATH + (i < 10 ? '00' : '0') + i + EXT;
+    });
   }
-  function finishIntro() {
-    ol.setAttribute('stroke-dashoffset', 0); orr.setAttribute('stroke-dashoffset', 0);
-    fillrect.setAttribute('height', 153); outl.setAttribute('opacity', 0); cons.setAttribute('opacity', 0);
-    letters.forEach(function (l) { l.style.transform = 'none'; });
-    root.classList.add('is-ready'); introDone = true;
-  }
-  var mx = 0, my = 0;
-  if (FINE && !RM) W.addEventListener('pointermove', function (e) { mx = e.clientX / W.innerWidth * 2 - 1; my = e.clientY / W.innerHeight * 2 - 1; }, { passive: true });
-
-  function heroFrame() {
+  var sm = function (t) { return t * t * t * (t * (6 * t - 15) + 10); };
+  function heroFrame(now) {
     var r = hero.getBoundingClientRect();
-    var span = hero.offsetHeight - VH;
-    var p = clamp(-r.top / span, 0, 1);
     if (r.bottom < 0) return;
-    // apertura que respira con el cursor, solo en reposo
-    aperT = (introDone && p < 0.04 && FINE) ? (1 - Math.min(1, Math.abs(mx))) * 1.4 : 0;
-    aper = lerp(aper, aperT, 0.06);
-    var z = eIO(seg(p, 0.1, 0.8));
+    var span = hero.offsetHeight - VH, p = clamp(-r.top / span, 0, 1);
+    /* entrada automática: la luz encuentra la primera pieza */
+    if (autoT0) auto = eIO(clamp((now - autoT0) / 2600, 0, 1)) * AUTO_TO;
+    var t = seg(p, 0, 0.7);                       /* recorrido de la cámara */
+    var fi = Math.max(auto, t * (NF - 1));
+    draw(fi);
+    var tt = fi / (NF - 1), m = sm(Math.min(1, tt / 0.88));
+    var ang = 46 * (1 - m), dist = 4.6 + 1.6 * m;
+    rA.textContent = ang.toFixed(1).replace('.', ',') + '°';
+    rD.textContent = dist.toFixed(2).replace('.', ',') + ' m';
+    lvl.style.setProperty('--lx', (50 + 50 * ang / 46).toFixed(2) + '%');
+    var aligned = tt > 0.995;
+    rS.textContent = aligned ? 'Alineado' : 'Buscando';
+    /* textos del desarrollo */
+    var a1 = seg(p, 0.04, 0.1) * (1 - seg(p, 0.24, 0.3)), a2 = seg(p, 0.34, 0.42) * (1 - seg(p, 0.58, 0.64));
+    sayP[0].style.opacity = a1.toFixed(3); sayP[0].style.transform = 'translateY(' + ((1 - a1) * 24).toFixed(1) + 'px)';
+    sayP[1].style.opacity = a2.toFixed(3); sayP[1].style.transform = 'translateY(' + ((1 - a2) * 24).toFixed(1) + 'px)';
+    stage.style.setProperty('--c1o', (1 - seg(p, 0.66, 0.72)).toFixed(3));
+    stage.style.setProperty('--rdo', (1 - seg(p, 0.8, 0.86)).toFixed(3));
+    stage.style.setProperty('--cuo', (1 - seg(p, 0, 0.05)).toFixed(3));
+    /* resolución: el objeto se convierte en el símbolo */
+    var lock = eOut(seg(p, 0.7, 0.76)), br = lock * (1 - seg(p, 0.8, 0.85));
+    brk.setAttribute('opacity', br.toFixed(3));
+    var lo = eIO(seg(p, 0.74, 0.82));
+    logo.setAttribute('opacity', lo.toFixed(3));
+    stage.style.setProperty('--cvo', (1 - 0.72 * eIO(seg(p, 0.74, 0.86))).toFixed(3));
+    var mk = eOut(seg(p, 0.79, 0.86)) * (1 - seg(p, 0.9, 0.93));
+    mark.style.opacity = mk.toFixed(3); mark.style.transform = 'translateY(' + ((1 - eOut(seg(p, 0.79, 0.86))) * 20).toFixed(1) + 'px)';
+    var ho = eOut(seg(p, 0.82, 0.88)) * (1 - seg(p, 0.9, 0.93));
+    hcta.style.opacity = ho.toFixed(3); hcta.classList.toggle('on', ho > 0.5);
+    /* transición: se atraviesa el vacío entre las cuñas */
+    hole.setAttribute('opacity', eOut(seg(p, 0.9, 0.935)).toFixed(3));
+    var z = eIO(seg(p, 0.915, 1));
     var s = s0 * Math.pow(s1 / s0, z);
-    var cx = 100, cy = lerp(96, ty1, eIO(seg(p, 0.1, 0.62)));
-    var sy = lerp(VH * cy0, VH * 0.5, z);
-    apg.setAttribute('transform', 'translate(' + (VW / 2).toFixed(2) + ' ' + sy.toFixed(2) + ') scale(' + s.toFixed(5) + ') translate(' + (-cx) + ' ' + (-cy).toFixed(3) + ')');
-    wl.setAttribute('transform', 'translate(' + (-aper).toFixed(3) + ' 0)');
-    wr.setAttribute('transform', 'translate(' + aper.toFixed(3) + ' 0)');
-    setShroud(aper);
-    cover.setAttribute('points', holePts(aper));
-    var open = eOut(seg(p, 0.035, 0.24));
-    cover.setAttribute('opacity', (1 - open).toFixed(3));
-    scene.style.setProperty('--ss', (1.14 - 0.14 * z).toFixed(4));
-    var mo2 = 1 - eOut(seg(p, 0, 0.1));
-    mark.style.opacity = mo2.toFixed(3);
-    mark.style.transform = 'translateY(' + ((1 - mo2) * 30).toFixed(1) + 'px)';
-    cue.style.opacity = root.classList.contains('is-ready') ? (1 - seg(p, 0, 0.06)).toFixed(3) : '';
-    var cp = eOut(seg(p, 0.8, 0.95));
-    copyRows[0].style.setProperty('--cy', ((1 - cp) * 110).toFixed(1) + '%');
-    copyRows[1].style.setProperty('--cy', ((1 - eOut(seg(p, 0.82, 0.97))) * 110).toFixed(1) + '%');
-    copyRows[2].style.setProperty('--cy', ((1 - eOut(seg(p, 0.84, 0.99))) * 110).toFixed(1) + '%');
-    copy.style.setProperty('--co', eOut(seg(p, 0.8, 0.96)).toFixed(3));
-    side.style.setProperty('--so', eOut(seg(p, 0.88, 1)).toFixed(3));
-    D.querySelectorAll('.corner').forEach(function (c) { c.style.opacity = root.classList.contains('is-ready') ? (1 - seg(p, 0, 0.08)).toFixed(3) : ''; });
+    var cy = lerp(96, ty1, z);
+    var X = lerp(isoX + 76 * s0, VW / 2, z), Y = lerp(isoY + 76 * s0, VH / 2, z);
+    var bS = 1 + (1 - lock) * 0.18;                 /* las esquinas se cierran sobre el símbolo */
+    apg.setAttribute('transform', 'translate(' + X.toFixed(2) + ' ' + Y.toFixed(2) + ') scale(' + s.toFixed(5) + ') translate(-100 ' + (-cy).toFixed(3) + ')');
+    brk.setAttribute('transform', 'translate(100 96) scale(' + bS.toFixed(4) + ') translate(-100 -96)');
+  }
+  function heroStatic() {
+    /* movimiento reducido: el punto de vista ya está encontrado */
+    var im = new Image(); im.onload = function () { frames[NF - 1] = im; IMG = im.naturalWidth; root.classList.add('is-loaded', 'is-ready'); lastDraw = -1; draw(NF - 1); };
+    im.src = PATH + '0' + (NF - 1) + EXT;
+    apg.setAttribute('transform', 'translate(' + (isoX + 76 * s0) + ' ' + (isoY + 76 * s0) + ') scale(' + s0 + ') translate(-100 -96)');
+    logo.setAttribute('opacity', 1); stage.style.setProperty('--cvo', 0.35);
+    mark.style.opacity = 1; hcta.style.opacity = 1; hcta.classList.add('on');
+    stage.style.setProperty('--rdo', 0); stage.style.setProperty('--c1o', 0);
   }
 
   /* ---------------- 01 palabras que se encienden */
@@ -854,21 +862,20 @@ footer .meta a:hover{color:var(--bone)}
   /* ---------------- bucle */
   function frame(now) {
     if (lenis) lenis.raf(now);
-    if (!introDone && !RM) intro(now);
-    heroFrame(); sayFrame(); capsFrame(); cineFrame(); convFrame(); coFrame(); chrome(); if (FINE && !RM) peekFrame();
+    heroFrame(now); sayFrame(); capsFrame(); cineFrame(); convFrame(); coFrame(); chrome(); if (FINE && !RM) peekFrame();
     requestAnimationFrame(frame);
   }
   layout();
-  W.addEventListener('resize', function () { layout(); });
+  W.addEventListener('resize', function () { layout(); if (RM) heroStatic(); });
   if (RM) {
-    finishIntro();
+    heroStatic();
     words.forEach(function (w) { w.classList.add('on'); });
     for (var q = 0; q < 4; q++) phases[q].classList.add('on');
-    heroFrame(); chrome();
+    chrome();
     W.addEventListener('scroll', chrome, { passive: true });
   } else {
-    if (D.fonts && D.fonts.ready) D.fonts.ready.then(function () { requestAnimationFrame(frame); });
-    else requestAnimationFrame(frame);
+    load();
+    requestAnimationFrame(frame);
   }
 
   /* ---------------- formulario y correo */

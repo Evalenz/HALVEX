@@ -6,7 +6,7 @@ Identidad de marca y web de HALVEX: inteligencia artificial, sistemas de segurid
 
 | Carpeta | Qué hay |
 |---|---|
-| `web/` | La web (HTML, CSS y JS en un solo `index.html`, más imágenes). Es lo que se publica en Vercel. |
+| `web/` | La web (HTML, CSS y JS en un solo `index.html`, imágenes y `seq/`, la secuencia 3D del hero). Es lo que se publica en Vercel. |
 | `marca/` | Documentos de marca: plataforma de marca, identidad visual, manual corporativo y material corporativo (PDF). |
 | `marca/exploraciones/` | Exploraciones previas de isotipo, color y símbolos. |
 | `logos/` | Archivos del logo: imagotipo horizontal y vertical, logotipo, isotipo (SVG, PDF y PNG) e iconos y redes. Ver `logos/LEEME.txt`. |
@@ -28,6 +28,10 @@ python3 -m http.server 8000
 - Desplazamiento suave con Lenis 1.1.13 (CDN); si no carga, la web funciona con el scroll nativo.
 - Respeta `prefers-reduced-motion`.
 - El formulario de contacto es de maqueta: valida, pero no envía.
+
+## Hero · «Punto de vista»
+
+Las dos cuñas del isotipo son esculturas separadas en el espacio, a distinta profundidad. Desde cualquier ángulo parecen dos piezas sin relación; solo desde un punto exacto se alinean y forman el isotipo. El scroll mueve la cámara hasta ese punto (60 fotogramas en `web/seq/`, renderizados con `herramientas/3d/secuencia.py`); al alinearse, el render se convierte en el símbolo y se atraviesa el vacío entre las cuñas hacia el contenido. `herramientas/3d/iso.json` guarda la posición exacta del isotipo en el último fotograma, que la web usa para superponer el SVG.
 
 ## Despliegue
 
