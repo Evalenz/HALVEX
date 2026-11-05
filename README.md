@@ -40,7 +40,9 @@ Tipografía: la del sistema de Apple (SF Pro en Mac, iPhone e iPad) con Inter (G
 
 - **La firma: las dos mitades.** El isotipo son dos cuñas; el movimiento de la marca es que se separan. Aparece en la apertura (el isotipo se traza, se abre un instante y vuela a la navegación), al final del hero (las dos cuñas de titanio se separan y queda una sola línea de luz: «Precisión. Sin margen.»), en «Despliegue soberano» (la fotografía se ve a través del isotipo y las dos cuñas se abren hasta ser las dos mitades de la pantalla) y en el logotipo de la navegación al pasar el cursor.
 - **Navegación por corte.** Los enlaces del menú no recorren la página: un velo de 0,2 s tapa el salto y la sección de destino aparece ya resuelta. Las animaciones solo se reproducen al hacer scroll.
-- **Sectores** es una secuencia a pantalla completa ligada al scroll: cada fotografía entra con una cortina desde abajo y el titular cambia con una máscara. El índice de la derecha salta a cada sector.
+- **Por qué HALVEX · la línea que ordena.** La pantalla se parte en dos por la línea de la marca: a la izquierda «lo habitual» (partículas grises y desordenadas), a la derecha las mismas partículas en estructuras precisas. Cinco escenas ligadas al scroll (responsabilidad, datos, decisiones, tecnología, discreción); al cambiar, las partículas pasan por la línea. En móvil la línea es horizontal.
+- **Sectores · índice tipográfico.** Seis filas a gran tamaño; al pasar el cursor, la fotografía se abre bajo él en dos mitades y le sigue con inercia. En móvil, cada fila lleva su foto, que se abre al entrar.
+- **Compañía · plano técnico.** Una retícula de marcas de replanteo se condensa en tres dibujos, uno por compromiso (un interlocutor, el mismo equipo en el tiempo, pocos proyectos a la vez).
 - Titulares con líneas que suben desde una máscara; barra de progreso bajo la navegación y subrayado en la sección activa.
 - Fotografía en blanco y negro (`img/x-*.jpg`, con recorte vertical `-m` para móvil), de Unsplash y provisional.
 
