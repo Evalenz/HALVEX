@@ -156,9 +156,10 @@ button{font:inherit;color:inherit}
 .caps .desc{position:relative;margin-top:34px;min-height:7.5em;max-width:30em}
 .caps .desc p{position:absolute;inset:0 auto auto 0;font-size:19px;line-height:1.47;color:var(--g1);opacity:0;transform:translateY(10px);transition:opacity .7s var(--apple),transform .7s var(--apple)}
 .caps .desc p.on{opacity:1;transform:none;transition-delay:.12s}
-.caps .vis{position:relative;aspect-ratio:4/5;max-height:76vh;justify-self:end;width:100%;overflow:hidden;background:#111}
-.caps .vis img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1s var(--apple),transform 1.6s var(--out)}
-.caps .vis img.on{opacity:1;transform:none}
+.caps .vis{position:relative;aspect-ratio:4/5;max-height:76vh;justify-self:end;width:100%;overflow:hidden;background:#0A0A0B;border:1px solid rgba(255,255,255,.08)}
+.caps .vis canvas,.caps .mob canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.caps .vis .lab{position:absolute;left:22px;top:20px;display:flex;gap:10px;font-size:12px;font-weight:600;color:var(--g1);letter-spacing:.02em}
+.caps .vis .lab b{color:#F5F5F7;font-weight:600;font-variant-numeric:tabular-nums}
 .caps .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.14)}
 .caps .prog i{position:absolute;inset:0;background:#F5F5F7;transform:scaleX(var(--p,0));transform-origin:left}
 .caps .mob{display:none}
@@ -166,8 +167,7 @@ button{font:inherit;color:inherit}
   .caps{height:auto}.caps .pin{position:relative;height:auto;padding:110px 0 40px}
   .caps .grid{display:block}.caps ol,.caps .desc,.caps .vis{display:none}
   .caps .mob{display:grid;gap:56px}
-  .caps .mob figure{aspect-ratio:4/5;overflow:hidden;background:#111}
-  .caps .mob img{width:100%;height:100%;object-fit:cover}
+  .caps .mob figure{position:relative;aspect-ratio:1/1;overflow:hidden;background:#0A0A0B;border:1px solid rgba(255,255,255,.08)}
   .caps .mob h3{font-weight:700;font-size:32px;letter-spacing:-.03em;line-height:1.1;margin-top:22px}
   .caps .mob p{color:var(--g1);margin-top:10px}
 }
@@ -284,7 +284,7 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
   .hero{height:auto}.stage{position:relative}
   .caps{height:auto}.caps .pin{position:relative;height:auto;padding:110px 0 40px}
   .caps .grid{display:block}.caps ol,.caps .desc,.caps .vis{display:none}.caps .mob{display:grid;gap:56px}
-  .caps .mob figure{aspect-ratio:4/5;overflow:hidden}.caps .mob img{width:100%;height:100%;object-fit:cover}
+  .caps .mob figure{position:relative;aspect-ratio:1/1;overflow:hidden;background:#0A0A0B}
   .caps .mob h3{font-weight:700;font-size:32px;margin-top:22px}.caps .mob p{color:var(--g1);margin-top:10px}
   .sob .grow{height:auto}.sob .grow .pin{position:relative;height:80vh}
   .sob .frame{width:100%;height:100%}.sob .frame img{transform:none}.sob .frame .cap{opacity:1}
@@ -375,17 +375,17 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
           </div>
         </div>
         <div class="vis" id="capV" aria-hidden="true">
-          <img class="on" src="img/c-ia.jpg" alt=""><img src="img/c-seguridad.jpg" alt="" loading="lazy"><img src="img/c-defensa.jpg" alt="" loading="lazy">
-          <img src="img/c-empresas.jpg" alt="" loading="lazy"><img src="img/c-auto.jpg" alt="" loading="lazy"><img src="img/c-consultoria.jpg" alt="" loading="lazy">
+          <canvas id="capC"></canvas>
+          <p class="lab"><b id="capN">01</b><span id="capS">Red neuronal</span></p>
           <div class="prog" id="capP"><i></i></div>
         </div>
         <div class="mob">
-          <div><figure><img src="img/c-ia.jpg" alt="Espiral de luz en la oscuridad" loading="lazy"></figure><h3>Inteligencia artificial.</h3><p>Modelos que analizan, anticipan y recomiendan, entrenados con sus datos y desplegados allí donde están.</p></div>
-          <div><figure><img src="img/c-seguridad.jpg" alt="Persona junto a un muro de piedra iluminado" loading="lazy"></figure><h3>Sistemas de seguridad.</h3><p>Protección de infraestructuras, redes y personas: de la detección temprana a la respuesta coordinada.</p></div>
-          <div><figure><img src="img/c-defensa.jpg" alt="Silueta frente a un ventanal con estructura de acero" loading="lazy"></figure><h3>Software para defensa.</h3><p>Mando, control y gestión de la misión en entornos exigentes.</p></div>
-          <div><figure><img src="img/c-empresas.jpg" alt="Fachada de oficinas iluminada de noche" loading="lazy"></figure><h3>Software para empresas.</h3><p>Sistemas a medida para operaciones críticas: fiables, auditables y preparados para crecer.</p></div>
-          <div><figure><img src="img/c-auto.jpg" alt="Tren en movimiento en un andén" loading="lazy"></figure><h3>Automatización.</h3><p>Procesos que funcionan solos y bajo control.</p></div>
-          <div><figure><img src="img/c-consultoria.jpg" alt="Persona de espaldas frente a un lago y montañas" loading="lazy"></figure><h3>Consultoría estratégica.</h3><p>Qué hacer, en qué orden y con qué riesgos.</p></div>
+          <div><figure><canvas class="mfx" data-s="0" role="img" aria-label="Animación abstracta: red neuronal"></canvas></figure><h3>Inteligencia artificial.</h3><p>Modelos que analizan, anticipan y recomiendan, entrenados con sus datos y desplegados allí donde están.</p></div>
+          <div><figure><canvas class="mfx" data-s="1" role="img" aria-label="Animación abstracta: perímetro"></canvas></figure><h3>Sistemas de seguridad.</h3><p>Protección de infraestructuras, redes y personas: de la detección temprana a la respuesta coordinada.</p></div>
+          <div><figure><canvas class="mfx" data-s="2" role="img" aria-label="Animación abstracta: terreno"></canvas></figure><h3>Software para defensa.</h3><p>Mando, control y gestión de la misión en entornos exigentes.</p></div>
+          <div><figure><canvas class="mfx" data-s="3" role="img" aria-label="Animación abstracta: sistemas"></canvas></figure><h3>Software para empresas.</h3><p>Sistemas a medida para operaciones críticas: fiables, auditables y preparados para crecer.</p></div>
+          <div><figure><canvas class="mfx" data-s="4" role="img" aria-label="Animación abstracta: flujos"></canvas></figure><h3>Automatización.</h3><p>Procesos que funcionan solos y bajo control.</p></div>
+          <div><figure><canvas class="mfx" data-s="5" role="img" aria-label="Animación abstracta: convergencia"></canvas></figure><h3>Consultoría estratégica.</h3><p>Qué hacer, en qué orden y con qué riesgos.</p></div>
         </div>
       </div>
     </div>
@@ -571,8 +571,9 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
   }
 
   /* capacidades */
-  var caps = $('capacidades'), capL = $('capL').children, capD = $('capD').children, capV = $('capV').querySelectorAll('img'), capP = $('capP'), ci = 0;
-  function capSet(i) { if (i === ci) return; ci = i; for (var k = 0; k < 6; k++) { capL[k].classList.toggle('on', k === i); capD[k].classList.toggle('on', k === i); capV[k].classList.toggle('on', k === i); } }
+  var caps = $('capacidades'), capL = $('capL').children, capD = $('capD').children, capP = $('capP'), ci = 0, capN = $('capN'), capS = $('capS'), NAMES = ['Red neuronal', 'Perímetro', 'Terreno', 'Sistemas', 'Flujos', 'Convergencia'];
+  function capSet(i) { if (i === ci) return; ci = i; for (var k = 0; k < 6; k++) { capL[k].classList.toggle('on', k === i); capD[k].classList.toggle('on', k === i); } capN.textContent = '0' + (i + 1); capS.textContent = NAMES[i]; }
+  W.HXcap = function () { return ci; };
   Array.prototype.forEach.call(capL, function (li, i) {
     li.addEventListener('click', function () {
       var top = caps.getBoundingClientRect().top + W.scrollY, span = caps.offsetHeight - innerHeight, y = top + span * (i + 0.5) / 6;
@@ -672,6 +673,205 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
 })();
 </script>
 
+<script>
+/* Capacidades · seis motion graphics generativos, uno por capacidad.
+   Blanco sobre negro, línea fina, dibujados en tiempo real en canvas 2D. */
+(function () {
+  'use strict';
+  var RM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var TAU = Math.PI * 2;
+  function rnd(seed) { var s = seed % 2147483647; if (s <= 0) s += 2147483646; return function () { s = s * 16807 % 2147483647; return (s - 1) / 2147483646; }; }
+  function W(a) { return 'rgba(245,245,247,' + a + ')'; }
+  function diamond(c, x, y, r) { c.beginPath(); c.moveTo(x, y - r); c.lineTo(x + r, y); c.lineTo(x, y + r); c.lineTo(x - r, y); c.closePath(); }
+
+  /* 01 · Red neuronal: impulsos que atraviesan las capas hasta una sola salida */
+  function ia(c, w, h, t, dt, S) {
+    if (!S.n) {
+      var L = [5, 8, 10, 8, 5, 1], R = rnd(7); S.n = []; S.p = []; S.acc = 0; S.R = R;
+      L.forEach(function (k, li) {
+        var col = [];
+        for (var i = 0; i < k; i++) col.push({ li: li, x: 0.12 + li * 0.76 / (L.length - 1), y: k === 1 ? 0.5 : 0.16 + i * 0.68 / (k - 1), ph: R() * TAU, g: 0 });
+        S.n.push(col);
+      });
+    }
+    var n = S.n, R = S.R, X = function (o) { return o.x * w; }, Y = function (o, tt) { return (o.y + Math.sin(tt * 0.6 + o.ph) * 0.006) * h; };
+    c.lineWidth = 1;
+    c.strokeStyle = W(0.055); c.beginPath();
+    for (var l = 0; l < n.length - 1; l++) for (var a = 0; a < n[l].length; a++) for (var b = 0; b < n[l + 1].length; b++) {
+      c.moveTo(X(n[l][a]), Y(n[l][a], t)); c.lineTo(X(n[l + 1][b]), Y(n[l + 1][b], t));
+    }
+    c.stroke();
+    S.acc += dt; while (S.acc > 0.07) { S.acc -= 0.07; var s0 = n[0][Math.floor(R() * n[0].length)]; S.p.push({ a: s0, b: n[1][Math.floor(R() * n[1].length)], u: 0, v: 0.9 + R() * 0.8 }); }
+    for (var i = S.p.length - 1; i >= 0; i--) {
+      var p = S.p[i]; p.u += dt * p.v;
+      var ax = X(p.a), ay = Y(p.a, t), bx = X(p.b), by = Y(p.b, t), u = Math.min(1, p.u), u0 = Math.max(0, u - 0.25);
+      c.strokeStyle = W(0.85); c.lineWidth = 1.4; c.beginPath(); c.moveTo(ax + (bx - ax) * u0, ay + (by - ay) * u0); c.lineTo(ax + (bx - ax) * u, ay + (by - ay) * u); c.stroke();
+      if (p.u >= 1) {
+        p.b.g = 1; S.p.splice(i, 1);
+        var nl = p.b.li + 1; if (nl < n.length && R() < 0.62) S.p.push({ a: p.b, b: n[nl][Math.floor(R() * n[nl].length)], u: 0, v: 0.9 + R() * 0.8 });
+      }
+    }
+    n.forEach(function (col) { col.forEach(function (o) {
+      o.g *= Math.pow(0.12, dt); var x = X(o), y = Y(o, t), out = o.li === n.length - 1;
+      c.fillStyle = W(0.35 + 0.65 * o.g); c.beginPath(); c.arc(x, y, out ? 4 : 2.2, 0, TAU); c.fill();
+      if (o.g > 0.05) { c.strokeStyle = W(o.g * 0.5); c.lineWidth = 1; c.beginPath(); c.arc(x, y, (out ? 8 : 5) + (1 - o.g) * 10, 0, TAU); c.stroke(); }
+    }); });
+  }
+
+  /* 02 · Perímetro: barrido continuo; lo que entra se detecta y se neutraliza */
+  function seg(c, w, h, t, dt, S) {
+    if (!S.th) { S.th = []; S.acc = 0; S.R = rnd(11); }
+    var cx = w / 2, cy = h / 2, R = Math.min(w, h) * 0.4, a = t * 1.1, Rn = S.R;
+    c.lineWidth = 1;
+    [1, 0.66, 0.33].forEach(function (k) { c.strokeStyle = W(k === 1 ? 0.28 : 0.12); c.beginPath(); c.arc(cx, cy, R * k, 0, TAU); c.stroke(); });
+    for (var i = 0; i < 72; i++) { var q = i / 72 * TAU, l = i % 6 ? 5 : 11; c.strokeStyle = W(i % 6 ? 0.18 : 0.45); c.beginPath(); c.moveTo(cx + Math.cos(q) * R, cy + Math.sin(q) * R); c.lineTo(cx + Math.cos(q) * (R + l), cy + Math.sin(q) * (R + l)); c.stroke(); }
+    c.strokeStyle = W(0.08); c.beginPath(); c.moveTo(cx - R, cy); c.lineTo(cx + R, cy); c.moveTo(cx, cy - R); c.lineTo(cx, cy + R); c.stroke();
+    for (var k = 0; k < 28; k++) { c.fillStyle = W(0.11 * (1 - k / 28)); c.beginPath(); c.moveTo(cx, cy); c.arc(cx, cy, R, a - (k + 1) * 0.022, a - k * 0.022); c.closePath(); c.fill(); }
+    c.strokeStyle = W(0.9); c.lineWidth = 1.2; c.beginPath(); c.moveTo(cx, cy); c.lineTo(cx + Math.cos(a) * R, cy + Math.sin(a) * R); c.stroke();
+    S.acc += dt; if (S.acc > 0.55) { S.acc = 0; S.th.push({ q: Rn() * TAU, r: R * 1.5, v: R * (0.22 + Rn() * 0.18), st: 0, life: 0 }); }
+    for (var j = S.th.length - 1; j >= 0; j--) {
+      var o = S.th[j], x, y;
+      if (o.st < 2) o.r -= o.v * dt;
+      if (o.st === 0 && o.r < R) { o.st = 1; o.ping = 0; }
+      if (o.st === 1 && o.r < R * 0.66) { o.st = 2; o.life = 0; }
+      x = cx + Math.cos(o.q) * o.r; y = cy + Math.sin(o.q) * o.r;
+      if (o.st === 0) { c.fillStyle = W(0.35); c.beginPath(); c.arc(x, y, 1.6, 0, TAU); c.fill(); }
+      if (o.st === 1) { o.ping += dt; c.fillStyle = W(0.95); c.fillRect(x - 2.5, y - 2.5, 5, 5); c.strokeStyle = W(Math.max(0, 0.6 - o.ping)); c.beginPath(); c.arc(x, y, 6 + o.ping * 30, 0, TAU); c.stroke(); }
+      if (o.st === 2) {
+        o.life += dt; var f = Math.max(0, 1 - o.life / 1.4);
+        c.strokeStyle = W(f); c.lineWidth = 1; c.strokeRect(x - 6, y - 6, 12, 12);
+        c.beginPath(); c.moveTo(x - 4, y - 4); c.lineTo(x + 4, y + 4); c.moveTo(x + 4, y - 4); c.lineTo(x - 4, y + 4); c.stroke();
+        if (o.life > 1.4) S.th.splice(j, 1);
+      }
+    }
+    c.fillStyle = W(0.9); diamond(c, cx, cy, 4); c.fill();
+  }
+
+  /* 03 · Terreno: relieve en perspectiva y un objetivo bajo seguimiento */
+  function def(c, w, h, t) {
+    var rows = 38, cols = 80, v0 = t * 0.22;
+    var hgt = function (u, v) { return Math.sin(u * 7.1 + v * 1.7) * 0.5 + Math.sin(u * 3.2 - v * 2.3 + 1.3) * 0.38 + Math.sin(u * 13.4 + v * 3.1) * 0.12 + Math.sin(u * 1.4 + v * 0.6) * 0.6; };
+    var P = function (u, zf) {
+      var yb = h * (0.3 + 0.64 * Math.pow(zf, 1.7)), sp = 0.55 + 1.1 * zf, s = 0.25 + 0.95 * zf;
+      var e = hgt(u, zf * 5 + v0) * h * 0.07 * s;
+      return [w / 2 + (u - 0.5) * w * sp, yb - e];
+    };
+    c.lineWidth = 1;
+    for (var j = 0; j < rows; j++) {
+      var zf = j / (rows - 1); c.strokeStyle = W(0.06 + 0.42 * zf * zf); c.beginPath();
+      for (var i = 0; i <= cols; i++) { var pt = P(i / cols, zf); if (i) c.lineTo(pt[0], pt[1]); else c.moveTo(pt[0], pt[1]); }
+      c.stroke();
+    }
+    var tu = 0.58 + Math.sin(t * 0.35) * 0.12, tz = 0.58 + Math.sin(t * 0.23) * 0.06, T = P(tu, tz), x = T[0], y = T[1] - 10;
+    c.fillStyle = W(0.95); diamond(c, x, y, 4.5); c.fill();
+    var b = 22 + Math.sin(t * 3) * 2; c.strokeStyle = W(0.85);
+    [[-1, -1], [1, -1], [1, 1], [-1, 1]].forEach(function (d) { c.beginPath(); c.moveTo(x + d[0] * b, y + d[1] * (b - 7)); c.lineTo(x + d[0] * b, y + d[1] * b); c.lineTo(x + d[0] * (b - 7), y + d[1] * b); c.stroke(); });
+    c.strokeStyle = W(0.35); c.beginPath(); c.moveTo(x + b + 4, y - b); c.lineTo(x + b + 34, y - b - 22); c.lineTo(x + b + 120, y - b - 22); c.stroke();
+    c.fillStyle = W(0.75); c.font = '500 10px ui-monospace,Menlo,monospace'; c.fillText('OBJ 04  ·  ' + (2.4 + Math.sin(t * 0.35) * 0.3).toFixed(2) + ' KM', x + b + 38, y - b - 28);
+  }
+
+  /* 04 · Sistemas: módulos isométricos que se levantan con la carga */
+  function emp(c, w, h, t) {
+    var N = 7, tw = Math.min(w, h * 1.1) / (N + 1.2), th = tw / 2, ox = w / 2, oy = h * 0.5 - (N * th) / 2 + 30, maxH = h * 0.2;
+    c.lineWidth = 1;
+    for (var s = 0; s <= 2 * (N - 1); s++) for (var i = 0; i < N; i++) {
+      var j = s - i; if (j < 0 || j >= N) continue;
+      var k = (Math.sin(i * 0.9 + t * 1.1) * Math.cos(j * 0.8 - t * 0.8) + 1) / 2, hh = 6 + k * k * maxH;
+      var x = ox + (i - j) * tw / 2, y = oy + (i + j) * th / 2;
+      var top = [[x, y - hh], [x + tw / 2, y + th / 2 - hh], [x, y + th - hh], [x - tw / 2, y + th / 2 - hh]];
+      c.fillStyle = 'rgba(14,14,16,1)';
+      c.beginPath(); c.moveTo(x - tw / 2, y + th / 2 - hh); c.lineTo(x, y + th - hh); c.lineTo(x, y + th); c.lineTo(x - tw / 2, y + th / 2); c.closePath(); c.fill();
+      c.fillStyle = W(0.03 + 0.05 * k); c.fill(); c.strokeStyle = W(0.16); c.stroke();
+      c.fillStyle = 'rgba(14,14,16,1)';
+      c.beginPath(); c.moveTo(x + tw / 2, y + th / 2 - hh); c.lineTo(x, y + th - hh); c.lineTo(x, y + th); c.lineTo(x + tw / 2, y + th / 2); c.closePath(); c.fill();
+      c.fillStyle = W(0.07 + 0.09 * k); c.fill(); c.strokeStyle = W(0.16); c.stroke();
+      c.beginPath(); top.forEach(function (p, q) { if (q) c.lineTo(p[0], p[1]); else c.moveTo(p[0], p[1]); }); c.closePath();
+      c.fillStyle = 'rgba(14,14,16,1)'; c.fill(); c.fillStyle = W(0.06 + 0.5 * k * k * k); c.fill(); c.strokeStyle = W(0.3 + 0.5 * k); c.stroke();
+    }
+  }
+
+  /* 05 · Flujos: procesos que circulan solos por rutas ortogonales */
+  function aut(c, w, h, t, dt, S) {
+    if (!S.paths || S.w !== w) {
+      var R = rnd(23), gx = 16, gy = 20, cw = w / gx, ch = h / gy; S.w = w; S.paths = [];
+      for (var k = 0; k < 13; k++) {
+        var x = 0, y = 2 + Math.floor(R() * (gy - 4)), pts = [[0, y]];
+        while (x < gx) { x += 1 + Math.floor(R() * 3); if (x > gx) x = gx; pts.push([x, y]); if (x < gx && R() < 0.6) { y = Math.max(1, Math.min(gy - 1, y + (R() < 0.5 ? -1 : 1) * (1 + Math.floor(R() * 3)))); pts.push([x, y]); } }
+        var P = pts.map(function (p) { return [p[0] * cw, p[1] * ch]; }), len = 0, seg2 = [];
+        for (var i = 1; i < P.length; i++) { var d = Math.hypot(P[i][0] - P[i - 1][0], P[i][1] - P[i - 1][1]); seg2.push(d); len += d; }
+        S.paths.push({ P: P, seg: seg2, len: len, pulses: [R() * len, R() * len], v: 120 + R() * 140, end: 0 });
+      }
+    }
+    var at = function (pa, d) { var i = 0; while (i < pa.seg.length && d > pa.seg[i]) { d -= pa.seg[i]; i++; } if (i >= pa.seg.length) return pa.P[pa.P.length - 1]; var a = pa.P[i], b = pa.P[i + 1], u = d / pa.seg[i]; return [a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u]; };
+    c.lineWidth = 1;
+    S.paths.forEach(function (pa) {
+      c.strokeStyle = W(0.12); c.beginPath(); pa.P.forEach(function (p, i) { if (i) c.lineTo(p[0], p[1]); else c.moveTo(p[0], p[1]); }); c.stroke();
+      for (var i = 1; i < pa.P.length - 1; i++) { c.fillStyle = W(0.3); c.fillRect(pa.P[i][0] - 1.5, pa.P[i][1] - 1.5, 3, 3); }
+      pa.end *= Math.pow(0.1, dt);
+      pa.pulses = pa.pulses.map(function (d) {
+        d += pa.v * dt; if (d > pa.len) { d -= pa.len; pa.end = 1; }
+        c.strokeStyle = W(0.9); c.lineWidth = 1.5; c.beginPath();
+        for (var s = 0; s <= 10; s++) { var q = at(pa, Math.max(0, d - 60 + s * 6)); if (s) c.lineTo(q[0], q[1]); else c.moveTo(q[0], q[1]); }
+        c.stroke(); c.lineWidth = 1; return d;
+      });
+      var e = pa.P[pa.P.length - 1]; c.strokeStyle = W(0.35 + 0.6 * pa.end); c.strokeRect(e[0] - 9, e[1] - 4, 8, 8);
+      if (pa.end > 0.05) { c.fillStyle = W(pa.end); c.fillRect(e[0] - 7, e[1] - 2, 4, 4); }
+    });
+  }
+
+  /* 06 · Convergencia: de lo amplio a lo preciso */
+  function con(c, w, h, t, dt, S) {
+    if (!S.pu) { S.pu = []; S.acc = 0; S.R = rnd(31); }
+    var N = 34, px = w * 0.8, py = h * 0.5 + Math.sin(t * 0.5) * h * 0.02, R = S.R;
+    var src = function (i) { return [w * 0.06, h * (0.08 + 0.84 * i / (N - 1)) + Math.sin(t * 0.7 + i * 0.5) * 4]; };
+    var bez = function (i, u) { var s = src(i), cx2 = w * 0.48, cy2 = s[1], m = 1 - u; return [m * m * s[0] + 2 * m * u * cx2 + u * u * px, m * m * s[1] + 2 * m * u * cy2 + u * u * py]; };
+    c.lineWidth = 1;
+    for (var i = 0; i < N; i++) { var s = src(i); c.strokeStyle = W(0.1); c.beginPath(); c.moveTo(s[0], s[1]); c.quadraticCurveTo(w * 0.48, s[1], px, py); c.stroke(); c.fillStyle = W(0.4); c.fillRect(s[0] - 1.5, s[1] - 1.5, 3, 3); }
+    S.acc += dt; while (S.acc > 0.09) { S.acc -= 0.09; S.pu.push({ i: Math.floor(R() * N), u: 0, v: 0.35 + R() * 0.35 }); }
+    var hit = 0;
+    for (var k = S.pu.length - 1; k >= 0; k--) {
+      var p = S.pu[k]; p.u += dt * p.v;
+      if (p.u >= 1) { S.pu.splice(k, 1); hit++; continue; }
+      c.strokeStyle = W(0.9); c.lineWidth = 1.4; c.beginPath();
+      for (var q = 0; q <= 6; q++) { var b = bez(p.i, Math.max(0, p.u - 0.08 + q * 0.0133)); if (q) c.lineTo(b[0], b[1]); else c.moveTo(b[0], b[1]); }
+      c.stroke(); c.lineWidth = 1;
+    }
+    S.g = Math.min(1, (S.g || 0) * Math.pow(0.2, dt) + hit * 0.25);
+    for (var r = 0; r < 3; r++) { var ph = (t * 0.6 + r / 3) % 1; c.strokeStyle = W((1 - ph) * 0.35); c.beginPath(); c.arc(px, py, 8 + ph * 46, 0, TAU); c.stroke(); }
+    c.fillStyle = W(0.85 + 0.15 * S.g); diamond(c, px, py, 5 + S.g * 2); c.fill();
+  }
+
+  var SCENES = [ia, seg, def, emp, aut, con];
+
+  function Runner(canvas, getIndex) {
+    var ctx = canvas.getContext('2d'), states = SCENES.map(function () { return {}; }), cur = getIndex(), prev = -1, mix = 1, last = 0, t = 0, vis = false, w = 0, h = 0;
+    function size() { var r = canvas.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2); w = r.width; h = r.height; canvas.width = Math.round(w * d); canvas.height = Math.round(h * d); ctx.setTransform(d, 0, 0, d, 0, 0); }
+    function draw(i, a, dt) { if (a <= 0) return; ctx.save(); ctx.globalAlpha = a; SCENES[i](ctx, w, h, t, dt, states[i]); ctx.restore(); }
+    function frame(now) {
+      requestAnimationFrame(frame);
+      if (!vis) { last = now; return; }
+      var dt = Math.min(0.05, (now - (last || now)) / 1000); last = now; t += dt;
+      var i = getIndex(); if (i !== cur) { prev = cur; cur = i; mix = 0; }
+      mix = Math.min(1, mix + dt / 0.7);
+      ctx.clearRect(0, 0, w, h);
+      if (prev >= 0 && mix < 1) draw(prev, 1 - mix, dt);
+      draw(cur, mix, dt);
+    }
+    size(); window.addEventListener('resize', size);
+    new IntersectionObserver(function (es) { vis = es[0].isIntersecting; }).observe(canvas);
+    if (RM) { t = 6; vis = true; var once = function () { ctx.clearRect(0, 0, w, h); for (var k = 0; k < 60; k++) SCENES[cur](ctx, 0, 0, t, 0.016, states[cur]); ctx.clearRect(0, 0, w, h); SCENES[cur](ctx, w, h, t, 0.016, states[cur]); }; once(); window.addEventListener('resize', once); return; }
+    requestAnimationFrame(frame);
+  }
+  window.HXFX = { Runner: Runner };
+})();
+</script>
+<script>
+(function () {
+  var big = document.getElementById('capC');
+  if (big && window.innerWidth > 900) new HXFX.Runner(big, function () { return window.HXcap ? window.HXcap() : 0; });
+  document.querySelectorAll('canvas.mfx').forEach(function (cv) { if (window.innerWidth <= 900 || matchMedia('(prefers-reduced-motion: reduce)').matches) { var i = +cv.dataset.s; new HXFX.Runner(cv, function () { return i; }); } });
+})();
+</script>
 <script type="module">
 /* Escena 3D: el isotipo de HALVEX como objeto de titanio pulido */
 const stage = document.getElementById('stage'), canvas = document.getElementById('gl'), root = document.documentElement;
