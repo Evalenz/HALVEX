@@ -1,0 +1,48 @@
+HALVEX · ARCHIVOS DEL LOGO · Edición 1.0 · Noviembre 2026
+==========================================================
+
+Colores
+  Negro HALVEX  #111214   RGB 17 18 20
+  Blanco        #FFFFFF
+
+Carpetas
+  01-imagotipo-horizontal   Isotipo + palabra en línea. La firma por defecto.
+  02-imagotipo-vertical     Isotipo encima de la palabra. Portadas y formatos cuadrados.
+  03-logotipo               Solo la palabra HALVEX.
+  04-isotipo                Solo el símbolo.
+  05-iconos-y-redes         Favicon, iconos de app, avatares, portada de LinkedIn,
+                            cabecera de X y firma de correo.
+
+Dentro de las carpetas 01 a 04
+  svg/   Vectorial. Para web y diseño (escala sin perder calidad).
+  pdf/   Vectorial. Para imprenta, rotulación y documentos.
+  png/   Imagen. Para Word, PowerPoint, Keynote y redes.
+
+Variantes
+  -negro                PNG transparente, dibujo en negro (para fondos claros).
+  -blanco               PNG transparente, dibujo en blanco (para fondos oscuros).
+                        Ojo: sobre fondo blanco parece vacío; es correcto.
+  -negro-sobre-blanco   Con fondo blanco y el área de respeto incluida.
+  -blanco-sobre-negro   Con fondo negro y el área de respeto incluida.
+
+Tamaños de PNG: el número del nombre es el ancho en píxeles.
+  Grande (4000 / 3000 / 2048 px): imprimir o pantallas grandes.
+  Medio (1600 / 1200 / 1024 px): presentaciones y documentos.
+  Pequeño (600 / 500 / 512 px): web y correo.
+
+Iconos y redes (05)
+  favicon.ico                         Pestaña del navegador (16, 32, 48 y 64 px).
+  halvex-icono-negro-*.png            Isotipo blanco sobre negro (recomendado).
+  halvex-icono-blanco-*.png           Isotipo negro sobre blanco.
+  *-apple-touch-icon-180px.png        Icono para iPhone / iPad.
+  *-android-192px.png                 Icono para Android.
+  halvex-avatar-redes-*-1080px.png    Foto de perfil (las redes la recortan en círculo).
+  halvex-portada-linkedin-1584x396.png
+  halvex-cabecera-x-1500x500.png
+  halvex-firma-correo-240px.png       Insertar a 120 px de ancho.
+
+Normas básicas
+  - Usar siempre estos archivos. No redibujar ni escribir el logo con una fuente.
+  - Solo en negro o en blanco. Sin colores, degradados, sombras ni contornos.
+  - No deformar, girar ni cambiar el orden de isotipo y palabra.
+  - Respetar el área de respeto y los tamaños mínimos (ver el manual de identidad visual).
