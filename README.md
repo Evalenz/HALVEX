@@ -36,6 +36,14 @@ El isotipo es un objeto 3D en tiempo real (three.js 0.160, sin compilación): do
 
 Tipografía: la del sistema de Apple (SF Pro en Mac, iPhone e iPad) con Inter (Google Fonts) como equivalente en el resto.
 
+## Lenguaje de movimiento
+
+- **La firma: las dos mitades.** El isotipo son dos cuñas; el movimiento de la marca es que se separan. Aparece en la apertura (el isotipo se traza, se abre un instante y vuela a la navegación), al final del hero (las dos cuñas de titanio se separan y queda una sola línea de luz: «Precisión. Sin margen.»), en «Despliegue soberano» (la fotografía se ve a través del isotipo y las dos cuñas se abren hasta ser las dos mitades de la pantalla) y en el logotipo de la navegación al pasar el cursor.
+- **Navegación por corte.** Los enlaces del menú no recorren la página: un velo de 0,2 s tapa el salto y la sección de destino aparece ya resuelta. Las animaciones solo se reproducen al hacer scroll.
+- **Sectores** es una secuencia a pantalla completa ligada al scroll: cada fotografía entra con una cortina desde abajo y el titular cambia con una máscara. El índice de la derecha salta a cada sector.
+- Titulares con líneas que suben desde una máscara; barra de progreso bajo la navegación y subrayado en la sección activa.
+- Fotografía en blanco y negro (`img/x-*.jpg`, con recorte vertical `-m` para móvil), de Unsplash y provisional.
+
 La secuencia renderizada del hero anterior («Punto de vista») sigue en el historial de git y su generador en `herramientas/3d/secuencia.py`.
 
 ## Despliegue
