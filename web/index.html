@@ -257,19 +257,44 @@ button{font:inherit;color:inherit}
 .tile .t h3{font-weight:700;font-size:clamp(26px,2.2vw,34px);letter-spacing:-.025em;line-height:1.08;margin-top:8px}
 .tile p{position:absolute;left:28px;right:28px;bottom:26px;z-index:1;font-size:15px;line-height:1.45;color:#E8E8ED}
 
-/* ------------------------------------------------------------ 7 · método */
-.met{padding:clamp(130px,18vh,220px) 0}
-.met .steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,3vw,48px);margin-top:clamp(80px,11vh,130px)}
-.met .rail{position:absolute;left:0;right:0;top:0;height:1px;background:var(--line-d)}
-.met .rail i{position:absolute;inset:0;background:#F5F5F7;transform:scaleX(0);transform-origin:left}
-.met .steps li.st{padding-top:40px;opacity:.28;transition:opacity .8s var(--apple)}
-.met .steps li.st.on{opacity:1}
-.met .steps .n{font-weight:700;font-size:clamp(52px,5.4vw,88px);letter-spacing:-.05em;line-height:1;color:#F5F5F7}
-.met .steps h3{font-weight:600;font-size:24px;letter-spacing:-.02em;margin-top:24px}
-.met .steps .d{font-size:15px;color:var(--g1);margin-top:4px;font-weight:500}
-.met .steps p{font-size:17px;color:var(--g1);margin-top:14px;max-width:18em}
-@media (max-width:900px){.met .steps{grid-template-columns:1fr 1fr;row-gap:56px}.met .rail{display:none}.met .steps li.st{border-top:1px solid var(--line-d)}}
-@media (max-width:560px){.met .steps{grid-template-columns:1fr}}
+/* ------------------------------------------------------------ 7 · método · de lo amplio a lo preciso
+   Cientos de puntos dispersos se ordenan fase a fase hasta convertirse en un único punto. */
+.met{position:relative;height:500vh}
+.met .pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column}
+.met .grid,.met .rail{width:100%}
+.met .grid{flex:1;display:grid;grid-template-columns:5fr 7fr;gap:clamp(30px,5vw,90px);align-items:center;padding-top:76px}
+.met .lft h2{margin-top:16px}
+.met .ph{position:relative;margin-top:clamp(40px,7vh,80px);min-height:15em}
+.met .ph>div{position:absolute;inset:0 auto auto 0;opacity:0;transform:translateY(16px);transition:opacity .7s var(--apple),transform .7s var(--apple)}
+.met .ph>div.on{opacity:1;transform:none;transition-delay:.1s}
+.met .ph .n{font-weight:700;font-size:clamp(64px,7vw,120px);line-height:.9;letter-spacing:-.06em}
+.met .ph h3{font-weight:600;font-size:clamp(24px,2vw,30px);letter-spacing:-.02em;margin-top:18px}
+.met .ph .d{font-size:15px;font-weight:600;color:var(--g1);margin-top:4px}
+.met .ph p{font-size:18px;line-height:1.47;color:var(--g1);margin-top:14px;max-width:24em}
+.met .cv{position:relative;height:min(74vh,720px)}
+.met .cv canvas{position:absolute;inset:0;width:100%;height:100%}
+.met .cv .tag{position:absolute;right:0;top:6px;font-size:12px;font-weight:600;color:var(--g1);letter-spacing:.02em}
+.met .cv .tag b{color:#F5F5F7}
+.met .rail{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;padding-bottom:calc(clamp(28px,5vh,52px) + env(safe-area-inset-bottom,0px))}
+.met .rail li{position:relative;padding-top:16px;font-size:14px;font-weight:600;color:var(--g3);transition:color .5s}
+.met .rail li span{display:block;font-weight:500;font-size:13px;color:var(--g3);margin-top:2px;transition:color .5s}
+.met .rail li::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:rgba(255,255,255,.12)}
+.met .rail li i{position:absolute;left:0;top:0;height:2px;width:100%;background:#F5F5F7;transform:scaleX(var(--f,0));transform-origin:left}
+.met .rail li.on{color:#F5F5F7}.met .rail li.on span{color:var(--g1)}
+.met .static{display:none}
+@media (max-width:900px){
+  .met .grid{grid-template-columns:1fr;grid-template-rows:auto 1fr;gap:10px;align-items:start;padding-top:64px}
+  .met .lft{order:2}.met .lft .eyebrow,.met .lft h2{display:none}
+  .met .cv{order:1;height:40vh}
+  .met .ph{margin-top:8px;min-height:13em}
+  .met .ph .n{font-size:56px}.met .ph p{font-size:16px}
+  .met .rail{gap:10px}.met .rail li{font-size:12px}.met .rail li span{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .met{height:auto}.met .pin{position:relative;height:auto;padding:120px 0}.met .grid{display:block;padding:0}
+  .met .ph,.met .rail,.met .cv{display:none}.met .static{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:60px}
+  .met .static .n{font-weight:700;font-size:56px;letter-spacing:-.05em}.met .static p{color:var(--g1)}
+}
 
 /* ------------------------------------------------------------ 8 · compañía */
 .co{padding:clamp(130px,18vh,220px) 0 clamp(110px,15vh,180px)}
@@ -330,7 +355,7 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
   .caps .mob h3{font-weight:700;font-size:32px;margin-top:22px}.caps .mob p{color:var(--g1);margin-top:10px}
   .sob .grow{height:auto}.sob .grow .pin{position:relative;height:80vh}
   .sob .frame{width:100%;height:100%}.sob .frame img{transform:none}.sob .frame .cap{opacity:1}
-  .mani .w{color:#F5F5F7}.met .steps li.st{opacity:1}
+  .mani .w{color:#F5F5F7}
 }
 </style>
 </head>
@@ -519,18 +544,33 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
     </div>
   </section>
 
-  <!-- 7 · MÉTODO -->
+  <!-- 7 · MÉTODO · de lo amplio a lo preciso -->
   <section class="met dark" id="metodo" data-tone="d">
-    <div class="wrap">
-      <p class="eyebrow rv">Método</p>
-      <h2 class="h-l rv" style="margin-top:18px">De lo amplio<br>a lo preciso.</h2>
-      <p class="lead rv" style="margin-top:26px;max-width:28em">Cada fase estrecha el problema hasta la decisión correcta, con hitos medibles y <b>un único equipo responsable.</b></p>
-      <ol class="steps" id="steps">
-        <li class="rail" aria-hidden="true"><i id="rail"></i></li>
-        <li class="st"><span class="n">01</span><h3>Diagnóstico</h3><p class="d">2–4 semanas</p><p>La misión, los datos, los sistemas existentes y los riesgos.</p></li>
-        <li class="st"><span class="n">02</span><h3>Diseño</h3><p class="d">4–8 semanas</p><p>Arquitectura, prototipo funcional y plan con hitos y costes cerrados.</p></li>
-        <li class="st"><span class="n">03</span><h3>Despliegue</h3><p class="d">Según alcance</p><p>En su entorno, con pruebas en cada fase.</p></li>
-        <li class="st"><span class="n">04</span><h3>Operación</h3><p class="d">Continua</p><p>Soporte, auditoría y mejora de los sistemas en producción.</p></li>
+    <div class="pin">
+      <div class="wrap grid">
+        <div class="lft">
+          <p class="eyebrow">Método</p>
+          <h2 class="h-l">De lo amplio<br>a lo preciso.</h2>
+          <div class="ph" id="metPh">
+            <div class="on"><span class="n">01</span><h3>Diagnóstico</h3><p class="d">2–4 semanas</p><p>Partimos de todo: la misión, los datos, los sistemas existentes y los riesgos. Nada se descarta antes de entenderlo.</p></div>
+            <div><span class="n">02</span><h3>Diseño</h3><p class="d">4–8 semanas</p><p>Ordenamos lo que importa en una arquitectura, un prototipo funcional y un plan con hitos y costes cerrados.</p></div>
+            <div><span class="n">03</span><h3>Despliegue</h3><p class="d">Según alcance</p><p>La estructura toma forma en su entorno, con pruebas en cada fase y un único equipo responsable.</p></div>
+            <div><span class="n">04</span><h3>Operación</h3><p class="d">Continua</p><p>Todo converge en un sistema preciso, auditado y mejorado cada día mientras está en producción.</p></div>
+          </div>
+          <div class="static">
+            <div><span class="n">01</span><h3>Diagnóstico</h3><p>La misión, los datos, los sistemas y los riesgos.</p></div>
+            <div><span class="n">02</span><h3>Diseño</h3><p>Arquitectura, prototipo y plan cerrado.</p></div>
+            <div><span class="n">03</span><h3>Despliegue</h3><p>En su entorno, con pruebas en cada fase.</p></div>
+            <div><span class="n">04</span><h3>Operación</h3><p>Soporte, auditoría y mejora continua.</p></div>
+          </div>
+        </div>
+        <div class="cv" aria-hidden="true"><canvas id="metC"></canvas><p class="tag"><b id="metK">420</b> <span id="metL">señales</span></p></div>
+      </div>
+      <ol class="wrap rail" id="metR">
+        <li class="on"><i></i>Diagnóstico<span>2–4 semanas</span></li>
+        <li><i></i>Diseño<span>4–8 semanas</span></li>
+        <li><i></i>Despliegue<span>Según alcance</span></li>
+        <li><i></i>Operación<span>Continua</span></li>
       </ol>
     </div>
   </section>
@@ -677,14 +717,66 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
     frame.style.setProperty('--co', seg(p, 0.6, 0.85).toFixed(3));
   }
 
-  /* método: el raíl se completa */
-  var steps = $('steps'), rail = $('rail'), stepLi = steps.querySelectorAll('li.st');
-  function metFrame() {
-    var r = steps.getBoundingClientRect(); if (r.bottom < -100 || r.top > innerHeight) return;
-    var p = RM ? 1 : seg(innerHeight * 0.8 - r.top, 0, innerHeight * 0.55);
-    rail.style.transform = 'scaleX(' + p.toFixed(3) + ')';
-    for (var i = 0; i < stepLi.length; i++) stepLi[i].classList.toggle('on', RM || p > 0.05 + i * 0.25);
+  /* método: de lo amplio a lo preciso (puntos que se ordenan fase a fase) */
+  var met = $('metodo'), metC = $('metC'), mctx = metC.getContext('2d'), metPh = $('metPh').children, metR = $('metR').children, metK = $('metK'), metL = $('metL');
+  var MN = 420, mW = 0, mH = 0, mF = null, mi = -1, mt = 0, mlast = 0;
+  function mRand(s) { return function () { s = s * 16807 % 2147483647; return (s - 1) / 2147483646; }; }
+  function mSize() {
+    var r = metC.getBoundingClientRect(), d = Math.min(W.devicePixelRatio || 1, 2); mW = r.width; mH = r.height;
+    metC.width = Math.round(mW * d); metC.height = Math.round(mH * d); mctx.setTransform(d, 0, 0, d, 0, 0);
+    var R = mRand(42), A = [], B = [], C = [], E = [], cx = mW / 2, cy = mH / 2, S = Math.min(mW, mH);
+    /* 01 · todo: dispersión amplia */
+    for (var i = 0; i < MN; i++) A.push([mW * (0.02 + 0.96 * R()), mH * (0.04 + 0.92 * R()), R() * 6.283]);
+    /* 02 · estructura: retícula */
+    var cols = 28, rows = 15, gw = Math.min(mW * 0.86, S * 1.2), gh = gw * rows / cols;
+    for (i = 0; i < MN; i++) { var c = i % cols, rr = Math.floor(i / cols); B.push([cx - gw / 2 + c * gw / (cols - 1), cy - gh / 2 + rr * gh / (rows - 1)]); }
+    /* 03 · forma: el isotipo, relleno de puntos */
+    var sz = S * 0.66, k = sz / 152, ox = cx - 100 * k, oy = cy - 96 * k;
+    var tri = [[[24, 20], [60, 20], [96.2, 172]], [[176, 20], [140, 20], [103.8, 172]]];
+    for (i = 0; i < MN; i++) {
+      var t = tri[i % 2], u = R(), v = R(); if (u + v > 1) { u = 1 - u; v = 1 - v; }
+      var x = t[0][0] + u * (t[1][0] - t[0][0]) + v * (t[2][0] - t[0][0]), y = t[0][1] + u * (t[1][1] - t[0][1]) + v * (t[2][1] - t[0][1]);
+      C.push([ox + x * k, oy + y * k]);
+    }
+    /* 04 · precisión: un único punto (el vértice) */
+    var vx = ox + 100 * k, vy = oy + 176 * k;
+    for (i = 0; i < MN; i++) { var a = R() * 6.283, rad = Math.pow(R(), 2) * 5; E.push([vx + Math.cos(a) * rad, vy + Math.sin(a) * rad]); }
+    mF = { A: A, B: B, C: C, E: E, vx: vx, vy: vy, dl: A.map(function () { return R() * 0.35; }) };
   }
+  var mE = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
+  function metFrame(now) {
+    var r = met.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight || !mF) return;
+    var dt = Math.min(0.05, ((now || 0) - (mlast || now || 0)) / 1000); mlast = now; mt += dt;
+    var p = RM ? 1 : clamp(-r.top / (met.offsetHeight - innerHeight), 0, 1);
+    var s = p * 3.6, ph = Math.min(3, Math.floor(p * 4 + 0.0001));
+    if (ph !== mi) { mi = ph; for (var q = 0; q < 4; q++) { metPh[q].classList.toggle('on', q === ph); metR[q].classList.toggle('on', q <= ph); }
+      metK.textContent = ['420', '420', '2', '1'][ph]; metL.textContent = ['señales', 'piezas ordenadas', 'formas', 'decisión'][ph]; }
+    for (q = 0; q < 4; q++) metR[q].querySelector('i').style.setProperty('--f', clamp(p * 4 - q, 0, 1).toFixed(3));
+    var F = [mF.A, mF.B, mF.C, mF.E];
+    mctx.clearRect(0, 0, mW, mH);
+    var lines = s > 0.6 && s < 1.6 ? 1 - Math.abs(s - 1.1) / 0.5 : 0;   /* la retícula se une con líneas */
+    if (lines > 0.02) {
+      mctx.strokeStyle = 'rgba(245,245,247,' + (0.09 * lines).toFixed(3) + ')'; mctx.lineWidth = 1; mctx.beginPath();
+      for (var g = 0; g < 15; g++) { mctx.moveTo(mF.B[g * 28][0], mF.B[g * 28][1]); mctx.lineTo(mF.B[g * 28 + 27][0], mF.B[g * 28 + 27][1]); }
+      for (g = 0; g < 28; g++) { mctx.moveTo(mF.B[g][0], mF.B[g][1]); mctx.lineTo(mF.B[392 + g][0], mF.B[392 + g][1]); }
+      mctx.stroke();
+    }
+    mctx.fillStyle = '#F5F5F7';
+    for (var i = 0; i < MN; i++) {
+      var local = clamp(s - mF.dl[i], 0, 3), k = Math.min(2, Math.floor(local)), f = mE(clamp((local - k) * 1.25, 0, 1));
+      var a = F[k][i], b = F[k + 1][i], x = a[0] + (b[0] - a[0]) * f, y = a[1] + (b[1] - a[1]) * f;
+      if (k === 0 && f < 1) { var w = (1 - f) * 3; x += Math.cos(mt * 0.6 + mF.A[i][2]) * w; y += Math.sin(mt * 0.5 + mF.A[i][2] * 1.3) * w; }
+      var sz = k === 2 && f > 0.5 ? 1.4 : 1.8;
+      mctx.globalAlpha = k === 0 && f < 0.5 ? 0.55 : 0.92; mctx.fillRect(x - sz / 2, y - sz / 2, sz, sz);
+    }
+    mctx.globalAlpha = 1;
+    var fin = clamp((s - 2.8) / 0.6, 0, 1);                                   /* el punto de decisión */
+    if (fin > 0) {
+      for (var rr = 0; rr < 3; rr++) { var phs = (mt * 0.5 + rr / 3) % 1; mctx.strokeStyle = 'rgba(245,245,247,' + ((1 - phs) * 0.4 * fin).toFixed(3) + ')'; mctx.beginPath(); mctx.arc(mF.vx, mF.vy, 10 + phs * 70, 0, 6.283); mctx.stroke(); }
+      mctx.fillStyle = 'rgba(245,245,247,' + fin + ')'; mctx.beginPath(); mctx.moveTo(mF.vx, mF.vy - 7); mctx.lineTo(mF.vx + 7, mF.vy); mctx.lineTo(mF.vx, mF.vy + 7); mctx.lineTo(mF.vx - 7, mF.vy); mctx.closePath(); mctx.fill();
+    }
+  }
+  mSize(); W.addEventListener('resize', mSize);
 
   /* compañía: paralaje */
   var coImg = $('coImg'), coI = coImg.querySelector('img');
@@ -722,11 +814,11 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
 
   function loop(t) {
     if (lenis) lenis.raf(t);
-    heroFrame(); sayFrame(); capsFrame(); growFrame(); metFrame(); coFrame(); navFrame();
+    heroFrame(); sayFrame(); capsFrame(); growFrame(); metFrame(t); coFrame(); navFrame();
     requestAnimationFrame(loop);
   }
   if (RM) {
-    words.forEach(function (w) { w.classList.add('on'); }); metFrame();
+    words.forEach(function (w) { w.classList.add('on'); }); metFrame(0);
     W.addEventListener('scroll', navFrame, { passive: true }); navFrame();
   } else requestAnimationFrame(loop);
   setTimeout(function () { root.classList.add('is-ready'); }, RM ? 0 : 900);
