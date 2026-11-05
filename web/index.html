@@ -3,547 +3,504 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#070708">
-<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#000000">
 <title>HALVEX</title>
 <meta name="description" content="HALVEX. Inteligencia artificial, sistemas de seguridad y software para decisiones que no admiten error.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&family=IBM+Plex+Sans:wght@200;300;400;500&family=IBM+Plex+Serif:ital,wght@1,200;1,300&display=swap">
-<link rel="preload" as="image" href="seq/f000.jpg">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
+<link rel="preload" as="image" href="img/hero-poster.jpg">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
 <style>
 /*
-  HALVEX · Dirección: lujo silencioso.
-  Un solo gesto conduce toda la experiencia: el vacío entre las dos cuñas del isotipo.
-  Se construye, se abre y se atraviesa. Negro profundo, blanco cálido y gris mineral.
-  IBM Plex Sans (voz), Plex Serif itálica (acento editorial, con mesura) y Plex Mono (dato).
+  HALVEX · Titanio
+  El isotipo deja de ser un dibujo y se convierte en un objeto: dos cuñas de titanio pulido
+  que aparecen de canto como una línea de luz, giran y se revelan.
+  Tipografía del sistema de Apple (SF Pro) con Inter como equivalente fuera de Apple.
 */
 :root{
-  --night:#070708; --ink:#111214; --paper:#F6F5F1; --mineral:#E6E4DE; --bone:#F2F1EC;
-  --mute-l:#5D5F63; --mute-d:#9A9CA0; --line-l:rgba(17,18,20,.13); --line-d:rgba(242,241,236,.14); --metal:#B5B2AA;
-  --sans:"IBM Plex Sans","Helvetica Neue",Arial,sans-serif;
-  --serif:"IBM Plex Serif",Georgia,serif;
-  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
-  --out:cubic-bezier(.16,1,.3,1); --io:cubic-bezier(.65,0,.35,1); --soft:cubic-bezier(.33,0,.15,1);
-  --gl:max(clamp(20px,5vw,88px),env(safe-area-inset-left,0px));
-  --gr:max(clamp(20px,5vw,88px),env(safe-area-inset-right,0px));
-  color-scheme:light;
+  --black:#000; --night:#0B0B0C; --ink:#111214; --stone:#F2F1EC; --white:#FFFFFF;
+  --g1:#86868B; --g2:#6E6F73; --g3:#424245; --g4:#2A2A2D; --line-d:rgba(255,255,255,.12); --line-l:rgba(17,18,20,.12);
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Inter","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --out:cubic-bezier(.16,1,.3,1); --io:cubic-bezier(.65,0,.35,1); --apple:cubic-bezier(.28,.11,.32,1);
+  --gl:max(clamp(22px,5vw,80px),env(safe-area-inset-left,0px));
+  --gr:max(clamp(22px,5vw,80px),env(safe-area-inset-right,0px));
+  --max:1280px;
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
-html{background:var(--night);-webkit-text-size-adjust:100%}
+html{background:var(--black);-webkit-text-size-adjust:100%}
 html.lenis,html.lenis body{height:auto}
 .lenis.lenis-smooth{scroll-behavior:auto!important}
-body{margin:0;background:var(--night);color:var(--bone);font-family:var(--sans);font-weight:300;font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:clip;transition:background-color 1.1s var(--io)}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:95;background:inherit}
-h1,h2,h3,p,ol,ul,figure,dl,dd{margin:0}
+body{margin:0;background:var(--black);color:#F5F5F7;font-family:var(--font);font-size:19px;line-height:1.47;letter-spacing:-.011em;font-weight:400;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;overflow-x:clip}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:95;background:var(--black)}
+h1,h2,h3,p,ol,ul,figure{margin:0}
 ol,ul{list-style:none;padding:0}
 a{color:inherit;text-decoration:none}
 svg{display:block}
 img{display:block;max-width:100%}
 button{font:inherit;color:inherit}
-::selection{background:var(--ink);color:var(--bone)}
-:focus-visible{outline:1px solid currentColor;outline-offset:6px}
+::selection{background:#F5F5F7;color:#000}
+:focus-visible{outline:2px solid #F5F5F7;outline-offset:4px;border-radius:2px}
+.light :focus-visible{outline-color:var(--ink)}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.wrap{padding-left:var(--gl);padding-right:var(--gr);max-width:1760px;margin:0 auto}
-.mono{font-family:var(--mono);font-size:12px;line-height:1.5;letter-spacing:.09em;text-transform:uppercase}
-.ital{font-family:var(--serif);font-style:italic;font-weight:200;letter-spacing:-.01em}
-.l{color:var(--ink)} .d{color:var(--bone)}
-.l .mut{color:var(--mute-l)} .d .mut{color:var(--mute-d)}
+.wrap{max-width:calc(var(--max) + 160px);margin:0 auto;padding-left:var(--gl);padding-right:var(--gr)}
+.light{background:var(--stone);color:var(--ink)}
+.dark{background:var(--black);color:#F5F5F7}
+
+/* tipografía */
+.eyebrow{font-size:17px;font-weight:600;letter-spacing:-.01em;color:var(--g1)}
+.light .eyebrow{color:var(--g2)}
+.h-xl{font-weight:700;font-size:clamp(48px,7.4vw,112px);line-height:1.02;letter-spacing:-.035em}
+.h-l{font-weight:700;font-size:clamp(40px,5.6vw,84px);line-height:1.04;letter-spacing:-.03em}
+.lead{font-size:clamp(19px,1.55vw,24px);line-height:1.42;letter-spacing:-.012em;font-weight:500;color:var(--g1)}
+.light .lead{color:var(--g2)}
+.lead b{color:#F5F5F7;font-weight:600}
+.light .lead b{color:var(--ink)}
+.c{text-align:center}
+.mx{margin-left:auto;margin-right:auto}
+
+/* botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:48px;padding:0 26px;border-radius:999px;background:#F5F5F7;color:#000;font-size:17px;font-weight:500;letter-spacing:-.01em;border:0;cursor:pointer;transition:background-color .35s var(--apple),transform .35s var(--apple)}
+.btn:hover{background:#fff}
+.btn:active{transform:scale(.97)}
+.light .btn{background:var(--ink);color:#fff}
+.light .btn:hover{background:#000}
+.lnk{display:inline-flex;align-items:center;gap:6px;font-size:17px;font-weight:500;color:#F5F5F7}
+.light .lnk{color:var(--ink)}
+.lnk svg{width:9px;height:14px;transition:transform .4s var(--apple)}
+.lnk:hover svg{transform:translateX(4px)}
+.lnk:hover span{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+
+/* aparición */
+.rv{opacity:0;transform:translateY(36px);transition:opacity 1.2s var(--apple),transform 1.2s var(--apple)}
+.rv.in{opacity:1;transform:none}
 
 /* ------------------------------------------------------------ navegación */
-.nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:90;color:var(--bone);transition:transform .9s var(--out),color .6s var(--io),opacity 1.2s var(--out);opacity:0}
-.is-ready .nav{opacity:1}
-.nav.hide{transform:translateY(-110%)}
-.nav.tl{color:var(--ink)}
-.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:76px}
-.brand{display:flex;align-items:center;gap:12px}
+.nav{position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:90;height:52px;background:rgba(0,0,0,.9);border-bottom:1px solid transparent;transition:background-color .6s var(--apple),border-color .6s var(--apple),opacity 1s var(--apple),transform 1s var(--apple);opacity:0;transform:translateY(-8px)}
+.is-ready .nav{opacity:1;transform:none}
+.nav.sc{border-bottom-color:var(--line-d)}
+.nav.lt{background:rgba(242,241,236,.94);border-bottom-color:var(--line-l);color:var(--ink)}
+.nav .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:10px;color:inherit}
 .brand svg{fill:currentColor}
-.brand .bi{width:19px;height:19px}
-.brand .bw{width:84px;height:16.5px}
-.brand .bi path{transition:transform .7s var(--out)}
-.brand:hover .bi path:first-child{transform:translateX(-6px)}
-.brand:hover .bi path:last-child{transform:translateX(6px)}
-.nav-r{display:flex;align-items:center;gap:36px}
-.nl{font-size:14px;font-weight:400;position:relative;padding:6px 0}
-.nl::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .7s var(--out)}
-.nl:hover::after{transform:scaleX(1);transform-origin:left}
-.burger{display:flex;align-items:center;gap:12px;background:none;border:0;cursor:pointer;padding:8px 0;font-size:14px;font-weight:400}
-.burger i{position:relative;width:22px;height:8px;display:block}
-.burger i::before,.burger i::after{content:"";position:absolute;left:0;right:0;height:1px;background:currentColor;transition:transform .7s var(--out),width .7s var(--out)}
-.burger i::before{top:0}.burger i::after{bottom:0;width:62%;left:auto}
-.burger:hover i::after{width:100%}
-@media (max-width:720px){.nav .nl{display:none}.nav .wrap{height:64px}}
+.brand .bi{width:17px;height:17px}
+.brand .bw{width:74px;height:14.5px}
+.brand .bi path{transition:transform .6s var(--out)}
+.brand:hover .bi path:first-child{transform:translateX(-5px)}
+.brand:hover .bi path:last-child{transform:translateX(5px)}
+.nav ul{display:flex;gap:34px;font-size:13px;letter-spacing:-.005em}
+.nav ul a{opacity:.82;transition:opacity .3s}
+.nav ul a:hover{opacity:1}
+.nav .cta{height:30px;padding:0 15px;font-size:13px;border-radius:999px;display:inline-flex;align-items:center;background:#F5F5F7;color:#000;font-weight:500;transition:background-color .3s}
+.nav.lt .cta{background:var(--ink);color:#fff}
+.burger{display:none;background:none;border:0;padding:10px 0 10px 10px;cursor:pointer;color:inherit}
+.burger i{display:block;width:18px;height:7px;position:relative}
+.burger i::before,.burger i::after{content:"";position:absolute;left:0;right:0;height:1.5px;background:currentColor;border-radius:1px}
+.burger i::before{top:0}.burger i::after{bottom:0}
+@media (max-width:900px){.nav ul,.nav .cta{display:none}.burger{display:block}.nav{height:48px}}
 
-.menu{position:fixed;inset:0;z-index:100;background:var(--night);color:var(--bone);visibility:hidden;clip-path:inset(0 0 100% 0);transition:clip-path 1s var(--io),visibility 0s 1s;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-.menu.open{visibility:visible;clip-path:inset(0 0 0 0);transition:clip-path 1s var(--io)}
-.menu .top{display:flex;justify-content:space-between;align-items:center;height:76px}
-.menu .x{background:none;border:0;cursor:pointer;font-size:14px;font-weight:400;display:flex;gap:12px;align-items:center;padding:8px 0}
-.menu .x i{width:16px;height:16px;position:relative}
-.menu .x i::before,.menu .x i::after{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:currentColor;transform:rotate(45deg)}
+.menu{position:fixed;inset:0;z-index:100;background:var(--black);color:#F5F5F7;visibility:hidden;opacity:0;transition:opacity .5s var(--apple),visibility 0s .5s;padding-top:env(safe-area-inset-top,0px)}
+.menu.open{visibility:visible;opacity:1;transition:opacity .5s var(--apple)}
+.menu .top{height:48px;display:flex;align-items:center;justify-content:space-between}
+.menu .x{background:none;border:0;padding:10px 0 10px 10px;cursor:pointer}
+.menu .x i{display:block;width:16px;height:16px;position:relative}
+.menu .x i::before,.menu .x i::after{content:"";position:absolute;left:0;right:0;top:50%;height:1.5px;background:currentColor;transform:rotate(45deg)}
 .menu .x i::after{transform:rotate(-45deg)}
-.menu nav{flex:1;display:flex;align-items:center}
-.menu ol{width:100%}
-.menu li{overflow:hidden;border-top:1px solid var(--line-d)}
-.menu li:last-child{border-bottom:1px solid var(--line-d)}
-.menu li a{display:flex;align-items:baseline;gap:24px;padding:14px 0;font-weight:200;font-size:clamp(34px,6.4vw,82px);line-height:1.04;letter-spacing:-.035em;transform:translateY(105%);transition:transform 1s var(--out),color .4s}
-.menu.open li a{transform:none}
-.menu li a .mono{color:var(--mute-d);width:3ch}
-.menu li a:hover{color:#fff}
-.menu li a:hover .ital{opacity:1}
-.menu .foot{display:flex;justify-content:space-between;gap:20px;padding:24px 0 28px;color:var(--mute-d)}
+.menu ol{padding-top:26px}
+.menu li a{display:block;padding:9px 0;font-size:30px;font-weight:600;letter-spacing:-.02em;opacity:0;transform:translateY(-8px);transition:opacity .5s var(--apple),transform .5s var(--apple)}
+.menu.open li a{opacity:1;transform:none}
 
-/* ------------------------------------------------------------ hero · punto de vista
-   Dos esculturas a distinta profundidad. Solo desde un punto exacto forman el isotipo. */
-.hero{position:relative;height:600vh}
-.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:#000}
-#cv{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.6s var(--soft)}
-.is-loaded #cv{opacity:var(--cvo,1)}
-.ap{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.ap .br{fill:none;stroke:var(--bone);stroke-width:1;vector-effect:non-scaling-stroke}
-.loader{position:absolute;left:50%;top:50%;width:1px;height:26vh;transform:translate(-50%,-50%);pointer-events:none;transition:opacity 1s var(--soft)}
-.loader i{position:absolute;left:0;bottom:0;width:1px;height:100%;background:var(--bone);transform:scaleY(var(--lp,0));transform-origin:50% 100%;transition:transform .5s var(--out);box-shadow:0 0 14px rgba(255,248,236,.55)}
-.is-loaded .loader{opacity:0}
-.cap1{position:absolute;left:var(--gl);top:calc(118px + env(safe-area-inset-top,0px));color:var(--mute-d);opacity:0;transition:opacity 1.6s var(--out) .4s}
-.is-ready .cap1{opacity:var(--c1o,1)}
-.read{position:absolute;right:var(--gr);bottom:calc(36px + env(safe-area-inset-bottom,0px));color:var(--mute-d);text-align:right;display:grid;gap:10px;opacity:0;transition:opacity 1.6s var(--out) .6s}
-.is-ready .read{opacity:var(--rdo,1)}
-.read dl{display:grid;grid-template-columns:auto 7.5ch;column-gap:18px;row-gap:4px}
-.read dd{color:var(--bone);font-variant-numeric:tabular-nums}
-.read .lvl{position:relative;width:180px;height:9px;justify-self:end;background:linear-gradient(var(--line-d),var(--line-d)) 0 50%/100% 1px no-repeat}
-.read .lvl::before{content:"";position:absolute;left:50%;top:0;width:1px;height:100%;background:var(--mute-d)}
-.read .lvl i{position:absolute;top:1px;left:var(--lx,100%);width:7px;height:7px;background:var(--bone);transform:translateX(-50%) rotate(45deg) scale(.75)}
-.read .st{color:var(--bone);letter-spacing:.14em}
-.say1{position:absolute;left:var(--gl);bottom:calc(clamp(44px,9vh,96px) + env(safe-area-inset-bottom,0px));width:min(640px,80vw);height:3em;pointer-events:none}
-.say1 p{text-wrap:balance;position:absolute;left:0;bottom:0;width:100%;font-weight:200;font-size:clamp(30px,3.3vw,58px);line-height:1.08;letter-spacing:-.032em;color:var(--bone);opacity:0;transform:translateY(24px)}
-.say1 p b{font-weight:400}
-.mark{position:absolute;left:0;right:0;top:var(--wmy,72%);display:flex;flex-direction:column;align-items:center;gap:22px;pointer-events:none;opacity:0}
-.mark h1{display:block;width:clamp(170px,17vw,280px);line-height:0}
-.mark h1 svg{width:100%;height:auto;fill:var(--bone)}
-.mark .claim{text-wrap:balance;font-weight:300;font-size:clamp(16px,1.25vw,19px);color:#C9CACD;text-align:center;padding:0 24px}
-.mark .claim b{font-weight:400;color:var(--bone)}
-.hcta{position:absolute;right:var(--gr);bottom:calc(36px + env(safe-area-inset-bottom,0px));color:var(--bone);opacity:0;pointer-events:none}
-.hcta.on{pointer-events:auto}
-.cue{position:absolute;left:50%;bottom:calc(30px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--mute-d);opacity:0;transition:opacity 1.4s var(--out) .9s}
-.is-ready .cue{opacity:var(--cuo,1)}
-.cue i{width:1px;height:46px;background:linear-gradient(var(--mute-d),var(--mute-d)) 0 0/1px 0 no-repeat,rgba(242,241,236,.16);animation:cue 2.6s var(--io) infinite}
-@keyframes cue{0%{background-size:1px 0;background-position:0 0}45%{background-size:1px 100%;background-position:0 0}55%{background-size:1px 100%;background-position:0 100%}100%{background-size:1px 0;background-position:0 100%}}
-.cta{display:inline-flex;align-items:center;gap:16px;font-size:15px;font-weight:400}
-.cta .ar{position:relative;width:44px;height:1px;background:currentColor;transition:width .8s var(--out)}
-.cta .ar::after{content:"";position:absolute;right:0;top:-4px;width:8px;height:8px;border-top:1px solid currentColor;border-right:1px solid currentColor;transform:rotate(45deg)}
-.cta:hover .ar{width:76px}
-@media (max-width:720px){
-  .cap1{top:calc(92px + env(safe-area-inset-top,0px))}
-  .read{left:var(--gl);right:var(--gr);top:calc(92px + env(safe-area-inset-top,0px));bottom:auto;text-align:left}
-  .read dl{grid-template-columns:auto auto;justify-content:space-between}
-  .read .lvl{justify-self:stretch;width:auto}
-  .cap1{display:none}
-  .say1{bottom:calc(64px + env(safe-area-inset-bottom,0px));width:auto;right:var(--gr)}
-  .hcta{left:var(--gl);right:auto;bottom:calc(30px + env(safe-area-inset-bottom,0px))}
-  .cue{display:none}
+/* ------------------------------------------------------------ 1 · hero */
+.hero{position:relative;height:200vh}
+.stage{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;background:var(--black)}
+.poster{position:absolute;inset:0;background:url(img/hero-poster.jpg) 50% 50%/cover no-repeat;opacity:0;transition:opacity 1.2s var(--apple)}
+.no-gl .poster{opacity:1}
+#gl{position:absolute;inset:0;width:100%;height:100%;opacity:0;transition:opacity 1.4s var(--apple)}
+.gl-on #gl{opacity:1}
+.hero .top{position:absolute;left:0;right:0;top:calc(98px + env(safe-area-inset-top,0px));display:flex;flex-direction:column;align-items:center;text-align:center}
+.hero .wmk{width:clamp(118px,9.5vw,150px);height:auto;fill:#F5F5F7;opacity:0;transform:translateY(10px);transition:opacity 1.2s var(--apple) .5s,transform 1.2s var(--apple) .5s}
+.hero .bot{position:absolute;left:0;right:0;bottom:calc(clamp(44px,8vh,84px) + env(safe-area-inset-bottom,0px));text-align:center;padding:0 var(--gr) 0 var(--gl)}
+.hero h1{font-weight:700;font-size:clamp(40px,5.2vw,84px);line-height:1.04;letter-spacing:-.035em;max-width:13em;margin:0 auto}
+.hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
+.hero h1 .ln>span{display:block;transform:translateY(105%);transition:transform 1.3s var(--out)}
+.hero h1 .ln:nth-child(2)>span{transition-delay:.08s}
+.hero h1 .g{color:var(--g1)}
+.hero .acts{display:flex;align-items:center;justify-content:center;gap:28px;margin-top:30px;opacity:0;transform:translateY(12px);transition:opacity 1.2s var(--apple) .35s,transform 1.2s var(--apple) .35s}
+.is-ready .hero .wmk,.is-ready .hero .acts{opacity:1;transform:none}
+.is-ready .hero h1 .ln>span{transform:none}
+.hero .two{position:absolute;left:0;right:0;bottom:calc(clamp(48px,9vh,96px) + env(safe-area-inset-bottom,0px));text-align:center;pointer-events:none;opacity:0;padding:0 var(--gr) 0 var(--gl)}
+.hero .two p{font-weight:700;font-size:clamp(40px,5.6vw,92px);letter-spacing:-.04em;line-height:1.02}
+.hero .two p span{color:var(--g3)}
+@media (max-width:720px){.hero .top{top:calc(84px + env(safe-area-inset-top,0px))}.hero .acts{flex-direction:column;gap:18px}}
+
+/* ------------------------------------------------------------ 2 · manifiesto */
+.mani{padding:clamp(140px,22vh,260px) 0}
+.mani p.say{font-weight:600;font-size:clamp(34px,4.6vw,72px);line-height:1.12;letter-spacing:-.03em;max-width:17em}
+.mani .w{color:var(--g4);transition:color .45s var(--apple)}
+.mani .w.on{color:#F5F5F7}
+
+/* ------------------------------------------------------------ 3 · capacidades */
+.caps{position:relative;height:600vh}
+.caps .pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;overflow:hidden}
+.caps .grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(40px,6vw,110px);align-items:center;width:100%}
+.caps .eyebrow{margin-bottom:28px}
+.caps ol li{font-weight:700;font-size:clamp(28px,3.3vw,50px);line-height:1.14;letter-spacing:-.03em;color:var(--g4);transition:color .6s var(--apple);cursor:pointer}
+.caps ol li.on{color:#F5F5F7}
+.caps .desc{position:relative;margin-top:34px;min-height:7.5em;max-width:30em}
+.caps .desc p{position:absolute;inset:0 auto auto 0;font-size:19px;line-height:1.47;color:var(--g1);opacity:0;transform:translateY(10px);transition:opacity .7s var(--apple),transform .7s var(--apple)}
+.caps .desc p.on{opacity:1;transform:none;transition-delay:.12s}
+.caps .vis{position:relative;aspect-ratio:4/5;max-height:76vh;justify-self:end;width:100%;overflow:hidden;background:#111}
+.caps .vis img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.08);transition:opacity 1s var(--apple),transform 1.6s var(--out)}
+.caps .vis img.on{opacity:1;transform:none}
+.caps .prog{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(255,255,255,.14)}
+.caps .prog i{position:absolute;inset:0;background:#F5F5F7;transform:scaleX(var(--p,0));transform-origin:left}
+.caps .mob{display:none}
+@media (max-width:900px){
+  .caps{height:auto}.caps .pin{position:relative;height:auto;padding:110px 0 40px}
+  .caps .grid{display:block}.caps ol,.caps .desc,.caps .vis{display:none}
+  .caps .mob{display:grid;gap:56px}
+  .caps .mob figure{aspect-ratio:4/5;overflow:hidden;background:#111}
+  .caps .mob img{width:100%;height:100%;object-fit:cover}
+  .caps .mob h3{font-weight:700;font-size:32px;letter-spacing:-.03em;line-height:1.1;margin-top:22px}
+  .caps .mob p{color:var(--g1);margin-top:10px}
 }
 
-/* ------------------------------------------------------------ comunes */
-.sec{position:relative}
-.pad{padding-top:clamp(120px,18vh,220px);padding-bottom:clamp(120px,18vh,220px)}
-.eyebrow{display:flex;align-items:center;gap:14px}
-.eyebrow .tick{width:9px;height:9px;flex:none}
-.eyebrow .tick path{fill:currentColor}
-.rise{transform:translateY(42px);opacity:0;transition:transform 1.6s var(--out),opacity 1.6s var(--out)}
-.rise.in{transform:none;opacity:1}
+/* ------------------------------------------------------------ 4 · soberanía */
+.sob{padding-top:clamp(140px,20vh,240px)}
+.sob .head{max-width:1000px}.sob .head h2{max-width:13em}
+.sob .head .lead{margin-top:26px;max-width:28em}
+.sob .grow{position:relative;height:200vh;margin-top:clamp(56px,8vh,100px)}
+.sob .grow .pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.sob .frame{position:relative;width:var(--fw,64%);height:var(--fh,62%);overflow:hidden}
+.sob .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(var(--is,1.15))}
+.sob .frame .cap{position:absolute;left:0;right:0;bottom:0;padding:180px var(--gl) clamp(36px,7vh,70px) var(--gl);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;color:#fff;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.72));opacity:var(--co,0)}
+.sob .frame .cap p{font-weight:600;font-size:clamp(24px,2.4vw,38px);letter-spacing:-.02em;line-height:1.15;max-width:16em}
+.sob .frame .cap span{font-size:15px;color:#D2D2D7;max-width:22em}
+@media (max-width:720px){.sob .frame .cap{flex-direction:column;align-items:flex-start}}
 
-/* ------------------------------------------------------------ 01 enfoque */
-.enf .g{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px}
-.enf .eyebrow{grid-column:1/4;align-self:start;margin-top:.9em}
-.enf .say{grid-column:4/13;font-weight:200;font-size:clamp(32px,4.1vw,74px);line-height:1.12;letter-spacing:-.032em}
-.enf .say .w{opacity:.13;transition:opacity .5s linear}
-.enf .say .w.on{opacity:1}
-.enf .facts{grid-column:4/13;margin-top:clamp(90px,14vh,160px);display:grid;grid-template-columns:repeat(4,1fr);column-gap:24px}
-.enf .facts li{border-top:1px solid var(--line-l);padding-top:22px}
-.enf .facts b{display:block;font-weight:400;font-size:19px;letter-spacing:-.01em;margin:14px 0 8px}
-.enf .facts span:last-child{font-size:15.5px;line-height:1.55}
-@media (max-width:900px){.enf .eyebrow,.enf .say,.enf .facts{grid-column:1/-1}.enf .eyebrow{margin:0 0 36px}.enf .facts{grid-template-columns:1fr 1fr;row-gap:36px}}
-@media (max-width:520px){.enf .facts{grid-template-columns:1fr}}
+/* ------------------------------------------------------------ 5 · por qué */
+.why{padding:clamp(130px,18vh,220px) 0}
+.why .head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end}
+.why .feat{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(28px,3vw,48px);margin-top:clamp(70px,10vh,120px)}
+.why .feat li{border-top:1px solid var(--line-l);padding-top:30px}
+.why .feat svg{width:40px;height:40px;stroke:var(--ink);stroke-width:1.5;fill:none;stroke-linecap:square;stroke-linejoin:miter}
+.why .feat h3{font-weight:600;font-size:24px;letter-spacing:-.02em;margin:26px 0 10px;line-height:1.16}
+.why .feat p{font-size:17px;line-height:1.47;color:var(--g2)}
+@media (max-width:900px){.why .head{grid-template-columns:1fr}.why .feat{grid-template-columns:1fr 1fr;row-gap:48px}}
+@media (max-width:560px){.why .feat{grid-template-columns:1fr}}
 
-/* ------------------------------------------------------------ 02 capacidades */
-.caps{height:560vh}
-.caps .pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:flex;flex-direction:column}
-.caps .wrap{width:100%;height:100%;display:grid;grid-template-rows:auto 1fr auto;padding-top:clamp(96px,14vh,140px);padding-bottom:calc(clamp(40px,7vh,72px) + env(safe-area-inset-bottom,0px))}
-.caps .head{display:flex;justify-content:space-between;align-items:baseline}
-.caps .center{position:relative;align-self:center}
-.caps .num{position:absolute;left:0;top:-.1em;font-size:clamp(20px,1.8vw,30px);color:var(--metal)}
-.caps .ttl{position:relative;height:calc(clamp(52px,9vw,168px) * 1.06);overflow:hidden;margin-left:clamp(60px,9vw,170px)}
-.caps .ttl h3{position:absolute;inset:0;font-weight:200;font-size:clamp(52px,9vw,168px);line-height:1;letter-spacing:-.045em;white-space:nowrap;transform:translateY(105%);transition:transform 1.25s var(--out)}
-.caps .ttl h3.on{transform:none}
-.caps .ttl h3.up{transform:translateY(-105%)}
-.caps .ttl h3 em{font-style:italic;font-family:var(--serif);font-weight:200;letter-spacing:-.03em}
-.caps .foot{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:end}
-.caps .bar{grid-column:1/6;display:flex;gap:6px}
-.caps .bar i{flex:1;height:1px;background:var(--line-d);position:relative;overflow:hidden}
-.caps .bar i::after{content:"";position:absolute;inset:0;background:var(--bone);transform:scaleX(var(--f,0));transform-origin:left}
-.caps .desc{grid-column:8/13;position:relative;min-height:9.5em}
-.caps .desc>div{position:absolute;inset:auto 0 0 0;opacity:0;transform:translateY(16px);transition:opacity .9s var(--out),transform .9s var(--out)}
-.caps .desc>div.on{opacity:1;transform:none;transition-delay:.15s}
-.caps .desc p{font-size:17px;line-height:1.6;color:#D3D4D7}
-.caps .desc ul{display:flex;flex-wrap:wrap;gap:6px 22px;margin-top:18px;color:var(--mute-d)}
-@media (max-width:900px){.caps .ttl{margin-left:0;margin-top:44px}.caps .ttl h3{white-space:normal;font-size:clamp(44px,11vw,96px)}.caps .ttl{height:calc(clamp(44px,11vw,96px) * 2.1)}.caps .bar{grid-column:1/-1;order:2;margin-top:28px}.caps .desc{grid-column:1/-1;min-height:11em}}
+/* ------------------------------------------------------------ 6 · sectores */
+.sec{padding:clamp(40px,6vh,80px) 0 clamp(120px,16vh,200px)}
+.sec .head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px}
+.sec .ctrl{display:flex;gap:14px}
+.sec .ctrl button{width:44px;height:44px;border-radius:50%;border:0;background:rgba(17,18,20,.07);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background-color .3s;color:var(--ink)}
+.sec .ctrl button:hover{background:rgba(17,18,20,.13)}
+.sec .ctrl button:disabled{opacity:.35;cursor:default}
+.sec .ctrl svg{width:9px;height:14px}
+.track{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-top:clamp(50px,7vh,80px);padding:0 var(--gr) 8px var(--gl);scroll-padding-left:var(--gl)}
+.track::-webkit-scrollbar{display:none}
+@media (min-width:1440px){.track{padding-left:calc((100vw - var(--max)) / 2);scroll-padding-left:calc((100vw - var(--max)) / 2)}}
+.tile{position:relative;flex:0 0 clamp(270px,27vw,400px);aspect-ratio:3/4;overflow:hidden;scroll-snap-align:start;background:#111;color:#fff}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--out)}
+.tile:hover img{transform:scale(1.045)}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,0) 38%,rgba(0,0,0,0) 58%,rgba(0,0,0,.66) 100%)}
+.tile .t{position:absolute;left:28px;right:28px;top:28px;z-index:1}
+.tile .t span{font-size:13px;font-weight:600;color:#D2D2D7}
+.tile .t h3{font-weight:700;font-size:clamp(26px,2.2vw,34px);letter-spacing:-.025em;line-height:1.08;margin-top:8px}
+.tile p{position:absolute;left:28px;right:28px;bottom:26px;z-index:1;font-size:15px;line-height:1.45;color:#E8E8ED}
 
-/* ------------------------------------------------------------ 03 imagen */
-.cine{height:230vh}
-.cine .pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-.cine .frame{position:absolute;inset:0;clip-path:inset(var(--it,16%) var(--ix,22%) var(--it,16%) var(--ix,22%));will-change:clip-path}
-.cine .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%;transform:scale(var(--is,1.22));will-change:transform}
-.cine .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,7,8,0) 30%,rgba(7,7,8,.82) 100%);opacity:var(--io2,0)}
-.cine .txt{position:absolute;left:0;right:0;bottom:calc(clamp(44px,9vh,100px) + env(safe-area-inset-bottom,0px));color:var(--bone)}
-.cine .txt .wrap{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:end}
-.cine .txt h2{grid-column:1/8;font-weight:200;font-size:clamp(38px,4.6vw,84px);line-height:1.04;letter-spacing:-.035em}
-.cine .txt h2 .row{display:block;overflow:hidden;padding-bottom:.06em}
-.cine .txt h2 .row>span{display:block;transform:translateY(var(--ty,110%));transition:transform 1.4s var(--out)}
-.cine .txt h2 .row:nth-child(2)>span{transition-delay:.1s}
-.cine .txt p{grid-column:9/13;justify-self:end;max-width:320px;color:#D3D4D7;font-size:16px;opacity:var(--tp,0);transition:opacity 1.4s var(--out) .25s}
-.cine .lab{position:absolute;top:calc(110px + env(safe-area-inset-top,0px));left:var(--gl);color:var(--bone);opacity:var(--tp,0);transition:opacity 1.4s var(--out)}
-@media (max-width:900px){.cine .frame::after{background:linear-gradient(180deg,rgba(7,7,8,0) 15%,rgba(7,7,8,.92) 100%)}.cine .txt h2,.cine .txt p{grid-column:1/-1}.cine .txt p{justify-self:start;margin-top:20px}}
+/* ------------------------------------------------------------ 7 · método */
+.met{padding:clamp(130px,18vh,220px) 0}
+.met .steps{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,3vw,48px);margin-top:clamp(80px,11vh,130px)}
+.met .rail{position:absolute;left:0;right:0;top:0;height:1px;background:var(--line-d)}
+.met .rail i{position:absolute;inset:0;background:#F5F5F7;transform:scaleX(0);transform-origin:left}
+.met .steps li.st{padding-top:40px;opacity:.28;transition:opacity .8s var(--apple)}
+.met .steps li.st.on{opacity:1}
+.met .steps .n{font-weight:700;font-size:clamp(52px,5.4vw,88px);letter-spacing:-.05em;line-height:1;color:#F5F5F7}
+.met .steps h3{font-weight:600;font-size:24px;letter-spacing:-.02em;margin-top:24px}
+.met .steps .d{font-size:15px;color:var(--g1);margin-top:4px;font-weight:500}
+.met .steps p{font-size:17px;color:var(--g1);margin-top:14px;max-width:18em}
+@media (max-width:900px){.met .steps{grid-template-columns:1fr 1fr;row-gap:56px}.met .rail{display:none}.met .steps li.st{border-top:1px solid var(--line-d)}}
+@media (max-width:560px){.met .steps{grid-template-columns:1fr}}
 
-/* ------------------------------------------------------------ 04 sectores */
-.sec4 .top{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:end;margin-bottom:clamp(70px,11vh,130px)}
-.sec4 .top h2{grid-column:1/8;font-weight:200;font-size:clamp(40px,5.4vw,96px);line-height:1.02;letter-spacing:-.04em}
-.sec4 .top p{grid-column:9/13;font-size:17px}
-.rows{border-top:1px solid var(--line-l)}
-.row4{position:relative;display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:baseline;padding:clamp(22px,3.2vh,34px) 0;border-bottom:1px solid var(--line-l);cursor:default}
-.row4 .mono{grid-column:1/2;color:var(--mute-l)}
-.row4 h3{grid-column:2/9;font-weight:200;font-size:clamp(32px,4.3vw,76px);line-height:1;letter-spacing:-.04em;transition:transform 1s var(--out),opacity .6s}
-.row4 p{grid-column:9/13;font-size:15.5px;line-height:1.5;color:var(--mute-l);transition:color .6s}
-.rows:hover .row4 h3{opacity:.28}
-.rows .row4:hover h3{opacity:1;transform:translateX(18px)}
-.rows .row4:hover p{color:var(--ink)}
-.row4::after{content:"";position:absolute;left:0;bottom:-1px;height:1px;width:100%;background:var(--ink);transform:scaleX(0);transform-origin:left;transition:transform 1.1s var(--out)}
-.row4:hover::after{transform:scaleX(1)}
-.peek{position:fixed;left:0;top:0;width:clamp(220px,19vw,330px);aspect-ratio:4/5;pointer-events:none;z-index:40;clip-path:inset(100% 0 0 0);transition:clip-path .9s var(--out);will-change:transform}
-.peek.on{clip-path:inset(0 0 0 0)}
-.peek img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}
-.peek img.on{opacity:1}
-@media (hover:none),(pointer:coarse){.peek{display:none}}
-@media (max-width:900px){.sec4 .top h2,.sec4 .top p{grid-column:1/-1}.sec4 .top p{margin-top:24px}.row4 h3{grid-column:2/-1}.row4 p{grid-column:2/-1;margin-top:10px}.rows:hover .row4 h3{opacity:1}.rows .row4:hover h3{transform:none}}
+/* ------------------------------------------------------------ 8 · compañía */
+.co{padding:clamp(130px,18vh,220px) 0 clamp(110px,15vh,180px)}
+.co .img{position:relative;margin-top:clamp(64px,9vh,110px);aspect-ratio:21/9;overflow:hidden;background:#ddd}
+.co .img img{position:absolute;left:0;top:-12%;width:100%;height:124%;object-fit:cover;transform:translateY(var(--py,0px))}
+.co .pr{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,3vw,48px);margin-top:clamp(56px,8vh,90px)}
+.co .pr h3{font-weight:600;font-size:21px;letter-spacing:-.02em}
+.co .pr p{font-size:17px;color:var(--g2);margin-top:8px}
+@media (max-width:900px){.co .img{aspect-ratio:4/3}.co .pr{grid-template-columns:1fr 1fr;row-gap:36px}}
+@media (max-width:560px){.co .pr{grid-template-columns:1fr}}
 
-/* ------------------------------------------------------------ 05 método */
-.met .g{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px}
-.met h2{grid-column:1/7;font-weight:200;font-size:clamp(40px,5vw,90px);line-height:1.02;letter-spacing:-.04em}
-.met .intro{grid-column:9/13;align-self:end;font-size:17px}
-.conv{margin-top:clamp(70px,11vh,130px);position:relative}
-.conv svg{width:100%;height:clamp(90px,13vw,190px)}
-.conv svg path{fill:none;stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
-.conv svg .dot{fill:var(--ink)}
-.phases{display:grid;grid-template-columns:repeat(4,1fr);column-gap:24px;margin-top:clamp(36px,6vh,56px)}
-.phases li{opacity:.16;transition:opacity .9s var(--out)}
-.phases li.on{opacity:1}
-.phases .n{font-family:var(--serif);font-style:italic;font-weight:200;font-size:clamp(44px,4.6vw,80px);line-height:1;letter-spacing:-.03em}
-.phases h3{font-weight:400;font-size:21px;letter-spacing:-.01em;margin:18px 0 6px}
-.phases .mono{color:var(--mute-l)}
-.phases p{font-size:15.5px;line-height:1.55;margin-top:12px;max-width:22em}
-@media (max-width:900px){.met h2,.met .intro{grid-column:1/-1}.met .intro{margin-top:24px}.phases{grid-template-columns:1fr 1fr;row-gap:44px}}
-@media (max-width:520px){.phases{grid-template-columns:1fr}}
-
-/* ------------------------------------------------------------ 06 compañía */
-.co .g{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;align-items:start}
-.co .ph{grid-column:1/7;position:relative;aspect-ratio:4/5;overflow:hidden;clip-path:inset(100% 0 0 0);transition:clip-path 1.8s var(--io)}
-.co .ph.in{clip-path:inset(0 0 0 0)}
-.co .ph img{position:absolute;left:0;top:-8%;width:100%;height:116%;object-fit:cover;transform:translateY(var(--py,0px)) scale(1.04)}
-.co .tx{grid-column:8/13;padding-top:clamp(10px,6vh,80px)}
-.co h2{font-weight:200;font-size:clamp(40px,4.6vw,84px);line-height:1.04;letter-spacing:-.04em}
-.co .lead{font-size:clamp(18px,1.3vw,21px);line-height:1.55;margin-top:36px}
-.co .pr{margin-top:56px;border-top:1px solid var(--line-l)}
-.co .pr li{display:grid;grid-template-columns:44px 1fr;padding:18px 0;border-bottom:1px solid var(--line-l);align-items:baseline}
-.co .pr b{display:block;font-weight:400;font-size:17px}
-.co .pr span{font-size:15px;color:var(--mute-l)}
-@media (max-width:900px){.co .ph,.co .tx{grid-column:1/-1}.co .ph{aspect-ratio:4/3}.co .tx{padding-top:56px}}
-
-/* ------------------------------------------------------------ 07 contacto */
-.ct .big{font-weight:200;font-size:clamp(84px,17vw,320px);line-height:.84;letter-spacing:-.06em;display:block;overflow:hidden;padding-bottom:.06em}
-.ct .big span{display:inline-block;transform:translateY(105%);transition:transform 1.6s var(--out)}
-.ct .big.in span{transform:none}
-.ct .g{display:grid;grid-template-columns:repeat(12,1fr);column-gap:24px;margin-top:clamp(60px,9vh,110px)}
-.ct .side{grid-column:1/5;display:grid;gap:26px;align-content:start}
-.ct .mail{font-weight:300;font-size:clamp(24px,2vw,34px);letter-spacing:-.015em;display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
-.ct .mail span{background:linear-gradient(currentColor,currentColor) 0 100%/100% 1px no-repeat;padding-bottom:3px}
-.copybtn{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;background:none;border:1px solid var(--line-d);color:var(--mute-d);padding:7px 12px;cursor:pointer;transition:border-color .4s,color .4s}
-.copybtn:hover{border-color:var(--bone);color:var(--bone)}
-.ct .side p{color:var(--mute-d);font-size:16px}
-form{grid-column:6/13;display:grid;grid-template-columns:1fr 1fr;column-gap:32px;row-gap:34px}
-.f{display:grid;gap:4px;min-width:0}
+/* ------------------------------------------------------------ 9 · contacto */
+.ct{padding:clamp(140px,20vh,240px) 0 0}
+.ct .big{font-weight:700;font-size:clamp(72px,13vw,210px);letter-spacing:-.055em;line-height:.95;padding-bottom:.05em}
+.ct .big span{display:inline-block;background:linear-gradient(180deg,#FFFFFF 30%,#7A7A7F 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ct .row{display:grid;grid-template-columns:1fr 1.4fr;gap:clamp(40px,6vw,110px);margin-top:clamp(70px,10vh,120px);align-items:start}
+.ct .mail{display:inline-flex;align-items:center;gap:14px;flex-wrap:wrap}
+.ct .mail a{font-weight:600;font-size:clamp(22px,2vw,30px);letter-spacing:-.02em}
+.copybtn{height:34px;padding:0 15px;border-radius:999px;border:1px solid rgba(255,255,255,.22);background:none;font-size:13px;font-weight:500;color:#D2D2D7;cursor:pointer;transition:border-color .3s,color .3s}
+.copybtn:hover{border-color:#F5F5F7;color:#fff}
+.ct .side p{color:var(--g1);margin-top:22px;max-width:24em;font-size:17px}
+form{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.f{position:relative}
 .f.w{grid-column:1/-1}
-.f label{font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--mute-d)}
-input,select,textarea{font-family:var(--sans);font-weight:300;font-size:21px;color:var(--bone);background:transparent;border:0;border-bottom:1px solid rgba(242,241,236,.26);border-radius:0;padding:8px 0 12px;width:100%;transition:border-color .5s}
-select{appearance:none;cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,var(--bone) 50%),linear-gradient(135deg,var(--bone) 50%,transparent 50%);background-position:calc(100% - 10px) 52%,calc(100% - 5px) 52%;background-size:5px 5px;background-repeat:no-repeat}
-select option{color:var(--ink)}
-textarea{min-height:120px;resize:vertical}
-input:focus,select:focus,textarea:focus{outline:none;border-bottom-color:var(--bone)}
-[aria-invalid="true"]{border-bottom-color:#E0A39A!important}
-.chk{grid-column:1/-1;display:flex;gap:14px;align-items:flex-start;font-size:14.5px;line-height:1.55;color:var(--mute-d)}
-.chk input{width:16px;height:16px;margin-top:3px;flex:none;accent-color:#F2F1EC}
-.send{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;border-top:1px solid var(--line-d);padding-top:22px}
-.send .note{font-size:14.5px;color:var(--mute-d);max-width:32em}
-.send button{background:none;border:0;cursor:pointer;padding:8px 0}
-@media (max-width:900px){.ct .side,form{grid-column:1/-1}form{margin-top:64px}}
+.f input,.f select,.f textarea{width:100%;font:inherit;font-size:17px;color:#F5F5F7;background:#161617;border:1px solid #2C2C2E;border-radius:12px;padding:26px 16px 10px;transition:border-color .3s,box-shadow .3s;appearance:none}
+.f textarea{min-height:140px;resize:vertical}
+.f select{cursor:pointer;background-image:linear-gradient(45deg,transparent 50%,#86868B 50%),linear-gradient(135deg,#86868B 50%,transparent 50%);background-position:calc(100% - 22px) 55%,calc(100% - 16px) 55%;background-size:6px 6px;background-repeat:no-repeat}
+.f select option{color:#000}
+.f label{position:absolute;left:17px;top:9px;font-size:12px;color:var(--g1);pointer-events:none}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:#86868B;box-shadow:0 0 0 3px rgba(255,255,255,.08)}
+[aria-invalid="true"]{border-color:#FF6B5E!important}
+.chk{grid-column:1/-1;display:flex;gap:12px;align-items:flex-start;font-size:14px;color:var(--g1);line-height:1.5;margin-top:6px}
+.chk input{width:18px;height:18px;margin:1px 0 0;accent-color:#F5F5F7;flex:none}
+.send{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:10px}
+.send .note{font-size:14px;color:var(--g1);max-width:30em}
+@media (max-width:900px){.ct .row{grid-template-columns:1fr}}
 @media (max-width:560px){form{grid-template-columns:1fr}}
 
-/* ------------------------------------------------------------ pie */
-footer{padding-bottom:calc(28px + env(safe-area-inset-bottom,0px))}
-footer .wm{margin-top:clamp(100px,16vh,180px);line-height:0}
-footer .wm svg{width:100%;height:auto;fill:#17181B}
-footer .meta{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;padding-top:22px;color:var(--mute-d);border-top:1px solid var(--line-d);margin-top:28px}
-footer .meta a:hover{color:var(--bone)}
+/* pie */
+footer{margin-top:clamp(120px,16vh,200px);border-top:1px solid var(--line-d);padding:34px 0 calc(34px + env(safe-area-inset-bottom,0px));font-size:12px;color:var(--g1)}
+footer .cols{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:28px}
+footer h4{margin:0 0 10px;font-size:12px;font-weight:600;color:#D2D2D7}
+footer li{margin-bottom:8px}
+footer a:hover{color:#F5F5F7;text-decoration:underline}
+footer .wm{width:96px;height:19px;fill:#D2D2D7;margin-bottom:14px}
+footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:34px;padding-top:18px;border-top:1px solid var(--line-d)}
+@media (max-width:720px){footer .cols{grid-template-columns:1fr 1fr}}
 
-/* ------------------------------------------------------------ movimiento reducido */
+/* movimiento reducido */
 @media (prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition-duration:.01ms!important;transition-delay:0s!important}
-  .nav,.cue,.cap1{opacity:1}
+  *,*::before,*::after{transition-duration:.01ms!important;transition-delay:0s!important;animation:none!important}
+  .rv{opacity:1;transform:none}
   .hero{height:auto}.stage{position:relative}
-  .loader,.say1,.read,.cue{display:none}
-  .rise{opacity:1;transform:none}
-  .enf .say .w{opacity:1}
-  .caps{height:auto}.caps .pin{position:relative;height:auto}
-  .caps .center,.caps .foot{display:none}
-  .caps .list{display:block!important}
-  .cine{height:auto}.cine .pin{position:relative}
-  .cine .frame{clip-path:none}.cine .frame img{transform:none}
-  .cine .txt h2 .row>span{transform:none}.cine .txt p,.cine .lab{opacity:1}.cine .frame::after{opacity:1}
-  .phases li{opacity:1}
-  .co .ph{clip-path:none}
-  .ct .big span{transform:none}
-  .peek{display:none}
+  .caps{height:auto}.caps .pin{position:relative;height:auto;padding:110px 0 40px}
+  .caps .grid{display:block}.caps ol,.caps .desc,.caps .vis{display:none}.caps .mob{display:grid;gap:56px}
+  .caps .mob figure{aspect-ratio:4/5;overflow:hidden}.caps .mob img{width:100%;height:100%;object-fit:cover}
+  .caps .mob h3{font-weight:700;font-size:32px;margin-top:22px}.caps .mob p{color:var(--g1);margin-top:10px}
+  .sob .grow{height:auto}.sob .grow .pin{position:relative;height:80vh}
+  .sob .frame{width:100%;height:100%}.sob .frame img{transform:none}.sob .frame .cap{opacity:1}
+  .mani .w{color:#F5F5F7}.met .steps li.st{opacity:1}
 }
-.caps .list{display:none;padding:0 0 40px}
-.caps .list li{border-top:1px solid var(--line-d);padding:28px 0}
-.caps .list h3{font-weight:200;font-size:clamp(36px,5vw,64px);letter-spacing:-.04em;line-height:1.05}
-.caps .list p{color:#D3D4D7;margin-top:10px;max-width:40em}
 </style>
 </head>
 <body>
-
-<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
-  <defs>
-    <symbol id="iso" viewBox="24 20 152 152"><path d="M24 20H60L96.2 172Z"/><path d="M176 20H140L103.8 172Z"/></symbol>
-    <symbol id="wm" viewBox="0 -4 552 108"><path d="M0 0H15V43H63V0H78V100H63V57H15V100H0Z"/><path d="M102 100L146 -3L190 100H173.6L146 37.3L118.4 100Z"/><path d="M214 0H229V85H276V100H214Z"/><path d="M268 0H284.4L312 62.7L339.6 0H356L312 103Z"/><path d="M378 0H440V15H393V42.5H434V57.5H393V85H440V100H378Z"/><path d="M464 0H482L508 37.14L534 0H552L517 50L552 100H534L508 62.86L482 100H464L499 50Z"/></symbol>
-    <symbol id="tick" viewBox="24 20 152 152"><path d="M24 20H60L96.2 172Z"/><path d="M176 20H140L103.8 172Z"/></symbol>
-  </defs>
-</svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <symbol id="wm" viewBox="0 -4 552 108"><path d="M0 0H15V43H63V0H78V100H63V57H15V100H0Z"/><path d="M102 100L146 -3L190 100H173.6L146 37.3L118.4 100Z"/><path d="M214 0H229V85H276V100H214Z"/><path d="M268 0H284.4L312 62.7L339.6 0H356L312 103Z"/><path d="M378 0H440V15H393V42.5H434V57.5H393V85H440V100H378Z"/><path d="M464 0H482L508 37.14L534 0H552L517 50L552 100H534L508 62.86L482 100H464L499 50Z"/></symbol>
+  <symbol id="chev" viewBox="0 0 9 14"><path d="M1.5 1.5L7.5 7L1.5 12.5" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+</defs></svg>
 
 <header class="nav" id="nav">
   <div class="wrap">
-    <a class="brand" href="#inicio" aria-label="HALVEX, volver al inicio">
+    <a class="brand" href="#inicio" aria-label="HALVEX, inicio">
       <svg class="bi" viewBox="24 20 152 152" aria-hidden="true"><path d="M24 20H60L96.2 172Z"/><path d="M176 20H140L103.8 172Z"/></svg>
       <svg class="bw" viewBox="0 -4 552 108" aria-hidden="true"><use href="#wm"/></svg>
     </a>
-    <div class="nav-r">
-      <a class="nl" href="#capacidades">Capacidades</a>
-      <a class="nl" href="#contacto">Contacto</a>
-      <button class="burger" id="mOpen" type="button" aria-expanded="false" aria-controls="menu"><i aria-hidden="true"></i>Menú</button>
-    </div>
+    <ul>
+      <li><a href="#manifiesto">Enfoque</a></li>
+      <li><a href="#capacidades">Capacidades</a></li>
+      <li><a href="#sectores">Sectores</a></li>
+      <li><a href="#metodo">Método</a></li>
+      <li><a href="#compania">Compañía</a></li>
+    </ul>
+    <a class="cta" href="#contacto">Contacto</a>
+    <button class="burger" id="mOpen" type="button" aria-expanded="false" aria-controls="menu" aria-label="Abrir menú"><i></i></button>
   </div>
 </header>
 
 <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menú" aria-hidden="true">
   <div class="wrap top">
-    <a class="brand" href="#inicio" aria-label="HALVEX"><svg class="bi" viewBox="24 20 152 152" aria-hidden="true" style="fill:currentColor"><path d="M24 20H60L96.2 172Z"/><path d="M176 20H140L103.8 172Z"/></svg></a>
-    <button class="x" id="mClose" type="button"><i aria-hidden="true"></i>Cerrar</button>
+    <a class="brand" href="#inicio" aria-label="HALVEX"><svg viewBox="24 20 152 152" aria-hidden="true" style="width:17px;height:17px;fill:currentColor"><path d="M24 20H60L96.2 172Z"/><path d="M176 20H140L103.8 172Z"/></svg></a>
+    <button class="x" id="mClose" type="button" aria-label="Cerrar menú"><i></i></button>
   </div>
-  <nav class="wrap" aria-label="Secciones">
-    <ol>
-      <li><a href="#enfoque"><span class="mono">01</span>Enfoque</a></li>
-      <li><a href="#capacidades"><span class="mono">02</span>Capacidades</a></li>
-      <li><a href="#sectores"><span class="mono">03</span>Sectores</a></li>
-      <li><a href="#metodo"><span class="mono">04</span>Método</a></li>
-      <li><a href="#compania"><span class="mono">05</span>Compañía</a></li>
-      <li><a href="#contacto"><span class="mono">06</span>Contacto</a></li>
-    </ol>
-  </nav>
-  <div class="wrap foot mono"><span>contacto@halvex.com</span><span>Madrid</span></div>
+  <nav class="wrap" aria-label="Secciones"><ol>
+    <li><a href="#manifiesto">Enfoque</a></li><li><a href="#capacidades">Capacidades</a></li><li><a href="#sectores">Sectores</a></li>
+    <li><a href="#metodo">Método</a></li><li><a href="#compania">Compañía</a></li><li><a href="#contacto">Contacto</a></li>
+  </ol></nav>
 </div>
 
 <main>
-  <!-- HERO · Punto de vista: dos esculturas que solo desde un punto exacto forman el isotipo -->
-  <section class="hero d" id="inicio" data-bg="night" data-tone="d" aria-label="Inicio">
+  <!-- 1 · HERO · el isotipo como objeto de titanio -->
+  <section class="hero" id="inicio" data-tone="d" aria-label="Inicio">
     <div class="stage" id="stage">
-      <canvas id="cv" role="img" aria-label="Dos cuñas de metal negro, separadas en el espacio, que al alinearse desde un punto exacto forman el isotipo de HALVEX"></canvas>
-      <div class="loader" id="loader" aria-hidden="true"><i></i></div>
-      <svg class="ap" id="ap" aria-hidden="true">
-        <g id="apg">
-          <polygon id="hole" fill="#F6F5F1" opacity="0" points="60,20 140,20 103.8,172 96.2,172"/>
-          <g id="logo" fill="#EDEBE6" opacity="0"><path d="M24 20H60L96.2 172Z"/><path d="M176 20H140L103.8 172Z"/></g>
-          <g id="brk" opacity="0"><path class="br" id="bk"/></g>
-        </g>
-      </svg>
-      <p class="cap1 mono" id="cap1">01 · Punto de vista</p>
-      <div class="say1" id="say1" aria-hidden="true">
-        <p>Desde cualquier ángulo,<br>dos piezas.</p>
-        <p>Solo desde un punto exacto,<br><b>una forma.</b></p>
+      <div class="poster" aria-hidden="true"></div>
+      <canvas id="gl" role="img" aria-label="El isotipo de HALVEX: dos cuñas de titanio pulido que convergen hacia un vértice"></canvas>
+      <div class="top" id="hTop">
+        <svg class="wmk" viewBox="0 -4 552 108" role="img" aria-label="HALVEX"><use href="#wm"/></svg>
       </div>
-      <div class="read mono" id="read" aria-hidden="true">
-        <dl><dt>Ángulo</dt><dd id="rA">46,0°</dd><dt>Distancia</dt><dd id="rD">4,60 m</dd></dl>
-        <div class="lvl"><i></i></div>
-        <span class="st" id="rS">Buscando</span>
+      <div class="two" id="hTwo" aria-hidden="true"><p>Precisión.<br><span>Sin margen.</span></p></div>
+      <div class="bot" id="hBot">
+        <h1><span class="ln"><span>Decisiones que</span></span><span class="ln"><span class="g">no admiten error.</span></span></h1>
+        <div class="acts">
+          <a class="btn" href="#contacto">Hablar con el equipo</a>
+          <a class="lnk" href="#manifiesto"><span>Descubrir HALVEX</span><svg aria-hidden="true"><use href="#chev"/></svg></a>
+        </div>
       </div>
-      <div class="mark" id="mark">
-        <h1><span class="sr">HALVEX. Tecnología para decisiones que no admiten error.</span>
-          <svg viewBox="0 -4 552 108" aria-hidden="true"><use href="#wm"/></svg>
-        </h1>
-        <p class="claim" aria-hidden="true">Tecnología para decisiones que <b>no admiten error.</b></p>
-      </div>
-      <a class="hcta cta" id="hcta" href="#contacto">Hablar con nuestro equipo <span class="ar"></span></a>
-      <div class="cue mono" id="cue" aria-hidden="true"><span>Desplace</span><i></i></div>
     </div>
   </section>
 
-  <!-- 01 · ENFOQUE -->
-  <section class="sec enf pad l" id="enfoque" data-bg="paper" data-tone="l">
-    <div class="wrap g">
-      <p class="eyebrow mono mut"><svg class="tick" viewBox="24 20 152 152" aria-hidden="true"><use href="#tick"/></svg>01 · Enfoque</p>
-      <p class="say" id="say">Trabajamos para organizaciones en las que una decisión tardía o un dato expuesto tienen <span class="ital">consecuencias reales.</span> Ponemos la inteligencia artificial, la seguridad y el software al servicio de quien decide.</p>
-      <ul class="facts">
-        <li class="rise"><span class="mono mut">I</span><b>Ingeniería propia</b><span class="mut">Diseñamos, construimos y mantenemos nuestro software.</span></li>
-        <li class="rise"><span class="mono mut">II</span><b>Despliegue soberano</b><span class="mut">En la nube, en sus centros de datos o en entornos aislados.</span></li>
-        <li class="rise"><span class="mono mut">III</span><b>Supervisión humana</b><span class="mut">La tecnología propone. Una persona decide.</span></li>
-        <li class="rise"><span class="mono mut">IV</span><b>Confidencialidad</b><span class="mut">Acceso restringido y discreción absoluta en cada proyecto.</span></li>
+  <!-- 2 · MANIFIESTO -->
+  <section class="mani dark" id="manifiesto" data-tone="d">
+    <div class="wrap">
+      <p class="eyebrow rv" style="margin-bottom:34px">Enfoque</p>
+      <p class="say" id="say">Inteligencia artificial, seguridad y software para organizaciones en las que una decisión tardía o un dato expuesto tienen consecuencias reales. Un solo equipo. Responsable de todo.</p>
+    </div>
+  </section>
+
+  <!-- 3 · CAPACIDADES -->
+  <section class="caps dark" id="capacidades" data-tone="d">
+    <div class="pin">
+      <div class="wrap grid">
+        <div>
+          <p class="eyebrow">Capacidades</p>
+          <ol id="capL">
+            <li class="on">Inteligencia artificial.</li><li>Sistemas de seguridad.</li><li>Software para defensa.</li>
+            <li>Software para empresas.</li><li>Automatización.</li><li>Consultoría estratégica.</li>
+          </ol>
+          <div class="desc" id="capD">
+            <p class="on">Modelos que analizan, anticipan y recomiendan, entrenados con sus datos y desplegados allí donde están.</p>
+            <p>Protección de infraestructuras, redes y personas: de la detección temprana a la respuesta coordinada.</p>
+            <p>Mando, control y gestión de la misión en entornos exigentes, con conectividad limitada y requisitos estrictos.</p>
+            <p>Sistemas a medida para operaciones críticas: fiables, auditables y preparados para crecer.</p>
+            <p>Procesos que funcionan solos y bajo control. Menos errores, más velocidad y trazabilidad completa.</p>
+            <p>Qué hacer, en qué orden y con qué riesgos. Acompañamos a la dirección del diagnóstico al presupuesto.</p>
+          </div>
+        </div>
+        <div class="vis" id="capV" aria-hidden="true">
+          <img class="on" src="img/c-ia.jpg" alt=""><img src="img/c-seguridad.jpg" alt="" loading="lazy"><img src="img/c-defensa.jpg" alt="" loading="lazy">
+          <img src="img/c-empresas.jpg" alt="" loading="lazy"><img src="img/c-auto.jpg" alt="" loading="lazy"><img src="img/c-consultoria.jpg" alt="" loading="lazy">
+          <div class="prog" id="capP"><i></i></div>
+        </div>
+        <div class="mob">
+          <div><figure><img src="img/c-ia.jpg" alt="Espiral de luz en la oscuridad" loading="lazy"></figure><h3>Inteligencia artificial.</h3><p>Modelos que analizan, anticipan y recomiendan, entrenados con sus datos y desplegados allí donde están.</p></div>
+          <div><figure><img src="img/c-seguridad.jpg" alt="Persona junto a un muro de piedra iluminado" loading="lazy"></figure><h3>Sistemas de seguridad.</h3><p>Protección de infraestructuras, redes y personas: de la detección temprana a la respuesta coordinada.</p></div>
+          <div><figure><img src="img/c-defensa.jpg" alt="Silueta frente a un ventanal con estructura de acero" loading="lazy"></figure><h3>Software para defensa.</h3><p>Mando, control y gestión de la misión en entornos exigentes.</p></div>
+          <div><figure><img src="img/c-empresas.jpg" alt="Fachada de oficinas iluminada de noche" loading="lazy"></figure><h3>Software para empresas.</h3><p>Sistemas a medida para operaciones críticas: fiables, auditables y preparados para crecer.</p></div>
+          <div><figure><img src="img/c-auto.jpg" alt="Tren en movimiento en un andén" loading="lazy"></figure><h3>Automatización.</h3><p>Procesos que funcionan solos y bajo control.</p></div>
+          <div><figure><img src="img/c-consultoria.jpg" alt="Persona de espaldas frente a un lago y montañas" loading="lazy"></figure><h3>Consultoría estratégica.</h3><p>Qué hacer, en qué orden y con qué riesgos.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · SOBERANÍA -->
+  <section class="sob dark" id="soberania" data-tone="d">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow rv">Despliegue soberano</p>
+        <h2 class="h-l rv" style="margin-top:18px">Sus datos no salen de donde usted decide.</h2>
+        <p class="lead rv">En sus centros de datos, en entornos aislados o en la nube que elija. <b>Bajo su control y su jurisdicción.</b></p>
+      </div>
+    </div>
+    <div class="grow" id="grow">
+      <div class="pin">
+        <figure class="frame" id="frame">
+          <img src="img/arquitectura.jpg" alt="Edificios de vidrio y acero vistos desde abajo" loading="lazy" decoding="async">
+          <figcaption class="cap"><p>Ingeniería propia. Ninguna dependencia oculta.</p><span>Entregamos código y modelos documentados, para que la tecnología siga siendo suya.</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 · POR QUÉ -->
+  <section class="why light" id="porque" data-tone="l">
+    <div class="wrap">
+      <div class="head">
+        <h2 class="h-l rv">Por qué HALVEX.</h2>
+        <p class="lead rv">Trabajamos para quien no puede fallar. Por eso <b>cada sistema tiene un responsable con nombre</b> y ninguna decisión crítica es automática.</p>
+      </div>
+      <ul class="feat">
+        <li class="rv"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7L3 12L8 17M16 7L21 12L16 17M13.5 5L10.5 19"/></svg><h3>Ingeniería propia.</h3><p>Diseñamos, construimos y mantenemos nuestro software.</p></li>
+        <li class="rv"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="6"/><rect x="4" y="14" width="16" height="6"/><path d="M7 7H9M7 17H9"/></svg><h3>Despliegue soberano.</h3><p>En la nube, en sus centros de datos o en entornos aislados.</p></li>
+        <li class="rv"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12L7 6H17L22 12L17 18H7Z"/><path d="M12 9L15 12L12 15L9 12Z"/></svg><h3>Supervisión humana.</h3><p>La tecnología propone. Una persona decide.</p></li>
+        <li class="rv"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3H14L18 7V21H6Z"/><path d="M14 3V7H18"/><path d="M12 11L15 14L12 17L9 14Z"/></svg><h3>Confidencialidad.</h3><p>Acceso restringido y discreción absoluta en cada proyecto.</p></li>
       </ul>
     </div>
   </section>
 
-  <!-- 02 · CAPACIDADES -->
-  <section class="sec caps d" id="capacidades" data-bg="night" data-tone="d">
-    <div class="pin">
-      <div class="wrap">
-        <div class="head"><p class="eyebrow mono mut"><svg class="tick" viewBox="24 20 152 152" aria-hidden="true"><use href="#tick"/></svg>02 · Capacidades</p><p class="mono mut" id="capN" aria-hidden="true">01 / 06</p></div>
-        <div class="center" aria-hidden="true">
-          <span class="num ital" id="capI">01</span>
-          <div class="ttl" id="capT">
-            <h3 class="on">Inteligencia <em>artificial</em></h3>
-            <h3>Sistemas de <em>seguridad</em></h3>
-            <h3>Software para <em>defensa</em></h3>
-            <h3>Software para <em>empresas</em></h3>
-            <h3><em>Automatización</em></h3>
-            <h3>Consultoría <em>estratégica</em></h3>
-          </div>
-        </div>
-        <div class="foot" aria-hidden="true">
-          <div class="bar" id="capB"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-          <div class="desc" id="capD">
-            <div class="on"><p>Modelos que analizan, anticipan y recomiendan, entrenados sobre los datos de cada organización y desplegados allí donde están.</p><ul class="mono"><li>Análisis de inteligencia</li><li>Visión por computador</li><li>Modelos privados</li></ul></div>
-            <div><p>Protección de infraestructuras, redes y personas, de la detección temprana a la respuesta coordinada.</p><ul class="mono"><li>Ciberseguridad</li><li>Respuesta a incidentes</li><li>Seguridad física</li></ul></div>
-            <div><p>Mando, control y gestión de la misión en entornos exigentes, con conectividad limitada y requisitos estrictos.</p><ul class="mono"><li>Mando y control</li><li>Conciencia situacional</li><li>Sensores</li></ul></div>
-            <div><p>Sistemas a medida para operaciones críticas: fiables, auditables y preparados para crecer.</p><ul class="mono"><li>Operaciones</li><li>Integración</li><li>Gobierno del dato</li></ul></div>
-            <div><p>Procesos que funcionan solos y bajo control: menos errores, más velocidad y trazabilidad completa.</p><ul class="mono"><li>Procesos</li><li>Orquestación</li><li>Mantenimiento predictivo</li></ul></div>
-            <div><p>Qué hacer, en qué orden y con qué riesgos. Acompañamos a la dirección del diagnóstico al presupuesto.</p><ul class="mono"><li>Estrategia de IA</li><li>Resiliencia</li><li>Due diligence</li></ul></div>
-          </div>
-        </div>
-        <ol class="list">
-          <li><h3>Inteligencia artificial</h3><p>Modelos que analizan, anticipan y recomiendan, entrenados sobre los datos de cada organización y desplegados allí donde están.</p></li>
-          <li><h3>Sistemas de seguridad</h3><p>Protección de infraestructuras, redes y personas, de la detección temprana a la respuesta coordinada.</p></li>
-          <li><h3>Software para defensa</h3><p>Mando, control y gestión de la misión en entornos exigentes, con conectividad limitada y requisitos estrictos.</p></li>
-          <li><h3>Software para empresas</h3><p>Sistemas a medida para operaciones críticas: fiables, auditables y preparados para crecer.</p></li>
-          <li><h3>Automatización</h3><p>Procesos que funcionan solos y bajo control: menos errores, más velocidad y trazabilidad completa.</p></li>
-          <li><h3>Consultoría estratégica</h3><p>Qué hacer, en qué orden y con qué riesgos. Acompañamos a la dirección del diagnóstico al presupuesto.</p></li>
-        </ol>
-      </div>
+  <!-- 6 · SECTORES -->
+  <section class="sec light" id="sectores" data-tone="l">
+    <div class="wrap head">
+      <div><p class="eyebrow rv">Sectores</p><h2 class="h-l rv" style="margin-top:18px">Para quien no puede fallar.</h2></div>
+      <div class="ctrl"><button type="button" id="prev" aria-label="Anterior"><svg style="transform:scaleX(-1)"><use href="#chev"/></svg></button><button type="button" id="next" aria-label="Siguiente"><svg><use href="#chev"/></svg></button></div>
+    </div>
+    <div class="track" id="track" tabindex="0" aria-label="Sectores">
+      <article class="tile"><img src="img/s-defensa.jpg" alt="" loading="lazy"><div class="t"><span>01</span><h3>Defensa y seguridad</h3></div><p>Mando y control, análisis de inteligencia y protección de capacidades críticas.</p></article>
+      <article class="tile"><img src="img/s-publica.jpg" alt="" loading="lazy"><div class="t"><span>02</span><h3>Administración pública</h3></div><p>Servicios digitales seguros, gestión de emergencias y soberanía del dato.</p></article>
+      <article class="tile"><img src="img/s-energia.jpg" alt="" loading="lazy"><div class="t"><span>03</span><h3>Infraestructuras y energía</h3></div><p>Protección de redes, plantas y sistemas industriales.</p></article>
+      <article class="tile"><img src="img/s-banca.jpg" alt="" loading="lazy"><div class="t"><span>04</span><h3>Banca y seguros</h3></div><p>Detección de fraude, cumplimiento normativo y continuidad del negocio.</p></article>
+      <article class="tile"><img src="img/s-industria.jpg" alt="" loading="lazy"><div class="t"><span>05</span><h3>Industria y logística</h3></div><p>Automatización de operaciones, mantenimiento predictivo y trazabilidad.</p></article>
+      <article class="tile"><img src="img/s-salud.jpg" alt="" loading="lazy"><div class="t"><span>06</span><h3>Salud</h3></div><p>Datos clínicos protegidos y apoyo a la gestión hospitalaria.</p></article>
     </div>
   </section>
 
-  <!-- 03 · IMAGEN -->
-  <section class="sec cine" id="soberania" data-bg="night" data-tone="d">
-    <div class="pin">
-      <div class="frame" id="frame"><img src="img/arquitectura.jpg" alt="Edificios de vidrio y acero vistos desde abajo, en blanco y negro" loading="lazy" decoding="async"></div>
-      <p class="lab mono">Despliegue soberano</p>
-      <div class="txt">
-        <div class="wrap">
-          <h2><span class="row"><span>Sus datos no salen</span></span><span class="row"><span>de donde <span class="ital">usted decide.</span></span></span></h2>
-          <p>En sus centros de datos, en entornos aislados o en la nube que elija. Bajo su control y su jurisdicción.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 04 · SECTORES -->
-  <section class="sec sec4 pad l" id="sectores" data-bg="paper" data-tone="l">
+  <!-- 7 · MÉTODO -->
+  <section class="met dark" id="metodo" data-tone="d">
     <div class="wrap">
-      <div class="top">
-        <h2 class="rise">Para quien no puede <span class="ital">fallar.</span></h2>
-        <p class="mut rise">Organizaciones en las que una decisión tardía o un dato expuesto tienen consecuencias reales.</p>
-      </div>
-      <div class="rows" id="rows">
-        <div class="row4" data-img="0"><span class="mono">01</span><h3>Defensa y seguridad</h3><p>Mando y control, análisis de inteligencia y protección de capacidades críticas.</p></div>
-        <div class="row4" data-img="1"><span class="mono">02</span><h3>Administración pública</h3><p>Servicios digitales seguros, gestión de emergencias y soberanía del dato.</p></div>
-        <div class="row4" data-img="2"><span class="mono">03</span><h3>Infraestructuras y energía</h3><p>Protección de redes, plantas y sistemas industriales.</p></div>
-        <div class="row4" data-img="3"><span class="mono">04</span><h3>Banca y seguros</h3><p>Detección de fraude, cumplimiento normativo y continuidad del negocio.</p></div>
-        <div class="row4" data-img="4"><span class="mono">05</span><h3>Industria y logística</h3><p>Automatización de operaciones, mantenimiento predictivo y trazabilidad.</p></div>
-        <div class="row4" data-img="5"><span class="mono">06</span><h3>Salud</h3><p>Datos clínicos protegidos y apoyo a la gestión hospitalaria.</p></div>
-      </div>
+      <p class="eyebrow rv">Método</p>
+      <h2 class="h-l rv" style="margin-top:18px">De lo amplio<br>a lo preciso.</h2>
+      <p class="lead rv" style="margin-top:26px;max-width:28em">Cada fase estrecha el problema hasta la decisión correcta, con hitos medibles y <b>un único equipo responsable.</b></p>
+      <ol class="steps" id="steps">
+        <li class="rail" aria-hidden="true"><i id="rail"></i></li>
+        <li class="st"><span class="n">01</span><h3>Diagnóstico</h3><p class="d">2–4 semanas</p><p>La misión, los datos, los sistemas existentes y los riesgos.</p></li>
+        <li class="st"><span class="n">02</span><h3>Diseño</h3><p class="d">4–8 semanas</p><p>Arquitectura, prototipo funcional y plan con hitos y costes cerrados.</p></li>
+        <li class="st"><span class="n">03</span><h3>Despliegue</h3><p class="d">Según alcance</p><p>En su entorno, con pruebas en cada fase.</p></li>
+        <li class="st"><span class="n">04</span><h3>Operación</h3><p class="d">Continua</p><p>Soporte, auditoría y mejora de los sistemas en producción.</p></li>
+      </ol>
     </div>
   </section>
-  <div class="peek" id="peek" aria-hidden="true">
-    <img src="img/s-defensa.jpg" alt="" loading="lazy"><img src="img/s-publica.jpg" alt="" loading="lazy"><img src="img/s-energia.jpg" alt="" loading="lazy"><img src="img/s-banca.jpg" alt="" loading="lazy"><img src="img/s-industria.jpg" alt="" loading="lazy"><img src="img/s-salud.jpg" alt="" loading="lazy">
-  </div>
 
-  <!-- 05 · MÉTODO -->
-  <section class="sec met pad l" id="metodo" data-bg="mineral" data-tone="l">
+  <!-- 8 · COMPAÑÍA -->
+  <section class="co light" id="compania" data-tone="l">
     <div class="wrap">
-      <div class="g">
-        <h2 class="rise">De lo amplio<br>a lo <span class="ital">preciso.</span></h2>
-        <p class="intro mut rise">Cada fase estrecha el problema hasta la decisión correcta, con hitos medibles y un único equipo responsable.</p>
-      </div>
-      <div class="conv" id="conv">
-        <svg viewBox="0 0 1000 160" preserveAspectRatio="none" aria-hidden="true">
-          <path pathLength="1" d="M0 2C420 2 700 80 985 80"/><path pathLength="1" d="M0 41C420 41 700 80 985 80"/><path pathLength="1" d="M0 80H985"/><path pathLength="1" d="M0 119C420 119 700 80 985 80"/><path pathLength="1" d="M0 158C420 158 700 80 985 80"/>
-        </svg>
-        <ol class="phases" id="phases">
-          <li><span class="n">01</span><h3>Diagnóstico</h3><span class="mono">2–4 semanas</span><p class="mut">La misión, los datos, los sistemas existentes y los riesgos.</p></li>
-          <li><span class="n">02</span><h3>Diseño</h3><span class="mono">4–8 semanas</span><p class="mut">Arquitectura, prototipo funcional y plan con hitos y costes cerrados.</p></li>
-          <li><span class="n">03</span><h3>Despliegue</h3><span class="mono">Según alcance</span><p class="mut">En su entorno, con pruebas en cada fase.</p></li>
-          <li><span class="n">04</span><h3>Operación</h3><span class="mono">Continua</span><p class="mut">Soporte, auditoría y mejora de los sistemas en producción.</p></li>
-        </ol>
-      </div>
+      <p class="eyebrow rv c">Compañía</p>
+      <h2 class="h-xl rv c" style="margin-top:18px">Pocos clientes.<br><span style="color:var(--g2)">Equipos estables.</span></h2>
+      <p class="lead rv c mx" style="margin-top:30px;max-width:30em">Una compañía tecnológica con sede en Madrid. Ingenieros, analistas y especialistas en seguridad para problemas en los que <b>la tecnología tiene que funcionar a la primera.</b></p>
+      <figure class="img rv" id="coImg"><img src="img/equipo.jpg" alt="Tres personas a contraluz frente a un ventanal sobre la ciudad" loading="lazy" decoding="async"></figure>
+      <ul class="pr">
+        <li class="rv"><h3>Confidencialidad</h3><p>Lo que sabemos de un cliente no sale del proyecto.</p></li>
+        <li class="rv"><h3>Soberanía del dato</h3><p>Los datos se quedan donde el cliente decide.</p></li>
+        <li class="rv"><h3>Responsabilidad humana</h3><p>Ninguna decisión crítica es automática.</p></li>
+        <li class="rv"><h3>Rigor técnico</h3><p>Probamos, documentamos y auditamos todo.</p></li>
+      </ul>
     </div>
   </section>
 
-  <!-- 06 · COMPAÑÍA -->
-  <section class="sec co pad l" id="compania" data-bg="paper" data-tone="l">
-    <div class="wrap g">
-      <figure class="ph" id="coPh"><img src="img/equipo.jpg" alt="Tres personas a contraluz frente a un ventanal sobre la ciudad" loading="lazy" decoding="async"></figure>
-      <div class="tx">
-        <p class="eyebrow mono mut rise"><svg class="tick" viewBox="24 20 152 152" aria-hidden="true"><use href="#tick"/></svg>Compañía</p>
-        <h2 class="rise" style="margin-top:30px">Pocos clientes.<br><span class="ital">Equipos estables.</span></h2>
-        <p class="lead rise">HALVEX es una compañía tecnológica con sede en Madrid. Reunimos ingenieros, analistas y especialistas en seguridad para resolver problemas en los que la tecnología tiene que funcionar a la primera.</p>
-        <ul class="pr rise">
-          <li><span class="mono mut">I</span><div><b>Confidencialidad</b><span>Lo que sabemos de un cliente no sale del proyecto.</span></div></li>
-          <li><span class="mono mut">II</span><div><b>Soberanía del dato</b><span>Los datos se quedan donde el cliente decide.</span></div></li>
-          <li><span class="mono mut">III</span><div><b>Responsabilidad humana</b><span>Ninguna decisión crítica es automática.</span></div></li>
-          <li><span class="mono mut">IV</span><div><b>Rigor técnico</b><span>Probamos, documentamos y auditamos todo lo que entregamos.</span></div></li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <!-- 07 · CONTACTO -->
-  <section class="sec ct pad d" id="contacto" data-bg="night" data-tone="d">
+  <!-- 9 · CONTACTO -->
+  <section class="ct dark" id="contacto" data-tone="d">
     <div class="wrap">
-      <p class="eyebrow mono mut"><svg class="tick" viewBox="24 20 152 152" aria-hidden="true"><use href="#tick"/></svg>Contacto</p>
-      <h2 class="big" id="big" style="margin-top:28px"><span>Hablemos.</span></h2>
-      <div class="g">
-        <div class="side">
-          <p class="mail"><span id="mail">contacto@halvex.com</span><button class="copybtn" id="copyMail" type="button">Copiar</button></p>
+      <h2 class="big rv"><span>Hablemos.</span></h2>
+      <div class="row">
+        <div class="side rv">
+          <div class="mail"><a href="mailto:contacto@halvex.com" id="mail">contacto@halvex.com</a><button class="copybtn" id="copyMail" type="button">Copiar</button></div>
           <p>Cuéntenos el reto. Un responsable de nuestro equipo le contestará para concertar una primera reunión confidencial.</p>
-          <p class="mono">Sede · Madrid</p>
         </div>
-        <form id="cform" novalidate>
-          <div class="f"><label for="f1">Nombre</label><input id="f1" name="nombre" autocomplete="name" required></div>
-          <div class="f"><label for="f2">Organización</label><input id="f2" name="organizacion" autocomplete="organization"></div>
-          <div class="f"><label for="f3">Correo profesional</label><input id="f3" name="correo" type="email" autocomplete="email" required></div>
-          <div class="f"><label for="f4">Área de interés</label><select id="f4" name="area"><option>Inteligencia artificial</option><option>Sistemas de seguridad</option><option>Software para defensa</option><option>Software para empresas</option><option>Automatización</option><option>Consultoría estratégica</option></select></div>
-          <div class="f w"><label for="f5">Mensaje</label><textarea id="f5" name="mensaje" required></textarea></div>
+        <form id="cform" novalidate class="rv">
+          <div class="f"><input id="f1" name="nombre" autocomplete="name" required><label for="f1">Nombre</label></div>
+          <div class="f"><input id="f2" name="organizacion" autocomplete="organization"><label for="f2">Organización</label></div>
+          <div class="f"><input id="f3" name="correo" type="email" autocomplete="email" required><label for="f3">Correo profesional</label></div>
+          <div class="f"><select id="f4" name="area"><option>Inteligencia artificial</option><option>Sistemas de seguridad</option><option>Software para defensa</option><option>Software para empresas</option><option>Automatización</option><option>Consultoría estratégica</option></select><label for="f4">Área de interés</label></div>
+          <div class="f w"><textarea id="f5" name="mensaje" required></textarea><label for="f5">Mensaje</label></div>
           <label class="chk" for="f6"><input id="f6" type="checkbox" required> Acepto que HALVEX trate estos datos para responder a mi consulta, según su política de privacidad.</label>
-          <div class="send"><p class="note" id="fnote" role="status">Respuesta en un día laborable.</p><button class="cta" type="submit">Enviar consulta <span class="ar"></span></button></div>
+          <div class="send"><p class="note" id="fnote" role="status">Respuesta en un día laborable.</p><button class="btn" type="submit">Enviar consulta</button></div>
         </form>
       </div>
       <footer>
-        <div class="wm" aria-hidden="true"><svg viewBox="0 -4 552 108"><use href="#wm"/></svg></div>
-        <div class="meta mono"><span>© 2026 HALVEX</span><span><a href="#enfoque">Enfoque</a> · <a href="#capacidades">Capacidades</a> · <a href="#sectores">Sectores</a></span><span>Aviso legal · Privacidad</span></div>
+        <div class="cols">
+          <div><svg class="wm" viewBox="0 -4 552 108" aria-hidden="true"><use href="#wm"/></svg><p>Inteligencia artificial, seguridad y software para decisiones que no admiten error.</p></div>
+          <div><h4>HALVEX</h4><ul><li><a href="#manifiesto">Enfoque</a></li><li><a href="#capacidades">Capacidades</a></li><li><a href="#sectores">Sectores</a></li></ul></div>
+          <div><h4>Compañía</h4><ul><li><a href="#metodo">Método</a></li><li><a href="#compania">Equipo</a></li><li><a href="#contacto">Contacto</a></li></ul></div>
+          <div><h4>Legal</h4><ul><li>Aviso legal</li><li>Privacidad</li><li>Cookies</li></ul></div>
+        </div>
+        <div class="bot"><span>© 2026 HALVEX. Todos los derechos reservados.</span><span>Madrid, España</span></div>
       </footer>
     </div>
   </section>
@@ -555,330 +512,148 @@ footer .meta a:hover{color:var(--bone)}
   'use strict';
   var D = document, W = window, root = D.documentElement;
   var RM = W.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var FINE = W.matchMedia('(hover:hover) and (pointer:fine)').matches;
   var clamp = function (v, a, b) { return v < a ? a : v > b ? b : v; };
-  var lerp = function (a, b, t) { return a + (b - a) * t; };
-  var eOut = function (t) { return 1 - Math.pow(1 - t, 4); };
-  var eIO = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
   var seg = function (v, a, b) { return clamp((v - a) / (b - a), 0, 1); };
+  var eIO = function (t) { return t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2; };
   var $ = function (id) { return D.getElementById(id); };
+  W.HX = { p: 0, mx: 0, my: 0, rm: RM };
 
-  /* ---------------- desplazamiento suave */
+  /* desplazamiento suave */
   var lenis = null;
-  if (!RM && W.Lenis) {
-    try { lenis = new W.Lenis({ lerp: 0.085, wheelMultiplier: 0.9, smoothWheel: true }); } catch (e) { lenis = null; }
-  }
-  function go(target) {
-    var el = typeof target === 'string' ? D.querySelector(target) : target;
-    if (!el) return;
-    if (el.id === 'capacidades' || el.id === 'inicio') { /* inicio de la sección */ }
-    if (lenis) lenis.scrollTo(el, { duration: 1.6, easing: eIO });
-    else el.scrollIntoView({ behavior: RM ? 'auto' : 'smooth' });
-  }
-  D.addEventListener('click', function (e) {
-    var a = e.target.closest('a[href^="#"]');
-    if (!a) return;
-    var h = a.getAttribute('href');
-    if (h.length < 2) return;
-    e.preventDefault();
-    if (menu.classList.contains('open')) setMenu(false, true);
-    go(h);
-  });
-
-  /* ---------------- menú */
+  if (!RM && W.Lenis) { try { lenis = new W.Lenis({ lerp: 0.09, wheelMultiplier: 0.95 }); } catch (e) {} }
   var menu = $('menu'), mo = $('mOpen'), mc = $('mClose');
-  var links = menu.querySelectorAll('li a');
-  links.forEach(function (a, i) { a.style.transitionDelay = (0.25 + i * 0.06) + 's'; });
-  function setMenu(o, keepScroll) {
-    menu.classList.toggle('open', o);
-    menu.setAttribute('aria-hidden', o ? 'false' : 'true');
-    mo.setAttribute('aria-expanded', o ? 'true' : 'false');
-    if (lenis) o ? lenis.stop() : lenis.start();
-    D.body.style.overflow = o ? 'hidden' : '';
-    if (o) setTimeout(function () { mc.focus(); }, 60);
-    else if (!keepScroll) mo.focus({ preventScroll: true });
+  function setMenu(o) {
+    menu.classList.toggle('open', o); menu.setAttribute('aria-hidden', o ? 'false' : 'true'); mo.setAttribute('aria-expanded', o ? 'true' : 'false');
+    D.body.style.overflow = o ? 'hidden' : ''; if (lenis) { if (o) lenis.stop(); else lenis.start(); }
+    if (o) setTimeout(function () { mc.focus(); }, 50);
   }
+  menu.querySelectorAll('li a').forEach(function (a, i) { a.style.transitionDelay = (0.06 + i * 0.04) + 's'; });
   mo.addEventListener('click', function () { setMenu(true); });
-  mc.addEventListener('click', function () { setMenu(false); });
-  D.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && menu.classList.contains('open')) setMenu(false);
-    if (e.key === 'Tab' && menu.classList.contains('open')) {
-      var f = menu.querySelectorAll('a,button'), first = f[0], last = f[f.length - 1];
-      if (e.shiftKey && D.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && D.activeElement === last) { e.preventDefault(); first.focus(); }
-    }
+  mc.addEventListener('click', function () { setMenu(false); mo.focus(); });
+  D.addEventListener('keydown', function (e) { if (e.key === 'Escape' && menu.classList.contains('open')) { setMenu(false); mo.focus(); } });
+  D.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]'); if (!a) return;
+    var h = a.getAttribute('href'); if (h.length < 2) return;
+    var el = D.querySelector(h); if (!el) return;
+    e.preventDefault(); if (menu.classList.contains('open')) setMenu(false);
+    if (lenis) lenis.scrollTo(el, { duration: 1.5, easing: eIO }); else el.scrollIntoView({ behavior: RM ? 'auto' : 'smooth' });
   });
 
-  /* ---------------- HERO · Punto de vista */
-  var NF = 60, PATH = 'seq/f', EXT = '.jpg';
-  /* posición del isotipo en la imagen final (Blender, coordenadas normalizadas) */
-  var ISO = { x0: 0.35663, y0: 0.35663, x1: 0.64337 };
-  var stage = $('stage'), cv = $('cv'), cx2 = cv.getContext('2d'), loader = $('loader'), ap = $('ap'), apg = $('apg'),
-      hole = $('hole'), logo = $('logo'), brk = $('brk'), bk = $('bk'), mark = $('mark'), hero = $('inicio'),
-      cap1 = $('cap1'), read = $('read'), rA = $('rA'), rD = $('rD'), rS = $('rS'), lvl = read.querySelector('.lvl'),
-      sayP = $('say1').querySelectorAll('p'), hcta = $('hcta'), cue = $('cue');
-  var frames = new Array(NF), loaded = 0, VW = 0, VH = 0, DPR = 1, IMG = 960, s0 = 1, s1 = 1, ty1 = 96, isoX = 0, isoY = 0;
-  var auto = 0, autoT0 = 0, AUTO_TO = 9, lastDraw = -1;
-  function layout() {
-    VW = stage.clientWidth; VH = stage.clientHeight; DPR = Math.min(W.devicePixelRatio || 1, 2);
-    cv.width = Math.round(VW * DPR); cv.height = Math.round(VH * DPR);
-    ap.setAttribute('viewBox', '0 0 ' + VW + ' ' + VH);
-    var c = Math.max(VW, VH) / 1;  /* la imagen es cuadrada: cubre el lado mayor */
-    var side = Math.max(VW, VH), ox = (VW - side) / 2, oy = (VH - side) / 2;
-    s0 = (ISO.x1 - ISO.x0) * side / 152;
-    isoX = ox + ISO.x0 * side; isoY = oy + ISO.y0 * side;   /* pantalla de (24,20) */
-    s1 = (VW + 0.4763 * VH) / 80 * 1.2;
-    ty1 = 20 + VH / (2 * s1) * 1.04;
-    var bottom = isoY + 152 * s0;
-    mark.style.setProperty('--wmy', ((bottom + (VW < 720 ? 46 : 54)) / VH * 100) + '%');
-    var m = 16, L = 14;
-    bk.setAttribute('d', ['M', 24 - m, 20 - m + L, 'V', 20 - m, 'H', 24 - m + L, 'M', 176 + m - L, 20 - m, 'H', 176 + m, 'V', 20 - m + L,
-      'M', 176 + m, 172 + m - L, 'V', 172 + m, 'H', 176 + m - L, 'M', 24 - m + L, 172 + m, 'H', 24 - m, 'V', 172 + m - L].join(' '));
-    lastDraw = -1;
-  }
-  function draw(fi) {
-    var i0 = Math.floor(fi), i1 = Math.min(NF - 1, i0 + 1), fr = fi - i0;
-    while (i0 > 0 && !frames[i0]) i0--;
-    if (!frames[i0]) return;
-    var key = i0 * 1000 + Math.round(fr * 60);
-    if (key === lastDraw) return; lastDraw = key;
-    var side = Math.max(cv.width, cv.height), oy = (cv.height - side) / 2;
-    /* en formato vertical el encuadre sigue a las esculturas y termina centrado en el punto de vista */
-    var fx = lerp(0.64, 0.5, sm(Math.min(1, fi / (NF - 1) / 0.85)));
-    var ox = clamp(cv.width / 2 - fx * side, cv.width - side, 0);
-    cx2.globalAlpha = 1; cx2.drawImage(frames[i0], ox, oy, side, side);
-    if (fr > 0.02 && frames[i1]) { cx2.globalAlpha = fr; cx2.drawImage(frames[i1], ox, oy, side, side); cx2.globalAlpha = 1; }
-  }
-  function load() {
-    var order = [];
-    for (var i = 0; i < NF; i++) order.push(i);
-    var started = false, t0 = performance.now();
-    function start() {
-      if (started) return; started = true;
-      root.classList.add('is-loaded'); autoT0 = performance.now();
-      setTimeout(function () { root.classList.add('is-ready'); }, 900);
-    }
-    order.forEach(function (i) {
-      var im = new Image(); im.decoding = 'async';
-      im.onload = im.onerror = function () {
-        if (im.naturalWidth) { frames[i] = im; IMG = im.naturalWidth; }
-        loaded++; loader.style.setProperty('--lp', (loaded / NF).toFixed(3));
-        var ready = true; for (var k = 0; k <= AUTO_TO; k++) if (!frames[k]) ready = false;
-        if ((ready && performance.now() - t0 > 1400) || loaded === NF) setTimeout(start, Math.max(0, 1400 - (performance.now() - t0)));
-      };
-      im.src = PATH + (i < 10 ? '00' : '0') + i + EXT;
-    });
-  }
-  var sm = function (t) { return t * t * t * (t * (6 * t - 15) + 10); };
-  function heroFrame(now) {
-    var r = hero.getBoundingClientRect();
-    if (r.bottom < 0) return;
-    var span = hero.offsetHeight - VH, p = clamp(-r.top / span, 0, 1);
-    /* entrada automática: la luz encuentra la primera pieza */
-    if (autoT0) auto = eIO(clamp((now - autoT0) / 2600, 0, 1)) * AUTO_TO;
-    var t = seg(p, 0, 0.7);                       /* recorrido de la cámara */
-    var fi = Math.max(auto, t * (NF - 1));
-    draw(fi);
-    var tt = fi / (NF - 1), m = sm(Math.min(1, tt / 0.88));
-    var ang = 46 * (1 - m), dist = 4.6 + 1.6 * m;
-    rA.textContent = ang.toFixed(1).replace('.', ',') + '°';
-    rD.textContent = dist.toFixed(2).replace('.', ',') + ' m';
-    lvl.style.setProperty('--lx', (50 + 50 * ang / 46).toFixed(2) + '%');
-    var aligned = tt > 0.995;
-    rS.textContent = aligned ? 'Alineado' : 'Buscando';
-    /* textos del desarrollo */
-    var a1 = seg(p, 0.04, 0.1) * (1 - seg(p, 0.24, 0.3)), a2 = seg(p, 0.34, 0.42) * (1 - seg(p, 0.58, 0.64));
-    sayP[0].style.opacity = a1.toFixed(3); sayP[0].style.transform = 'translateY(' + ((1 - a1) * 24).toFixed(1) + 'px)';
-    sayP[1].style.opacity = a2.toFixed(3); sayP[1].style.transform = 'translateY(' + ((1 - a2) * 24).toFixed(1) + 'px)';
-    stage.style.setProperty('--c1o', (1 - seg(p, 0.66, 0.72)).toFixed(3));
-    stage.style.setProperty('--rdo', (1 - seg(p, 0.8, 0.86)).toFixed(3));
-    stage.style.setProperty('--cuo', (1 - seg(p, 0, 0.05)).toFixed(3));
-    /* resolución: el objeto se convierte en el símbolo */
-    var lock = eOut(seg(p, 0.7, 0.76)), br = lock * (1 - seg(p, 0.8, 0.85));
-    brk.setAttribute('opacity', br.toFixed(3));
-    var lo = eIO(seg(p, 0.74, 0.82));
-    logo.setAttribute('opacity', lo.toFixed(3));
-    stage.style.setProperty('--cvo', (1 - 0.72 * eIO(seg(p, 0.74, 0.86))).toFixed(3));
-    var mk = eOut(seg(p, 0.79, 0.86)) * (1 - seg(p, 0.9, 0.93));
-    mark.style.opacity = mk.toFixed(3); mark.style.transform = 'translateY(' + ((1 - eOut(seg(p, 0.79, 0.86))) * 20).toFixed(1) + 'px)';
-    var ho = eOut(seg(p, 0.82, 0.88)) * (1 - seg(p, 0.9, 0.93));
-    hcta.style.opacity = ho.toFixed(3); hcta.classList.toggle('on', ho > 0.5);
-    /* transición: se atraviesa el vacío entre las cuñas */
-    hole.setAttribute('opacity', eOut(seg(p, 0.9, 0.935)).toFixed(3));
-    var z = eIO(seg(p, 0.915, 1));
-    var s = s0 * Math.pow(s1 / s0, z);
-    var cy = lerp(96, ty1, z);
-    var X = lerp(isoX + 76 * s0, VW / 2, z), Y = lerp(isoY + 76 * s0, VH / 2, z);
-    var bS = 1 + (1 - lock) * 0.18;                 /* las esquinas se cierran sobre el símbolo */
-    apg.setAttribute('transform', 'translate(' + X.toFixed(2) + ' ' + Y.toFixed(2) + ') scale(' + s.toFixed(5) + ') translate(-100 ' + (-cy).toFixed(3) + ')');
-    brk.setAttribute('transform', 'translate(100 96) scale(' + bS.toFixed(4) + ') translate(-100 -96)');
-  }
-  function heroStatic() {
-    /* movimiento reducido: el punto de vista ya está encontrado */
-    var im = new Image(); im.onload = function () { frames[NF - 1] = im; IMG = im.naturalWidth; root.classList.add('is-loaded', 'is-ready'); lastDraw = -1; draw(NF - 1); };
-    im.src = PATH + '0' + (NF - 1) + EXT;
-    apg.setAttribute('transform', 'translate(' + (isoX + 76 * s0) + ' ' + (isoY + 76 * s0) + ') scale(' + s0 + ') translate(-100 -96)');
-    logo.setAttribute('opacity', 1); stage.style.setProperty('--cvo', 0.35);
-    mark.style.opacity = 1; hcta.style.opacity = 1; hcta.classList.add('on');
-    stage.style.setProperty('--rdo', 0); stage.style.setProperty('--c1o', 0);
+  /* hero: textos y estado compartido con la escena 3D */
+  var hero = $('inicio'), hTop = $('hTop'), hBot = $('hBot'), hTwo = $('hTwo');
+  W.addEventListener('pointermove', function (e) { W.HX.mx = e.clientX / innerWidth * 2 - 1; W.HX.my = e.clientY / innerHeight * 2 - 1; }, { passive: true });
+  function heroFrame() {
+    var r = hero.getBoundingClientRect(); if (r.bottom < 0) return;
+    var p = clamp(-r.top / (hero.offsetHeight - innerHeight), 0, 1); W.HX.p = p;
+    var a = 1 - seg(p, 0.02, 0.28);
+    hTop.style.opacity = a.toFixed(3); hTop.style.transform = 'translateY(' + ((1 - a) * -30).toFixed(1) + 'px)';
+    hBot.style.opacity = a.toFixed(3); hBot.style.transform = 'translateY(' + ((1 - a) * 40).toFixed(1) + 'px)';
+    var b = seg(p, 0.36, 0.58);
+    hTwo.style.opacity = b.toFixed(3);
+    hTwo.style.transform = 'translateY(' + ((1 - b) * 40).toFixed(1) + 'px)';
   }
 
-  /* ---------------- 01 palabras que se encienden */
+  /* manifiesto: palabras que se encienden */
   var say = $('say'), words = [];
-  (function split(node) {
-    Array.prototype.slice.call(node.childNodes).forEach(function (ch) {
-      if (ch.nodeType === 3) {
-        var frag = D.createDocumentFragment();
-        ch.textContent.split(/(\s+)/).forEach(function (w) {
-          if (!w) return;
-          if (/^\s+$/.test(w)) frag.appendChild(D.createTextNode(w));
-          else { var s = D.createElement('span'); s.className = 'w'; s.textContent = w; frag.appendChild(s); words.push(s); }
-        });
-        node.replaceChild(frag, ch);
-      } else if (ch.nodeType === 1) split(ch);
+  say.textContent.split(/(\s+)/).forEach(function (w) {});
+  (function () {
+    var txt = say.textContent; say.textContent = '';
+    txt.split(/(\s+)/).forEach(function (w) {
+      if (!w) return;
+      if (/^\s+$/.test(w)) say.appendChild(D.createTextNode(w));
+      else { var s = D.createElement('span'); s.className = 'w'; s.textContent = w; say.appendChild(s); words.push(s); }
     });
-  })(say);
+  })();
   function sayFrame() {
-    var r = say.getBoundingClientRect();
-    if (r.bottom < -100 || r.top > VH + 100) return;
-    var p = seg(VH * 0.82 - r.top, 0, r.height + VH * 0.32);
-    var n = Math.round(p * words.length);
+    var r = say.getBoundingClientRect(); if (r.bottom < -50 || r.top > innerHeight + 50) return;
+    var p = seg(innerHeight * 0.85 - r.top, 0, r.height + innerHeight * 0.35), n = Math.round(p * words.length);
     for (var i = 0; i < words.length; i++) words[i].classList.toggle('on', i < n);
   }
 
-  /* ---------------- 02 capacidades */
-  var caps = $('capacidades'), capT = $('capT').children, capD = $('capD').children, capI = $('capI'), capN = $('capN'), capB = $('capB').children, capIdx = 0;
+  /* capacidades */
+  var caps = $('capacidades'), capL = $('capL').children, capD = $('capD').children, capV = $('capV').querySelectorAll('img'), capP = $('capP'), ci = 0;
+  function capSet(i) { if (i === ci) return; ci = i; for (var k = 0; k < 6; k++) { capL[k].classList.toggle('on', k === i); capD[k].classList.toggle('on', k === i); capV[k].classList.toggle('on', k === i); } }
+  Array.prototype.forEach.call(capL, function (li, i) {
+    li.addEventListener('click', function () {
+      var top = caps.getBoundingClientRect().top + W.scrollY, span = caps.offsetHeight - innerHeight, y = top + span * (i + 0.5) / 6;
+      if (lenis) lenis.scrollTo(y, { duration: 1.2 }); else W.scrollTo({ top: y, behavior: 'smooth' });
+    });
+  });
   function capsFrame() {
-    var r = caps.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > VH) return;
-    var p = clamp(-r.top / (caps.offsetHeight - VH), 0, 0.9999);
-    var idx = Math.floor(p * 6);
-    var local = p * 6 - idx;
-    for (var i = 0; i < 6; i++) capB[i].style.setProperty('--f', i < idx ? 1 : i === idx ? local.toFixed(3) : 0);
-    if (idx !== capIdx) {
-      for (var j = 0; j < 6; j++) {
-        capT[j].classList.toggle('on', j === idx);
-        capT[j].classList.toggle('up', j < idx);
-        capD[j].classList.toggle('on', j === idx);
-      }
-      capI.textContent = '0' + (idx + 1); capN.textContent = '0' + (idx + 1) + ' / 06';
-      capIdx = idx;
-    }
+    if (innerWidth <= 900 || RM) return;
+    var r = caps.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+    var p = clamp(-r.top / (caps.offsetHeight - innerHeight), 0, 0.9999), i = Math.floor(p * 6);
+    capSet(i); capP.style.setProperty('--p', (p * 6 - i).toFixed(3));
   }
 
-  /* ---------------- 03 imagen que se abre */
-  var cine = $('soberania'), frameEl = $('frame');
-  function cineFrame() {
-    var r = cine.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > VH) return;
-    var p = clamp(-r.top / (cine.offsetHeight - VH), 0, 1);
-    var e = eIO(seg(p, 0, 0.62));
-    var narrow = VW < 720;
-    frameEl.style.setProperty('--it', ((1 - e) * (narrow ? 14 : 16)).toFixed(3) + '%');
-    frameEl.style.setProperty('--ix', ((1 - e) * (narrow ? 8 : 22)).toFixed(3) + '%');
-    frameEl.style.setProperty('--is', (1.22 - 0.22 * e).toFixed(4));
-    frameEl.style.setProperty('--io2', seg(p, 0.45, 0.75).toFixed(3));
-    var on = p > 0.6;
-    cine.style.setProperty('--ty', on ? '0%' : '110%');
-    cine.style.setProperty('--tp', on ? 1 : 0);
+  /* soberanía: la imagen crece hasta ocupar la pantalla */
+  var grow = $('grow'), frame = $('frame');
+  function growFrame() {
+    if (RM) return;
+    var r = grow.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+    var p = clamp(-r.top / (grow.offsetHeight - innerHeight), 0, 1), e = eIO(seg(p, 0, 0.6));
+    var w0 = innerWidth < 720 ? 86 : 64, h0 = innerWidth < 720 ? 58 : 62;
+    frame.style.setProperty('--fw', (w0 + (100 - w0) * e).toFixed(2) + '%');
+    frame.style.setProperty('--fh', (h0 + (100 - h0) * e).toFixed(2) + '%');
+    frame.style.setProperty('--is', (1.15 - 0.15 * e).toFixed(4));
+    frame.style.setProperty('--co', seg(p, 0.6, 0.85).toFixed(3));
   }
 
-  /* ---------------- 05 convergencia */
-  var conv = $('conv'), cpaths = conv.querySelectorAll('path'), phases = $('phases').children;
-  function convFrame() {
-    var r = conv.getBoundingClientRect();
-    if (r.bottom < -100 || r.top > VH + 100) return;
-    var p = seg(VH * 0.9 - r.top, 0, VH * 0.75);
-    var e = eOut(p);
-    for (var i = 0; i < cpaths.length; i++) { cpaths[i].style.strokeDasharray = 1; cpaths[i].style.strokeDashoffset = (1 - e).toFixed(4); }
-    for (var k = 0; k < 4; k++) phases[k].classList.toggle('on', p > 0.18 + k * 0.2);
+  /* método: el raíl se completa */
+  var steps = $('steps'), rail = $('rail'), stepLi = steps.querySelectorAll('li.st');
+  function metFrame() {
+    var r = steps.getBoundingClientRect(); if (r.bottom < -100 || r.top > innerHeight) return;
+    var p = RM ? 1 : seg(innerHeight * 0.8 - r.top, 0, innerHeight * 0.55);
+    rail.style.transform = 'scaleX(' + p.toFixed(3) + ')';
+    for (var i = 0; i < stepLi.length; i++) stepLi[i].classList.toggle('on', RM || p > 0.05 + i * 0.25);
   }
 
-  /* ---------------- 06 imagen con paralaje */
-  var coPh = $('coPh'), coImg = coPh.querySelector('img');
+  /* compañía: paralaje */
+  var coImg = $('coImg'), coI = coImg.querySelector('img');
   function coFrame() {
-    var r = coPh.getBoundingClientRect();
-    if (r.bottom < 0 || r.top > VH) return;
-    var p = (r.top + r.height / 2 - VH / 2) / VH;
-    coImg.style.setProperty('--py', (p * -46).toFixed(1) + 'px');
+    var r = coImg.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
+    coI.style.setProperty('--py', (((r.top + r.height / 2) - innerHeight / 2) / innerHeight * -60).toFixed(1) + 'px');
   }
 
-  /* ---------------- fondos y navegación */
-  var secs = Array.prototype.slice.call(D.querySelectorAll('[data-bg]'));
-  var BG = { night: '#070708', paper: '#F6F5F1', mineral: '#E6E4DE' };
-  var nav = $('nav'), lastY = 0, curBg = '';
-  function chrome() {
-    var y = W.scrollY || root.scrollTop;
-    var mid = VH * 0.55, top = 38, bg = null, tone = 'd';
-    for (var i = 0; i < secs.length; i++) {
-      var r = secs[i].getBoundingClientRect();
-      if (r.top <= mid && r.bottom > mid) bg = secs[i].getAttribute('data-bg');
-      if (r.top <= top && r.bottom > top) tone = secs[i].getAttribute('data-tone');
-    }
-    if (bg && bg !== curBg) { D.body.style.backgroundColor = BG[bg]; curBg = bg; }
-    nav.classList.toggle('tl', tone === 'l');
-    if (!menu.classList.contains('open')) {
-      if (y > lastY + 4 && y > 240) nav.classList.add('hide');
-      else if (y < lastY - 4) nav.classList.remove('hide');
-    }
-    lastY = y;
+  /* navegación: tono según la sección */
+  var nav = $('nav'), tones = Array.prototype.slice.call(D.querySelectorAll('[data-tone]'));
+  function navFrame() {
+    var tone = 'd';
+    for (var i = 0; i < tones.length; i++) { var r = tones[i].getBoundingClientRect(); if (r.top <= 26 && r.bottom > 26) tone = tones[i].getAttribute('data-tone'); }
+    nav.classList.toggle('lt', tone === 'l'); nav.classList.toggle('sc', W.scrollY > 20);
   }
 
-  /* ---------------- apariciones */
-  var rises = D.querySelectorAll('.rise, #big, #coPh');
+  /* sectores: galería */
+  var track = $('track'), prev = $('prev'), next = $('next');
+  function step() { var t = track.querySelector('.tile'); return t ? t.offsetWidth + 22 : 300; }
+  prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: RM ? 'auto' : 'smooth' }); });
+  next.addEventListener('click', function () { track.scrollBy({ left: step(), behavior: RM ? 'auto' : 'smooth' }); });
+  function ctrl() { prev.disabled = track.scrollLeft < 4; next.disabled = track.scrollLeft > track.scrollWidth - track.clientWidth - 4; }
+  track.addEventListener('scroll', ctrl, { passive: true }); ctrl();
+
+  /* apariciones */
+  var rvs = D.querySelectorAll('.rv');
   if ('IntersectionObserver' in W && !RM) {
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { rootMargin: '0px 0px -12% 0px' });
-    rises.forEach(function (el, i) {
-      var sib = el.parentElement.querySelectorAll('.rise');
-      var k = Array.prototype.indexOf.call(sib, el);
-      if (k > 0) el.style.transitionDelay = (k * 0.09) + 's';
+    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -10% 0px' });
+    rvs.forEach(function (el) {
+      var sib = Array.prototype.filter.call(el.parentElement.children, function (c) { return c.classList.contains('rv'); });
+      var k = sib.indexOf(el); if (k > 0) el.style.transitionDelay = Math.min(k * 0.08, 0.32) + 's';
       io.observe(el);
     });
-  } else rises.forEach(function (el) { el.classList.add('in'); });
+  } else rvs.forEach(function (el) { el.classList.add('in'); });
 
-  /* ---------------- vista previa de sectores */
-  var peek = $('peek'), pimgs = peek.querySelectorAll('img'), rows = $('rows'), px = 0, py = 0, tx = 0, ty = 0, peekOn = false;
-  if (FINE && !RM) {
-    rows.querySelectorAll('.row4').forEach(function (row) {
-      row.addEventListener('pointerenter', function () {
-        var k = +row.getAttribute('data-img');
-        pimgs.forEach(function (im, i) { im.classList.toggle('on', i === k); });
-        peek.classList.add('on'); peekOn = true;
-      });
-    });
-    rows.addEventListener('pointerleave', function () { peek.classList.remove('on'); peekOn = false; });
-    rows.addEventListener('pointermove', function (e) { tx = e.clientX; ty = e.clientY; }, { passive: true });
+  function loop(t) {
+    if (lenis) lenis.raf(t);
+    heroFrame(); sayFrame(); capsFrame(); growFrame(); metFrame(); coFrame(); navFrame();
+    requestAnimationFrame(loop);
   }
-  function peekFrame() {
-    if (!peekOn && px === tx) return;
-    px = lerp(px, tx, 0.12); py = lerp(py, ty, 0.12);
-    var w = peek.offsetWidth, h = peek.offsetHeight;
-    var x = clamp(px + 36, 0, W.innerWidth - w), y2 = clamp(py - h / 2, 0, W.innerHeight - h);
-    peek.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y2.toFixed(1) + 'px,0)';
-  }
-
-  /* ---------------- bucle */
-  function frame(now) {
-    if (lenis) lenis.raf(now);
-    heroFrame(now); sayFrame(); capsFrame(); cineFrame(); convFrame(); coFrame(); chrome(); if (FINE && !RM) peekFrame();
-    requestAnimationFrame(frame);
-  }
-  layout();
-  W.addEventListener('resize', function () { layout(); if (RM) heroStatic(); });
   if (RM) {
-    heroStatic();
-    words.forEach(function (w) { w.classList.add('on'); });
-    for (var q = 0; q < 4; q++) phases[q].classList.add('on');
-    chrome();
-    W.addEventListener('scroll', chrome, { passive: true });
-  } else {
-    load();
-    requestAnimationFrame(frame);
-  }
+    words.forEach(function (w) { w.classList.add('on'); }); metFrame();
+    W.addEventListener('scroll', navFrame, { passive: true }); navFrame();
+  } else requestAnimationFrame(loop);
+  setTimeout(function () { root.classList.add('is-ready'); }, RM ? 0 : 900);
 
-  /* ---------------- formulario y correo */
+  /* formulario y correo */
   var f = $('cform'), note = $('fnote');
   f.addEventListener('submit', function (e) {
     e.preventDefault(); var bad = [];
@@ -892,10 +667,77 @@ footer .meta a:hover{color:var(--bone)}
   var cb = $('copyMail'), mail = $('mail');
   cb.addEventListener('click', function () {
     var ok = function () { cb.textContent = 'Copiado'; setTimeout(function () { cb.textContent = 'Copiar'; }, 1600); };
-    var sel = function () { var r = D.createRange(); r.selectNodeContents(mail); var s = W.getSelection(); s.removeAllRanges(); s.addRange(r); };
-    try { navigator.clipboard.writeText(mail.textContent).then(ok, sel); } catch (err) { sel(); }
+    try { navigator.clipboard.writeText(mail.textContent).then(ok, function () {}); } catch (err) {}
   });
 })();
+</script>
+
+<script type="module">
+/* Escena 3D: el isotipo de HALVEX como objeto de titanio pulido */
+const stage = document.getElementById('stage'), canvas = document.getElementById('gl'), root = document.documentElement;
+const HX = window.HX;
+const fail = () => root.classList.add('no-gl');
+if (HX.rm) fail();
+else {
+  try {
+    const THREE = await import('three');
+    const { RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js');
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance', preserveDrawingBuffer: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+    const scene = new THREE.Scene();
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.035).texture;
+
+    const camera = new THREE.PerspectiveCamera(28, 1, 0.1, 50);
+    const P = (x, y) => [(x - 100) / 152, (96 - y) / 152];
+    const shape = pts => { const s = new THREE.Shape(); pts.forEach((p, i) => { const [x, y] = P(p[0], p[1]); if (i) s.lineTo(x, y); else s.moveTo(x, y); }); s.closePath(); return s; };
+    const geo = new THREE.ExtrudeGeometry([shape([[24, 20], [60, 20], [96.2, 172]]), shape([[176, 20], [140, 20], [103.8, 172]])],
+      { depth: 0.13, bevelEnabled: true, bevelThickness: 0.01, bevelSize: 0.0045, bevelSegments: 5, curveSegments: 1 });
+    geo.center(); geo.computeVertexNormals();
+    const mat = new THREE.MeshPhysicalMaterial({ color: 0xB4B6BA, metalness: 1, roughness: 0.22, clearcoat: 0.7, clearcoatRoughness: 0.14, envMapIntensity: 1.55 });
+    const mesh = new THREE.Mesh(geo, mat);
+    const group = new THREE.Group(); group.add(mesh); scene.add(group);
+    const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(2.5, 3, 4); scene.add(key);
+    const rim = new THREE.DirectionalLight(0xffffff, 2.2); rim.position.set(-3, 1, -2.5); scene.add(rim);
+
+    let BASE_Y = 0.2;
+    function size() {
+      const w = stage.clientWidth, h = stage.clientHeight;
+      renderer.setSize(w, h, false); camera.aspect = w / h;
+      const fit = w / h < 0.8 ? 0.34 : 0.38;
+      const need = Math.max(1 / fit, (w / h < 0.8 ? 1.25 : 1) / camera.aspect);
+      camera.position.set(0, 0, (need / 2) / Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
+      BASE_Y = w / h < 0.8 ? 0.24 : 0.2;
+      camera.updateProjectionMatrix();
+    }
+    size(); window.addEventListener('resize', size);
+
+    let vis = true;
+    new IntersectionObserver(es => { vis = es[0].isIntersecting; }).observe(stage);
+    const t0 = performance.now(); let sx = 0, sy = 0;
+    const eo = t => 1 - Math.pow(1 - t, 4), cl = (v, a, b) => Math.min(b, Math.max(a, v));
+    root.classList.add('gl-on');
+    function tick(now) {
+      requestAnimationFrame(tick);
+      if (!vis) return;
+      const t = (now - t0) / 1000;
+      const intro = eo(cl((t - 0.15) / 2.8, 0, 1));          /* aparece de canto, como una línea de luz */
+      const p = HX.p;
+      const front = 1 - cl(p / 0.45, 0, 1);                  /* el scroll lo coloca de frente */
+      const idle = Math.sin(t * 0.42) * 0.2 * front;
+      sx += (HX.mx - sx) * 0.05; sy += (HX.my - sy) * 0.05;
+      group.rotation.set(intro * (sy * 0.16 * front) + (1 - intro) * 0.05,
+                         (1 - intro) * (Math.PI / 2 - 0.02) + intro * (-0.38 * front + idle + sx * 0.32 * front), 0);
+      const k = cl((p - 0.05) / 0.5, 0, 1);
+      group.scale.setScalar((0.9 + 0.1 * intro) * (1 + 0.28 * k));
+      group.position.y = BASE_Y + 0.06 * k;
+      renderer.render(scene, camera);
+    }
+    requestAnimationFrame(tick);
+  } catch (e) { console.warn('3D no disponible', e); fail(); }
+}
 </script>
 </body>
 </html>
