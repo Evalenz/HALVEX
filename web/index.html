@@ -185,16 +185,57 @@ button{font:inherit;color:inherit}
 .sob .frame .cap span{font-size:15px;color:#D2D2D7;max-width:22em}
 @media (max-width:720px){.sob .frame .cap{flex-direction:column;align-items:flex-start}}
 
-/* ------------------------------------------------------------ 5 · por qué */
+/* ------------------------------------------------------------ 5 · por qué · cuatro pruebas vivas */
 .why{padding:clamp(130px,18vh,220px) 0}
 .why .head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end}
-.why .feat{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(28px,3vw,48px);margin-top:clamp(70px,10vh,120px)}
-.why .feat li{border-top:1px solid var(--line-l);padding-top:30px}
-.why .feat svg{width:40px;height:40px;stroke:var(--ink);stroke-width:1.5;fill:none;stroke-linecap:square;stroke-linejoin:miter}
-.why .feat h3{font-weight:600;font-size:24px;letter-spacing:-.02em;margin:26px 0 10px;line-height:1.16}
-.why .feat p{font-size:17px;line-height:1.47;color:var(--g2)}
-@media (max-width:900px){.why .head{grid-template-columns:1fr}.why .feat{grid-template-columns:1fr 1fr;row-gap:48px}}
-@media (max-width:560px){.why .feat{grid-template-columns:1fr}}
+.bento{display:grid;grid-template-columns:repeat(12,1fr);gap:20px;margin-top:clamp(64px,9vh,110px)}
+.tl{position:relative;display:flex;flex-direction:column;min-height:clamp(440px,38vw,560px);overflow:hidden;background:#fff;color:var(--ink)}
+.tl.dk{background:#0B0B0C;color:#F5F5F7}
+.tl.ta{grid-column:span 7}.tl.tb{grid-column:span 5}.tl.tc{grid-column:span 5}.tl.td{grid-column:span 7}
+.tl .vz{position:relative;flex:1;min-height:240px}
+.tl .tx{padding:0 clamp(28px,3vw,44px) clamp(30px,3vw,44px)}
+.tl .tx span{font-size:13px;font-weight:600;color:var(--g2);letter-spacing:.01em}
+.tl.dk .tx span{color:var(--g1)}
+.tl h3{font-weight:700;font-size:clamp(26px,2.3vw,36px);letter-spacing:-.03em;line-height:1.08;margin-top:8px}
+.tl .tx p{font-size:17px;line-height:1.47;color:var(--g2);margin-top:10px;max-width:28em}
+.tl.dk .tx p{color:var(--g1)}
+/* a · código */
+.code{position:absolute;inset:clamp(28px,3vw,44px) clamp(28px,3vw,44px) 8px;font-family:ui-monospace,"SF Mono",Menlo,Consolas,monospace;font-size:clamp(12px,1vw,14.5px);line-height:1.9;color:#86868B;overflow:hidden}
+.code .bar{display:flex;gap:7px;margin-bottom:22px}
+.code .bar i{width:10px;height:10px;border-radius:50%;background:#2A2A2D}
+.code .bar em{font-style:normal;margin-left:12px;font-size:12px;color:#6E6F73}
+.code .row{display:flex;gap:22px;white-space:pre}
+.code .ln{width:2ch;text-align:right;color:#424245;flex:none}
+.code .l{display:block;overflow:hidden;width:0}
+.code .k{color:#F5F5F7}.code .f{color:#D2D2D7}.code .c{color:#6E6F73}
+.play .code .l{animation:type var(--d) steps(var(--n),end) var(--s) forwards}
+.code .cur{display:inline-block;width:.6em;height:1.15em;background:#F5F5F7;vertical-align:-.2em;margin-left:2px;animation:blink 1s steps(1) infinite}
+@keyframes type{to{width:calc(var(--n) * 1ch)}}
+@keyframes blink{50%{opacity:0}}
+/* b · soberanía */
+.tl.tb canvas{position:absolute;inset:0;width:100%;height:100%}
+/* c · supervisión humana */
+.flow{position:absolute;inset:clamp(28px,3vw,44px) clamp(28px,3vw,44px) 10px;display:flex;flex-direction:column;justify-content:center;gap:12px}
+.flow .st{display:flex;align-items:center;gap:14px;padding:16px 18px;border:1px solid var(--line-l);background:#FAFAF8;opacity:.35;transform:scale(.98);transition:opacity .6s var(--apple),transform .6s var(--apple),border-color .6s}
+.flow .st.on{opacity:1;transform:none;border-color:rgba(17,18,20,.28)}
+.flow .ic{width:34px;height:34px;flex:none;display:flex;align-items:center;justify-content:center;background:var(--ink);color:#fff;font-size:12px;font-weight:600}
+.flow .ic svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:1.6}
+.flow b{display:block;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.flow small{display:block;font-size:13px;color:var(--g2);margin-top:2px}
+.flow .go{margin-left:auto;height:32px;padding:0 14px;border-radius:999px;background:var(--ink);color:#fff;font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px;transition:transform .25s var(--apple),background-color .4s}
+.flow .go.press{transform:scale(.93)}
+.flow .go.ok{background:#2A2A2D}
+.flow .ar{align-self:center;width:1px;height:14px;background:var(--line-l)}
+/* d · confidencialidad */
+.doc{position:absolute;inset:clamp(28px,3vw,44px) clamp(28px,3vw,44px) 10px;font-size:clamp(15px,1.25vw,19px);line-height:1.75;color:#D2D2D7}
+.doc .hd{display:flex;justify-content:space-between;align-items:center;font-size:12px;font-weight:600;letter-spacing:.06em;color:#86868B;border-bottom:1px solid var(--line-d);padding-bottom:14px;margin-bottom:20px}
+.doc .hd b{color:#F5F5F7;display:flex;align-items:center;gap:8px}
+.doc .hd svg{width:13px;height:13px;stroke:#F5F5F7;fill:none;stroke-width:1.6}
+.doc .rd{position:relative;white-space:nowrap}
+.doc .rd::after{content:"";position:absolute;left:-2px;right:-2px;top:.18em;bottom:.12em;background:#F5F5F7;transform:scaleX(0);transform-origin:left;transition:transform .7s var(--out)}
+.play .doc .rd.on::after{transform:scaleX(1)}
+@media (max-width:900px){.why .head{grid-template-columns:1fr}.tl.ta,.tl.tb,.tl.tc,.tl.td{grid-column:1/-1}.tl{min-height:0}.tl .vz{min-height:300px}.flow,.doc{position:relative;inset:auto;padding:28px 24px 26px}.tl.ta .vz{min-height:270px}}
+@media (prefers-reduced-motion:reduce){.code .l{width:auto!important;animation:none!important}.flow .st{opacity:1;transform:none}.doc .rd::after{transform:scaleX(1)!important}}
 
 /* ------------------------------------------------------------ 6 · sectores */
 .sec{padding:clamp(40px,6vh,80px) 0 clamp(120px,16vh,200px)}
@@ -232,7 +273,8 @@ button{font:inherit;color:inherit}
 
 /* ------------------------------------------------------------ 8 · compañía */
 .co{padding:clamp(130px,18vh,220px) 0 clamp(110px,15vh,180px)}
-.co .img{position:relative;margin-top:clamp(64px,9vh,110px);aspect-ratio:21/9;overflow:hidden;background:#ddd}
+.co .img{position:relative;margin-top:clamp(64px,9vh,110px);aspect-ratio:21/9;overflow:hidden;background:#000}
+.co .img figcaption{position:absolute;left:clamp(22px,3vw,40px);bottom:clamp(18px,2.4vw,32px);font-size:13px;font-weight:600;color:#86868B;letter-spacing:.02em}
 .co .img img{position:absolute;left:0;top:-12%;width:100%;height:124%;object-fit:cover;transform:translateY(var(--py,0px))}
 .co .pr{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,3vw,48px);margin-top:clamp(56px,8vh,90px)}
 .co .pr h3{font-weight:600;font-size:21px;letter-spacing:-.02em}
@@ -410,19 +452,54 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
     </div>
   </section>
 
-  <!-- 5 · POR QUÉ -->
+  <!-- 5 · POR QUÉ · cuatro principios, cuatro pruebas -->
   <section class="why light" id="porque" data-tone="l">
     <div class="wrap">
       <div class="head">
         <h2 class="h-l rv">Por qué HALVEX.</h2>
         <p class="lead rv">Trabajamos para quien no puede fallar. Por eso <b>cada sistema tiene un responsable con nombre</b> y ninguna decisión crítica es automática.</p>
       </div>
-      <ul class="feat">
-        <li class="rv"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7L3 12L8 17M16 7L21 12L16 17M13.5 5L10.5 19"/></svg><h3>Ingeniería propia.</h3><p>Diseñamos, construimos y mantenemos nuestro software.</p></li>
-        <li class="rv"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="6"/><rect x="4" y="14" width="16" height="6"/><path d="M7 7H9M7 17H9"/></svg><h3>Despliegue soberano.</h3><p>En la nube, en sus centros de datos o en entornos aislados.</p></li>
-        <li class="rv"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12L7 6H17L22 12L17 18H7Z"/><path d="M12 9L15 12L12 15L9 12Z"/></svg><h3>Supervisión humana.</h3><p>La tecnología propone. Una persona decide.</p></li>
-        <li class="rv"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3H14L18 7V21H6Z"/><path d="M14 3V7H18"/><path d="M12 11L15 14L12 17L9 14Z"/></svg><h3>Confidencialidad.</h3><p>Acceso restringido y discreción absoluta en cada proyecto.</p></li>
-      </ul>
+      <div class="bento" id="bento">
+        <article class="tl dk ta rv">
+          <div class="vz" aria-hidden="true">
+            <div class="code" id="code">
+              <div class="bar"><i></i><i></i><i></i><em>decision.ts</em></div>
+              <div class="row"><span class="ln">1</span><span class="l"><span class="k">const</span> modelo = <span class="k">await</span> <span class="f">HALVEX.entrenar</span>(datos.locales);</span></div>
+              <div class="row"><span class="ln">2</span><span class="l"><span class="k">const</span> riesgo = <span class="f">modelo.evaluar</span>(situacion);</span></div>
+              <div class="row"><span class="ln">3</span><span class="l"> </span></div>
+              <div class="row"><span class="ln">4</span><span class="l"><span class="k">if</span> (riesgo.nivel &gt; umbral) {</span></div>
+              <div class="row"><span class="ln">5</span><span class="l">  <span class="f">responsable.revisar</span>(riesgo);  <span class="c">// decide una persona</span></span></div>
+              <div class="row"><span class="ln">6</span><span class="l">}<span class="cur"></span></span></div>
+            </div>
+          </div>
+          <div class="tx"><span>01</span><h3>Ingeniería propia.</h3><p>Diseñamos, construimos y mantenemos nuestro software. Sin piezas ajenas en lo esencial.</p></div>
+        </article>
+        <article class="tl tb rv">
+          <div class="vz" aria-hidden="true"><canvas id="sobC"></canvas></div>
+          <div class="tx"><span>02</span><h3>Despliegue soberano.</h3><p>Sus datos se mueven solo dentro de su perímetro: en sus centros, en entornos aislados o en la nube que elija.</p></div>
+        </article>
+        <article class="tl tc rv">
+          <div class="vz" aria-hidden="true">
+            <div class="flow" id="flow">
+              <div class="st"><span class="ic"><svg viewBox="0 0 24 24"><path d="M12 4L21 8.5L12 13L3 8.5Z"/><path d="M3 12.5L12 17L21 12.5"/></svg></span><div><b>El modelo recomienda</b><small>Reforzar la vigilancia del acceso norte</small></div></div>
+              <span class="ar"></span>
+              <div class="st"><span class="ic">RS</span><div><b>Una persona revisa</b><small>Responsable del sistema</small></div></div>
+              <span class="ar"></span>
+              <div class="st"><span class="ic"><svg viewBox="0 0 24 24"><path d="M5 12.5L10 17L19 7"/></svg></span><div><b>Decisión registrada</b><small id="flowT">Pendiente de aprobación</small></div><span class="go" id="flowB">Aprobar</span></div>
+            </div>
+          </div>
+          <div class="tx"><span>03</span><h3>Supervisión humana.</h3><p>La tecnología propone. Una persona decide, y queda registrado quién y cuándo.</p></div>
+        </article>
+        <article class="tl dk td rv">
+          <div class="vz" aria-hidden="true">
+            <div class="doc" id="doc">
+              <div class="hd"><b><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>CONFIDENCIAL</b><span>INFORME 0427</span></div>
+              <p>El sistema se desplegará en <span class="rd">el centro de datos de Madrid</span> antes del <span class="rd">12 de marzo</span>. Responsable del proyecto: <span class="rd">N. Apellido</span>. Los nodos se instalarán en <span class="rd">tres ubicaciones</span> con acceso restringido a <span class="rd">cuatro personas</span>.</p>
+            </div>
+          </div>
+          <div class="tx"><span>04</span><h3>Confidencialidad.</h3><p>Lo que sabemos de un cliente no sale del proyecto. Nunca lo citamos sin su permiso por escrito.</p></div>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -464,7 +541,7 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
       <p class="eyebrow rv c">Compañía</p>
       <h2 class="h-xl rv c" style="margin-top:18px">Pocos clientes.<br><span style="color:var(--g2)">Equipos estables.</span></h2>
       <p class="lead rv c mx" style="margin-top:30px;max-width:30em">Una compañía tecnológica con sede en Madrid. Ingenieros, analistas y especialistas en seguridad para problemas en los que <b>la tecnología tiene que funcionar a la primera.</b></p>
-      <figure class="img rv" id="coImg"><img src="img/equipo.jpg" alt="Tres personas a contraluz frente a un ventanal sobre la ciudad" loading="lazy" decoding="async"></figure>
+      <figure class="img rv" id="coImg"><img src="img/monolitos.jpg" alt="Las dos cuñas del isotipo de HALVEX como esculturas de metal negro, con una línea de luz que atraviesa el vértice" loading="lazy" decoding="async"><figcaption>HALVEX · Madrid</figcaption></figure>
       <ul class="pr">
         <li class="rv"><h3>Confidencialidad</h3><p>Lo que sabemos de un cliente no sale del proyecto.</p></li>
         <li class="rv"><h3>Soberanía del dato</h3><p>Los datos se quedan donde el cliente decide.</p></li>
@@ -872,6 +949,66 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
   document.querySelectorAll('canvas.mfx').forEach(function (cv) { if (window.innerWidth <= 900 || matchMedia('(prefers-reduced-motion: reduce)').matches) { var i = +cv.dataset.s; new HXFX.Runner(cv, function () { return i; }); } });
 })();
 </script>
+<script>
+/* Por qué HALVEX · las cuatro pruebas se animan solo mientras se ven */
+(function () {
+  var RM = matchMedia('(prefers-reduced-motion: reduce)').matches, D = document;
+  var bento = D.getElementById('bento'); if (!bento) return;
+  /* 01 · el código se escribe línea a línea */
+  var code = D.getElementById('code'), lines = code.querySelectorAll('.l'), s = 0.2;
+  lines.forEach(function (l) { var n = Math.max(1, l.textContent.length); l.style.setProperty('--n', n); l.style.setProperty('--d', (n * 0.035).toFixed(2) + 's'); l.style.setProperty('--s', s.toFixed(2) + 's'); s += n * 0.035 + 0.25; });
+  var codeT = s + 2.6;
+  /* 03 · recomendación, revisión, decisión */
+  var flow = D.getElementById('flow'), sts = flow.querySelectorAll('.st'), fb = D.getElementById('flowB'), ft = D.getElementById('flowT'), fi = -1;
+  function flowStep() {
+    fi = (fi + 1) % 5;
+    sts.forEach(function (st, k) { st.classList.toggle('on', fi >= 4 ? false : k <= Math.min(fi, 2)); });
+    if (fi === 2) { fb.classList.add('press'); setTimeout(function () { fb.classList.remove('press'); fb.classList.add('ok'); fb.textContent = 'Aprobada'; var d = new Date(); ft.textContent = 'Aprobada a las ' + ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2); }, 260); }
+    if (fi === 4 || fi === 0) { fb.classList.remove('ok'); fb.textContent = 'Aprobar'; ft.textContent = 'Pendiente de aprobación'; }
+  }
+  /* 04 · el texto sensible se tacha */
+  var rds = D.getElementById('doc').querySelectorAll('.rd'), ri = 0;
+  function redact() { ri = (ri + 1) % (rds.length * 2 + 3); rds.forEach(function (r, k) { r.classList.toggle('on', ri > k && ri <= rds.length + 2); }); }
+  /* 02 · los datos se mueven solo dentro del perímetro */
+  var cv = D.getElementById('sobC'), cx = cv.getContext('2d'), W = 0, H = 0, dots = [], flash = [];
+  function size() { var r = cv.getBoundingClientRect(), d = Math.min(devicePixelRatio || 1, 2); W = r.width; H = r.height; cv.width = W * d; cv.height = H * d; cx.setTransform(d, 0, 0, d, 0, 0); }
+  function box() { var m = Math.min(W, H) * 0.14; return { x: m + 4, y: m * 0.9, w: W - 2 * m - 8, h: H - m * 1.5 }; }
+  function seed() { dots = []; var b = box(); for (var i = 0; i < 38; i++) { var a = Math.random() * 6.283, v = 22 + Math.random() * 40; dots.push({ x: b.x + Math.random() * b.w, y: b.y + Math.random() * b.h, vx: Math.cos(a) * v, vy: Math.sin(a) * v }); } }
+  function drawSob(dt) {
+    var b = box(); cx.clearRect(0, 0, W, H);
+    cx.strokeStyle = 'rgba(17,18,20,.32)'; cx.lineWidth = 1; cx.setLineDash([4, 5]); cx.strokeRect(b.x, b.y, b.w, b.h); cx.setLineDash([]);
+    cx.strokeStyle = '#111214'; cx.lineWidth = 1.5;
+    [[b.x, b.y, 1, 1], [b.x + b.w, b.y, -1, 1], [b.x, b.y + b.h, 1, -1], [b.x + b.w, b.y + b.h, -1, -1]].forEach(function (k) { cx.beginPath(); cx.moveTo(k[0], k[1] + k[3] * 14); cx.lineTo(k[0], k[1]); cx.lineTo(k[0] + k[2] * 14, k[1]); cx.stroke(); });
+    cx.fillStyle = '#6E6F73'; cx.font = '600 11px -apple-system,BlinkMacSystemFont,Inter,sans-serif'; cx.fillText('SU INFRAESTRUCTURA', b.x + 12, b.y + 22);
+    cx.strokeStyle = 'rgba(17,18,20,.1)'; cx.beginPath();
+    for (var i = 0; i < dots.length; i++) for (var j = i + 1; j < dots.length; j++) { var dx = dots[i].x - dots[j].x, dy = dots[i].y - dots[j].y; if (dx * dx + dy * dy < 3600) { cx.moveTo(dots[i].x, dots[i].y); cx.lineTo(dots[j].x, dots[j].y); } }
+    cx.stroke();
+    dots.forEach(function (p) {
+      p.x += p.vx * dt; p.y += p.vy * dt;
+      if (p.x < b.x + 3) { p.x = b.x + 3; p.vx = Math.abs(p.vx); flash.push({ x: b.x, y: p.y, t: 0 }); }
+      if (p.x > b.x + b.w - 3) { p.x = b.x + b.w - 3; p.vx = -Math.abs(p.vx); flash.push({ x: b.x + b.w, y: p.y, t: 0 }); }
+      if (p.y < b.y + 3) { p.y = b.y + 3; p.vy = Math.abs(p.vy); flash.push({ x: p.x, y: b.y, t: 0 }); }
+      if (p.y > b.y + b.h - 3) { p.y = b.y + b.h - 3; p.vy = -Math.abs(p.vy); flash.push({ x: p.x, y: b.y + b.h, t: 0 }); }
+      cx.fillStyle = '#111214'; cx.beginPath(); cx.arc(p.x, p.y, 2.2, 0, 6.283); cx.fill();
+    });
+    for (var f = flash.length - 1; f >= 0; f--) { var q = flash[f]; q.t += dt; var a = 1 - q.t / 0.6; if (a <= 0) { flash.splice(f, 1); continue; } cx.strokeStyle = 'rgba(17,18,20,' + (a * 0.6).toFixed(3) + ')'; cx.beginPath(); cx.arc(q.x, q.y, 3 + q.t * 18, 0, 6.283); cx.stroke(); }
+  }
+  size(); seed(); addEventListener('resize', function () { size(); seed(); });
+  if (RM) { bento.classList.add('play'); sts.forEach(function (st) { st.classList.add('on'); }); rds.forEach(function (r) { r.classList.add('on'); }); drawSob(0); return; }
+  var vis = false, timers = [];
+  function startLoops() {
+    bento.classList.add('play');
+    timers.push(setInterval(function () { bento.classList.remove('play'); void code.offsetWidth; bento.classList.add('play'); }, codeT * 1000));
+    timers.push(setInterval(flowStep, 1300)); flowStep();
+    timers.push(setInterval(redact, 650));
+  }
+  function stopLoops() { timers.forEach(clearInterval); timers = []; }
+  new IntersectionObserver(function (es) { var v = es[0].isIntersecting; if (v && !vis) startLoops(); if (!v && vis) stopLoops(); vis = v; }, { threshold: 0.15 }).observe(bento);
+  var last = 0;
+  (function loop(now) { requestAnimationFrame(loop); if (!vis) { last = now; return; } var dt = Math.min(0.05, (now - (last || now)) / 1000); last = now; drawSob(dt); })(0);
+})();
+</script>
+
 <script type="module">
 /* Escena 3D: el isotipo de HALVEX como objeto de titanio pulido */
 const stage = document.getElementById('stage'), canvas = document.getElementById('gl'), root = document.documentElement;
