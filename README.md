@@ -40,9 +40,9 @@ Tipografía: la del sistema de Apple (SF Pro en Mac, iPhone e iPad) con Inter (G
 
 - **La firma: las dos mitades.** El isotipo son dos cuñas; el movimiento de la marca es que se separan. Aparece en la apertura (el isotipo se traza, se abre un instante y vuela a la navegación), al final del hero (las dos cuñas de titanio se separan y queda una sola línea de luz: «Precisión. Sin margen.»), en «Despliegue soberano» (la fotografía se ve a través del isotipo y las dos cuñas se abren hasta ser las dos mitades de la pantalla) y en el logotipo de la navegación al pasar el cursor.
 - **Navegación por corte.** Los enlaces del menú no recorren la página: un velo de 0,2 s tapa el salto y la sección de destino aparece ya resuelta. Las animaciones solo se reproducen al hacer scroll.
-- **Por qué HALVEX · la línea que ordena.** La pantalla se parte en dos por la línea de la marca: a la izquierda «lo habitual» (partículas grises y desordenadas), a la derecha las mismas partículas en estructuras precisas. Cinco escenas ligadas al scroll (responsabilidad, datos, decisiones, tecnología, discreción); al cambiar, las partículas pasan por la línea. En móvil la línea es horizontal.
-- **Sectores · índice tipográfico.** Seis filas a gran tamaño; al pasar el cursor, la fotografía se abre bajo él en dos mitades y le sigue con inercia. En móvil, cada fila lleva su foto, que se abre al entrar.
-- **Compañía · plano técnico.** Una retícula de marcas de replanteo se condensa en tres dibujos, uno por compromiso (un interlocutor, el mismo equipo en el tiempo, pocos proyectos a la vez).
+- **Por qué HALVEX · materia que se ordena.** 15.000 partículas de luz en 3D (three.js; 7.000 en móvil): una galaxia que se condensa en cada compromiso escrito a gran tamaño («Un solo equipo.», «Su perímetro.», «Una persona decide.», «Código propio.», «Discreción.»), gira en un vórtice entre uno y otro, se aparta del cursor y termina en el isotipo. Sin WebGL o con movimiento reducido, las palabras se muestran como texto.
+- **Sectores:** carrusel de tarjetas con fotografía.
+- **Compañía · desde dentro de la letra.** La sección empieza con una fotografía a pantalla completa; al bajar, la cámara se aleja y resulta que era el interior de la «l» de «clientes»: la foto queda solo dentro de «Pocos clientes.» y debajo sube «Equipos estables.».
 - Titulares con líneas que suben desde una máscara; barra de progreso bajo la navegación y subrayado en la sección activa.
 - Fotografía en blanco y negro (`img/x-*.jpg`, con recorte vertical `-m` para móvil), de Unsplash y provisional.
 
