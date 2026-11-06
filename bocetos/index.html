@@ -1307,7 +1307,7 @@ C.caida={grp:'hero',dur:12,html:HERO,make(){const B=tiBase({floor:true,fy:-.62,s
       const sw=sg(p,.5,.9);B.sweep.position.set(lerp(4,-4,sw),2,2.5);B.sweep.intensity=1.6*Math.sin(Math.PI*sw);
       B.iso.rotation.y+=mouse.sx*.15*sg(p,.6,.75);
       /* cámara baja, casi a ras del suelo, que se aleja despacio */
-      B.orbit(lerp(.22,.06,eIO(sg(p,0,.9))),lerp(-.02,.07,eIO(sg(p,.3,.95))),lerp(.9,1.04,eIO(sg(p,0,1))),-.06,hit*.03);
+      B.orbit(lerp(.22,.06,eIO(sg(p,0,.9))),lerp(-.02,.07,eIO(sg(p,.3,.95))),lerp(.9,1.04,eIO(sg(p,0,1)))*(MOB()?1.12:1),MOB()?-.3:-.06,hit*.03);
       hero(p,.7,.82);}};
 }};
 
@@ -1325,7 +1325,7 @@ diffuseColor.rgb*=mix(.7+.22*gN_+.12*gM_,1.,kP_);`)
     .replace('#include <normal_fragment_maps>','#include <normal_fragment_maps>\nnormal=normalize(normal+vec3(vn_(vOP*190.+3.)-.5,vn_(vOP*190.+11.)-.5,0.)*.55*(1.-kP_));')
     .replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\ntotalEmissiveRadiance+=vec3(1.,.97,.93)*exp(-pow((dB_-uX)/.008,2.))*uE;')
     .replace('#include <lights_physical_fragment>','#include <lights_physical_fragment>\n#ifdef USE_CLEARCOAT\nmaterial.clearcoat*=kP_;\n#endif');};
-  const B=tiBase({floor:true,mat});
+  const B=tiBase({mat});
   return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
     update(p,t){const rev=eo(sg(p,0,.16));mat.envMapIntensity=1.35*rev;B.key.intensity=.8*rev;
       /* la banda de luz pule el metal a su paso */
@@ -1375,10 +1375,12 @@ function envTitular(){const s=new THREE.Scene();s.background=new THREE.Color(0);
   x.translate(2048,0);x.scale(-1,1);x.fillStyle='#fff';x.textAlign='center';x.textBaseline='middle';x.font='600 190px -apple-system,"SF Pro Display","Helvetica Neue",Arial,sans-serif';
   x.fillText('Decisiones que',1024,210);x.fillStyle='#8a8a8f';x.fillText('no admiten error.',1024,430);
   const tx=new THREE.CanvasTexture(c);tx.colorSpace=THREE.SRGBColorSpace;
-  const tp=new THREE.Mesh(new THREE.PlaneGeometry(24,7.5),new THREE.MeshBasicMaterial({map:tx,color:new THREE.Color(2.4,2.4,2.4),side:THREE.DoubleSide}));tp.position.set(0,-.2,6.5);tp.lookAt(0,-.2,0);s.add(tp);
-  const pm=new THREE.PMREMGenerator(renderer),rt=pm.fromScene(s,0);pm.dispose();disposeScene(s);return rt;}
+  const tp=new THREE.Mesh(new THREE.PlaneGeometry(13,4.06),new THREE.MeshBasicMaterial({map:tx,color:new THREE.Color(1.5,1.5,1.5),side:THREE.DoubleSide}));tp.position.set(0,-.1,4.2);tp.lookAt(0,-.1,0);s.add(tp);
+  /* cubo de 512 para que el reflejo sea nítido (el PMREM normal es de 256) */
+  const crt=new THREE.WebGLCubeRenderTarget(512,{type:THREE.HalfFloatType});const cc=new THREE.CubeCamera(.1,100,crt);cc.update(renderer,s);
+  const pm=new THREE.PMREMGenerator(renderer),rt=pm.fromCubemap(crt.texture);pm.dispose();crt.dispose();disposeScene(s);return rt;}
 C.temira={grp:'hero',dur:10,html:HERO+'<p class="hint3" id="h3"></p>',make(){const rt=envTitular();
-  const mat=new THREE.MeshPhysicalMaterial({color:TIc(),metalness:1,roughness:.05,clearcoat:1,clearcoatRoughness:.03,envMapIntensity:1.3});
+  const mat=new THREE.MeshPhysicalMaterial({color:TIc(),metalness:1,roughness:.02,clearcoat:1,clearcoatRoughness:.02,envMapIntensity:1.3});
   const B=tiBase({env:rt.texture,mat});B.onDispose=()=>rt.dispose();
   let lastIn=-9,gx=0,gy=0,rx=0,ry=0,useG=false;
   const mv=()=>{lastIn=performance.now();},ori=e=>{if(e.gamma==null)return;useG=true;lastIn=performance.now();gx=cl(e.gamma/28,-1,1);gy=cl((e.beta-45)/28,-1,1);},
