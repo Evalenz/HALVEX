@@ -157,9 +157,9 @@ const PQ='<div class="pq" id="pq">'+
 
 /* textos que acompañan a cada boceto */
 const INFO={
- corte:{k:'Hero · nuevo',t:'El corte',d:'La pantalla entera es una plancha de titanio negro, cepillado, bajo una luz rasante. Un punto de luz blanca recorre la silueta del isotipo y la corta en directo, con chispas y un filo incandescente que se enfría tras él. Las dos cuñas recortadas se desprenden y caen hacia ti a cámara lenta, puliéndose al salir a la luz, y por los huecos entra un haz de luz. Al bajar, la cámara atraviesa el hueco.',
-  s:[['0–4 %','La plancha a oscuras, solo la luz rasante sobre la veta.'],['4–46 %','El corte: primero la cuña izquierda, luego la derecha.'],['47–50 %','Silencio. Por la ranura asoma la primera luz.'],['50–80 %','Las cuñas salen hacia la cámara y se convierten en titanio pulido; la luz entra por los huecos.'],['60–75 %','El titular entra.'],['78–100 %','Scroll: la cámara cruza el hueco y la pantalla se funde a blanco.']],
-  f:'HALVEX no dibuja su logo: lo corta. Precisión literal, con el gesto de la marca (partir en dos).',r:'Las chispas se pueden quitar si se quiere aún más sobrio; el resto es ligero.'},
+ corte:{k:'Hero · nuevo',t:'El corte',d:'Un bloque macizo de titanio aparece en la oscuridad con un barrido de luz. Un láser lo recorre y corta cuatro líneas exactas, con chispas y un filo incandescente que se enfría en una costura negra. Después, todo el material que sobra cae al vacío y queda el isotipo: dos cuñas de titanio pulido, recorridas por un brillo de estudio. Al bajar, las cuñas se abren y la cámara pasa entre ellas.',
+  s:[['0–12 %','El bloque de titanio aparece con un barrido de luz.'],['12–47 %','El láser corta las cuatro líneas del isotipo.'],['48–70 %','El material sobrante cae al vacío.'],['56–80 %','Quedan las dos cuñas de titanio pulido; un brillo las recorre.'],['64–78 %','El titular entra.'],['80–100 %','Scroll: las cuñas se abren y la cámara pasa entre ellas, como en la web actual.']],
+  f:'El isotipo no se dibuja: se esculpe en titanio macizo quitando todo lo que sobra. Precisión literal.',r:'La iluminación de estudio y el resplandor del láser piden una tarjeta gráfica decente; en móviles antiguos se puede quitar el resplandor.'},
  caminos:{k:'Hero · nuevo',t:'Mil caminos, una decisión',d:'Desde el vértice del isotipo nacen miles de caminos de luz que se ramifican por toda la pantalla, como una inteligencia artificial explorando cada opción posible. Después, todos se apagan desde las puntas hacia dentro, y solo queda un camino: el que dibuja, trazo a trazo, el isotipo. Al final el trazo se convierte en titanio.',
   s:[['0–42 %','Desde un punto, la luz se ramifica y lo llena todo.'],['42–48 %','Todos los caminos laten a la vez.'],['48–74 %','Se apagan uno a uno; un único trazo dibuja el isotipo.'],['64–78 %','El titular: Decisiones que no admiten error.'],['72–84 %','El trazo se hace metal.']],
   f:'Es el titular convertido en imagen: la tecnología explora todo y se elige un solo camino.',r:'Son líneas, no partículas, pero conviene no repetir esta estética en Por qué.'},
@@ -195,7 +195,7 @@ const INFO={
   f:'El más sobrio y elegante. Muy de producto, muy de Apple. Ligero en cualquier dispositivo.',r:'Menos espectacular que A o B; su fuerza está en la calma.'}
 };
 
-let THREE, ENV, RoomEnvironment, MeshSurfaceSampler, Reflector, renderer;
+let THREE, ENV, RoomEnvironment, MeshSurfaceSampler, Reflector, EffectComposer, RenderPass, UnrealBloomPass, OutputPass, renderer;
 const MOB=()=>stage.clientWidth/stage.clientHeight<.9;
 const mouse={x:0,y:0,sx:0,sy:0};
 stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect();mouse.x=(e.clientX-r.left)/r.width*2-1;mouse.y=(e.clientY-r.top)/r.height*2-1;},{passive:true});
@@ -548,63 +548,79 @@ function raysPass(){const rt=new THREE.WebGLRenderTarget(4,4);
   const q=new THREE.Mesh(new THREE.PlaneGeometry(2,2),m);q.frustumCulled=false;const s=new THREE.Scene();s.add(q);
   return {rt,m,s,cam:new THREE.OrthographicCamera(-1,1,1,-1,0,1),size(w,h){const pr=renderer.getPixelRatio();rt.setSize(Math.round(w*pr/2),Math.round(h*pr/2));},dispose(){rt.dispose();disposeScene(s);}};}
 
-/* EL CORTE */
-C.corte={grp:'hero',dur:13,html:HERO+'<div class="flashW" id="fw"></div>',make(){
-  const scene=new THREE.Scene();scene.environment=ENV;const cam=new THREE.PerspectiveCamera(30,1,.02,100);
-  const bt=brushed(.9);
-  const sm=new THREE.MeshPhysicalMaterial({color:0x3a3b3f,metalness:1,roughness:.42,roughnessMap:bt,bumpMap:bt,bumpScale:1.2,envMapIntensity:.3,clearcoat:.2});
-  const pm=sm.clone();
-  const rect=new THREE.Shape();rect.moveTo(-7,-5);rect.lineTo(7,-5);rect.lineTo(7,5);rect.lineTo(-7,5);rect.closePath();
-  [LT,RT].forEach(T=>{const h=new THREE.Path();[...T].reverse().forEach((p,i)=>{const [x,y]=P(p[0],p[1]);i?h.lineTo(x,y):h.moveTo(x,y);});h.closePath();rect.holes.push(h);});
-  const D0=.12,EXs={depth:D0,bevelEnabled:false,curveSegments:1};
-  const slab=new THREE.Mesh(new THREE.ExtrudeGeometry(rect,EXs),sm);slab.position.z=-D0;scene.add(slab);
-  const mk=T=>{const g=new THREE.ExtrudeGeometry(shapeOf(T),EXs);g.translate(0,0,-D0);const m=new THREE.Mesh(g,pm);const pv=new THREE.Group();pv.add(m);scene.add(pv);return {pv,m};};
-  const A=mk(LT),B=mk(RT);
-  /* el centro de cada cuña, para girarlas sobre sí mismas */
-  const cen=T=>{const q=T.map(p=>P(p[0],p[1]));return [(q[0][0]+q[1][0]+q[2][0])/3,(q[0][1]+q[1][1]+q[2][1])/3];};
-  [[A,LT],[B,RT]].forEach(([o,T])=>{const [cx,cy]=cen(T);o.m.position.set(-cx,-cy,0);o.pv.position.set(cx,cy,0);o.c=[cx,cy];});
-  const em=new THREE.Mesh(new THREE.PlaneGeometry(4,3),new THREE.MeshBasicMaterial({color:0xffffff,toneMapped:false}));em.position.z=-.7;scene.add(em);
-  const black=new THREE.MeshBasicMaterial({color:0});
-  const key=new THREE.DirectionalLight(0xffffff,.55);key.position.set(-4,1.2,1.2);const rim=new THREE.DirectionalLight(0xffffff,0);rim.position.set(2,3,4);scene.add(key,rim);
-  const hot=new THREE.PointLight(0xffffff,0,1.4,1.6);scene.add(hot);
-  const path=[PL([LT[0],LT[1],LT[2],LT[0]]),PL([RT[0],RT[1],RT[2],RT[0]])];
-  const rg=ribbon(path,.0075);
-  const rmat=new THREE.ShaderMaterial({uniforms:{uC:{value:0},uF:{value:1}},transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
+/* EL CORTE · el isotipo se esculpe en un bloque macizo de titanio */
+let STUDIO=null;
+function studio(){if(STUDIO)return STUDIO;const s=new THREE.Scene();s.background=new THREE.Color(0x000000);
+  const pan=(w,h,x,y,z,k)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color(k,k,k),side:THREE.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);s.add(m);};
+  pan(7,7,0,7,1,1.1);pan(1.1,9,-6,1,1.5,2.2);pan(.5,9,6,.5,2.5,2.6);pan(12,4,0,2.4,7,1.05);pan(3,7,-5,0,5,.5);pan(9,1.2,0,-2.5,7,.35);pan(9,.35,0,2.2,-6,2);pan(.35,6,3.5,1,-5,1.6);pan(2.5,.25,-2,4.2,4,2);
+  const pm=new THREE.PMREMGenerator(renderer);STUDIO=pm.fromScene(s,0).texture;pm.dispose();return STUDIO;}
+C.corte={grp:'hero',dur:14,html:HERO,make(){
+  const scene=new THREE.Scene();scene.environment=studio();const cam=new THREE.PerspectiveCamera(30,1,.02,100);
+  const bt=brushed(3);
+  const tm=()=>new THREE.MeshPhysicalMaterial({color:new THREE.Color().setRGB(.80,.79,.76,THREE.SRGBColorSpace),metalness:1,roughness:.32,roughnessMap:bt,bumpMap:bt,bumpScale:.35,anisotropy:.7,clearcoat:.35,clearcoatRoughness:.25,envMapIntensity:0});
+  const bm=tm(),wm=tm();
+  const DEP=.16,EXB={depth:DEP,bevelEnabled:true,bevelThickness:.007,bevelSize:.007,bevelSegments:4,curveSegments:1};
+  const geo=(pts,ex)=>{const g=new THREE.ExtrudeGeometry(shapeOf(pts),ex);g.translate(0,0,-DEP/2);g.computeVertexNormals();return g;};
+  const SQ=[[24,20],[176,20],[176,172],[24,172]];
+  const block=new THREE.Mesh(geo(SQ,EXB),bm);scene.add(block);
+  const piece=(pts,m,ex)=>{const q=pts.map(p=>P(p[0],p[1]));const cx=q.reduce((a,p)=>a+p[0],0)/q.length,cy=q.reduce((a,p)=>a+p[1],0)/q.length;
+    const me=new THREE.Mesh(geo(pts,ex),m);me.position.set(-cx,-cy,0);const g=new THREE.Group();g.add(me);g.position.set(cx,cy,0);g.userData.c=[cx,cy];g.visible=false;scene.add(g);return g;};
+  const EXc={depth:DEP,bevelEnabled:false,curveSegments:1};
+  const WL=piece(LT,wm,EXB),WR=piece(RT,wm,EXB);
+  const offs=[piece([[24,20],[96.2,172],[24,172]],bm,EXc),piece([[60,20],[140,20],[103.8,172],[96.2,172]],bm,EXc),piece([[176,20],[176,172],[103.8,172]],bm,EXc)];
+  const fall=[{vx:-.35,rz:.9,rx:.6,d:0},{vx:0,rz:-.25,rx:-1.1,d:.04},{vx:.35,rz:-.9,rx:.5,d:.02}];
+  const key=new THREE.DirectionalLight(0xffffff,0);key.position.set(-3,2.5,3);const sweep=new THREE.DirectionalLight(0xffffff,0);scene.add(key,sweep);
+  /* el corte: costura oscura + filo incandescente */
+  const path=[PL([[24,20],[96.2,172],[60,20]]),PL([[140,20],[103.8,172],[176,20]])];
+  const seamG=ribbon(path,.0055),hotG=ribbon(path,.014);
+  const seam=new THREE.Mesh(seamG,new THREE.ShaderMaterial({uniforms:{uC:{value:0},uO:{value:1}},transparent:true,depthWrite:false,
     vertexShader:'attribute float aS;varying float vS;void main(){vS=aS;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
-    fragmentShader:'uniform float uC,uF;varying float vS;void main(){if(vS>uC)discard;float age=uC-vS,h=exp(-age*26.);vec3 c=mix(vec3(.55,.58,.62)*.35,vec3(1.),h);gl_FragColor=vec4(c*(.6+2.2*h)*uF,1.);}'});
-  const trail=new THREE.Mesh(rg,rmat);trail.position.z=.002;scene.add(trail);
-  const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));glow.scale.set(.22,.22,1);scene.add(glow);
-  const NS=320,sp=new Float32Array(NS*6),sc=new Float32Array(NS*6),sv=[];for(let i=0;i<NS;i++)sv.push({x:0,y:0,z:0,vx:0,vy:0,vz:0,l:0,L:1});
+    fragmentShader:'uniform float uC,uO;varying float vS;void main(){if(vS>uC)discard;gl_FragColor=vec4(vec3(.005),.92*uO);}'}));
+  const hot=new THREE.Mesh(hotG,new THREE.ShaderMaterial({uniforms:{uC:{value:0},uO:{value:1}},transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
+    vertexShader:'attribute float aS;varying float vS;void main(){vS=aS;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+    fragmentShader:'uniform float uC,uO;varying float vS;void main(){if(vS>uC)discard;float h=exp(-(uC-vS)*22.);gl_FragColor=vec4(vec3(1.,.97,.93)*(h*3.6+.04)*uO,1.);}'}));
+  seam.position.z=DEP/2+.0075;hot.position.z=DEP/2+.008;seam.renderOrder=2;hot.renderOrder=3;scene.add(seam,hot);
+  const tip=new THREE.Mesh(new THREE.SphereGeometry(.012,16,8),new THREE.MeshBasicMaterial({color:new THREE.Color(4,4,4),toneMapped:false}));scene.add(tip);
+  const beamM=new THREE.MeshBasicMaterial({color:new THREE.Color(3,3,3),toneMapped:false,transparent:true,opacity:.9,blending:THREE.AdditiveBlending,depthWrite:false});
+  const beam=new THREE.Mesh(new THREE.CylinderGeometry(.0018,.0018,1,8,1,true),beamM);scene.add(beam);
+  const hl=new THREE.PointLight(0xffffff,0,.6,2);scene.add(hl);
+  const NS=360,sp=new Float32Array(NS*6),sc=new Float32Array(NS*6),sv=[];for(let i=0;i<NS;i++)sv.push({x:0,y:0,z:0,vx:0,vy:0,vz:0,l:0,L:1});
   const sg2=new THREE.BufferGeometry();sg2.setAttribute('position',new THREE.BufferAttribute(sp,3));sg2.setAttribute('color',new THREE.BufferAttribute(sc,3));
   const sparks=new THREE.LineSegments(sg2,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));sparks.frustumCulled=false;scene.add(sparks);
-  let si=0,acc=0,lastP=-1;
-  const R=raysPass();let Z0=5,W=1,H=1;const v3=new THREE.Vector3();
-  return {scene,cam,resize(w,h){W=w;H=h;cam.aspect=w/h;Z0=fitZ(cam,1,1,.42,MOB()?.66:.6);cam.updateProjectionMatrix();R.size(w,h);},
-    update(p,t,dt){const c=eIO(sg(p,.04,.46)),cutting=p>.035&&p<.465;rmat.uniforms.uC.value=c;
-      const [hx,hy]=pathAt(rg,c);glow.position.set(hx,hy,.01);hot.position.set(hx,hy,.12);
-      const on=cutting?1:0;glow.material.opacity=on*(.85+.15*Math.sin(t*40));hot.intensity=on*1.6;
-      /* chispas */
+  const head=new THREE.Vector3(.9,1.9,2.2),up=new THREE.Vector3(0,1,0),dv=new THREE.Vector3();
+  const comp=new EffectComposer(renderer);comp.addPass(new RenderPass(scene,cam));const bloom=new UnrealBloomPass(new THREE.Vector2(256,256),.45,.35,1.45);comp.addPass(bloom);comp.addPass(new OutputPass());
+  let si=0,acc=0,lastP=-1,Z0=5;
+  return {scene,cam,resize(w,h){cam.aspect=w/h;Z0=fitZ(cam,1,1,.42,MOB()?.62:.6);cam.updateProjectionMatrix();comp.setPixelRatio(renderer.getPixelRatio());comp.setSize(w,h);},
+    update(p,t,dt){
+      /* 1 · el bloque aparece con un barrido de luz */
+      const rev=eo(sg(p,0,.12));bm.envMapIntensity=wm.envMapIntensity=1.25*rev;key.intensity=.9*rev;
+      sweep.position.set(lerp(-4,4,sg(p,0,.16)),1.2,2.5);sweep.intensity=2.2*Math.sin(Math.PI*sg(p,0,.16));
+      /* 2 · el corte */
+      const c=eIO(sg(p,.12,.47)),cutting=p>.115&&p<.475;seam.material.uniforms.uC.value=hot.material.uniforms.uC.value=c;
+      const [hx,hy]=pathAt(seamG,c),z0=DEP/2+.008;tip.position.set(hx,hy,z0);hl.position.set(hx,hy,z0+.1);
+      tip.visible=beam.visible=cutting;hl.intensity=cutting?(.3+.1*Math.sin(t*60)):0;
+      dv.set(hx,hy,z0).sub(head);beam.position.copy(head).addScaledVector(dv,.5);beam.scale.set(1,dv.length(),1);beam.quaternion.setFromUnitVectors(up,dv.clone().normalize());
       const back=p<lastP;lastP=p;if(back)sv.forEach(s=>s.l=0);
-      if(cutting){acc+=dt*420;while(acc>1){acc--;const s=sv[si];si=(si+1)%NS;const a=Math.random()*Math.PI*2,v=.5+Math.random()*1.3;
-        s.x=hx;s.y=hy;s.z=.01;s.vx=Math.cos(a)*v*.7;s.vy=Math.sin(a)*v*.5+.2;s.vz=.4+Math.random()*1.2;s.l=s.L=.2+Math.random()*.45;}}
-      for(let i=0;i<NS;i++){const s=sv[i],o=i*6;if(s.l>0){s.l-=dt;s.vy-=2.6*dt;s.x+=s.vx*dt;s.y+=s.vy*dt;s.z+=s.vz*dt;}
-        const k=Math.max(0,s.l/s.L);sp[o]=s.x;sp[o+1]=s.y;sp[o+2]=s.z;sp[o+3]=s.x-s.vx*.035;sp[o+4]=s.y-s.vy*.035;sp[o+5]=s.z-s.vz*.035;
-        const b=k*k*1.6;sc[o]=sc[o+1]=sc[o+2]=b;sc[o+3]=sc[o+4]=sc[o+5]=0;}
+      if(cutting){acc+=dt*380;while(acc>1){acc--;const s=sv[si];si=(si+1)%NS;const a=-Math.PI/2+(Math.random()-.5)*2.4,v=.4+Math.random()*1.4;
+        s.x=hx;s.y=hy;s.z=z0;s.vx=Math.cos(a)*v*.6;s.vy=Math.sin(a)*v*.4+.35;s.vz=.3+Math.random()*1.1;s.l=s.L=.25+Math.random()*.5;}}
+      for(let i=0;i<NS;i++){const s=sv[i],o=i*6;if(s.l>0){s.l-=dt;s.vy-=3*dt;s.x+=s.vx*dt;s.y+=s.vy*dt;s.z+=s.vz*dt;}
+        const k=Math.max(0,s.l/s.L),b=k*k*3.2;sp[o]=s.x;sp[o+1]=s.y;sp[o+2]=s.z;sp[o+3]=s.x-s.vx*.03;sp[o+4]=s.y-s.vy*.03;sp[o+5]=s.z-s.vz*.03;
+        sc[o]=sc[o+1]=b;sc[o+2]=b*.95;sc[o+3]=sc[o+4]=sc[o+5]=0;}
       sg2.attributes.position.needsUpdate=true;sg2.attributes.color.needsUpdate=true;
-      /* las cuñas salen hacia la cámara */
-      const pop=sg(p,.47,.5)*.01,e=eIO(sg(p,.5,.8)),f=eIO(sg(p,.78,1));
-      [[A,-1],[B,1]].forEach(([o,s])=>{o.pv.position.set(o.c[0]+s*(.12*e+.5*f),o.c[1]+.03*e,pop+1.15*e);o.pv.rotation.set(-.22*e,s*.42*e,s*.06*e+Math.sin(t*.5)*.02*e);});
-      const pol=sg(p,.5,.75);pm.color.setRGB(lerp(.227,.74,pol),lerp(.231,.75,pol),lerp(.247,.77,pol),THREE.SRGBColorSpace);pm.roughness=lerp(.42,.24,pol);pm.envMapIntensity=lerp(.3,1.4,pol);rim.intensity=1.6*pol;
-      rmat.uniforms.uF.value=1-sg(p,.48,.56)*.85;
-      key.intensity=.55+.25*Math.sin(t*.3);
-      cam.position.set(Z0*.16+mouse.sx*.25,Z0*.05-mouse.sy*.12,Z0*(1-.93*f));cam.lookAt(lerp(0,-.26,f),lerp(0,.17,f),0);
-      v3.set(0,0,-.7).project(cam);R.m.uniforms.uL.value.set((v3.x+1)/2,(v3.y+1)/2);R.m.uniforms.uE.value=.95*sg(p,.47,.66)*(1+.05*Math.sin(t*3.1));
-      const fw=$('fw');if(fw)fw.style.opacity=sg(p,.88,1).toFixed(3);hero(p,.6,.74,.8,.88);},
-    render(){slab.material=A.m.material=B.m.material=black;trail.visible=sparks.visible=glow.visible=false;
-      renderer.setRenderTarget(R.rt);renderer.setClearColor(0,1);renderer.clear();renderer.render(scene,cam);
-      slab.material=sm;A.m.material=B.m.material=pm;trail.visible=sparks.visible=glow.visible=true;
-      renderer.setRenderTarget(null);renderer.clear();renderer.render(scene,cam);renderer.autoClear=false;renderer.render(R.s,R.cam);renderer.autoClear=true;},
-    dispose(){R.dispose();black.dispose();}};
+      /* 3 · el material sobrante cae y queda el isotipo */
+      const rel=p>=.485;block.visible=!rel;[WL,WR,...offs].forEach(g=>g.visible=rel);
+      offs.forEach((g,i)=>{const f=fall[i],q=Math.max(0,p-.5-f.d)*6.5;g.position.set(g.userData.c[0]+f.vx*q,g.userData.c[1]-1.6*q*q,-.25*q);g.rotation.set(f.rx*q*q,0,f.rz*q*q);g.visible=rel&&q<1.3;});
+      const fade=1-sg(p,.47,.56);seam.material.uniforms.uO.value=fade;hot.material.uniforms.uO.value=fade;
+      /* 4 · el titanio: un brillo recorre las cuñas */
+      const sh=sg(p,.56,.8);wm.roughness=lerp(.32,.2,sh);wm.clearcoat=lerp(.35,.8,sh);
+      if(p>.5){sweep.position.set(lerp(3.5,-3.5,sh),1.5,2.2);sweep.intensity=1.6*Math.sin(Math.PI*sh);}
+      const sp2=eIO(sg(p,.8,1));
+      [[WL,-1],[WR,1]].forEach(([g,s])=>{g.position.set(g.userData.c[0]+s*(.04*sh+.55*sp2),g.userData.c[1],.12*sh);g.rotation.set(0,s*(-.06*sh+.45*sp2),0);});
+      const sx=mouse.sx*(p>.55?1:.3),sy=mouse.sy*(p>.55?1:.3);
+      const yaw=lerp(.2,-.12,eIO(sg(p,.5,.85)))+sx*.2,dist=Z0*lerp(1.06,.97,eIO(sg(p,0,.8)))*(1-.75*sp2);
+      cam.position.set(Math.sin(yaw)*dist,Z0*.06-sy*.15,Math.cos(yaw)*dist);cam.lookAt(0,-.09,0);
+      hero(p,.64,.78,.84,.93);},
+    render(){comp.render();},dispose(){comp.dispose();bloom.dispose();}};
 }};
 
 /* MIL CAMINOS, UNA DECISIÓN */
@@ -774,7 +790,7 @@ D.querySelectorAll('#tabs button').forEach(b=>b.addEventListener('click',()=>loa
 W.addEventListener('hashchange',()=>{const h=location.hash.slice(1);if(h&&h!==curId&&C[h])load(h);});
 new ResizeObserver(()=>size()).observe(stage);
 new IntersectionObserver(es=>{visible=es[0].isIntersecting;},{}).observe(stage);
-W.__p=v=>{setPlay(false);p=v;};
+W.__p=v=>{setPlay(false);p=v;};W.__cur=()=>cur;
 function frame(now){requestAnimationFrame(frame);const dt=Math.min(.05,(now-(last||now))/1000);last=now;if(!cur||!visible)return;
   if(playing){p+=dt/C[curId].dur;if(p>=1){p=1;hold+=dt;if(hold>2){p=0;hold=0;}}}
   t+=dt;mouse.sx+=(mouse.x-mouse.sx)*.05;mouse.sy+=(mouse.y-mouse.sy)*.05;
@@ -786,6 +802,8 @@ try{
   ({RoomEnvironment}=await import('three/addons/environments/RoomEnvironment.js'));
   ({MeshSurfaceSampler}=await import('three/addons/math/MeshSurfaceSampler.js'));
   ({Reflector}=await import('three/addons/objects/Reflector.js'));
+  ({EffectComposer}=await import('three/addons/postprocessing/EffectComposer.js'));({RenderPass}=await import('three/addons/postprocessing/RenderPass.js'));
+  ({UnrealBloomPass}=await import('three/addons/postprocessing/UnrealBloomPass.js'));({OutputPass}=await import('three/addons/postprocessing/OutputPass.js'));
   renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,powerPreference:'high-performance'});
   renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;renderer.setClearColor(0x000000,1);
   const pm=new THREE.PMREMGenerator(renderer);ENV=pm.fromScene(new RoomEnvironment(renderer),.035).texture;
