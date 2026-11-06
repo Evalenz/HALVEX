@@ -84,6 +84,7 @@ header p{margin:0;font-size:13px;color:var(--mute);max-width:52ch}
 #coL .cl{position:absolute;left:0;top:0;white-space:nowrap;font-size:max(10px,.95cqw);font-weight:500;color:#fff;letter-spacing:.01em;padding:0 8px;will-change:transform,opacity}
 #coL .cl b{color:#86868B;font-weight:600;margin-right:.6em}
 @media (max-width:700px){#coL .cl{font-size:3cqw}}
+.hint3{position:absolute;left:50%;top:6cqh;transform:translateX(-50%);margin:0;font-size:max(11px,.95cqw);letter-spacing:.08em;text-transform:uppercase;color:#fff;opacity:0}
 @media (prefers-reduced-motion: reduce){.tabs button{transition:none}}
 </style>
 
@@ -105,6 +106,13 @@ header p{margin:0;font-size:13px;color:var(--mute);max-width:52ch}
       <button role="tab" data-id="rendija">3 · Luz en la rendija</button>
       <button role="tab" data-id="pantalla">4 · La pantalla se abre</button>
       <button role="tab" data-id="monumento">5 · Detalle → monumento</button>
+    </div>
+    <div class="grp"><span>Giro</span>
+      <button role="tab" data-id="giro1">1 · Tiempo congelado</button>
+      <button role="tab" data-id="giro2">2 · Espejo y encaje</button>
+      <button role="tab" data-id="giro3">3 · Del canto a la cara</button>
+      <button role="tab" data-id="giro4">4 · Gira la luz</button>
+      <button role="tab" data-id="giro5">5 · Gíralo tú</button>
     </div>
     <div class="grp"><span>Por qué HALVEX</span>
       <button role="tab" data-id="tolerancia">Tolerancia cero</button>
@@ -168,6 +176,21 @@ const PQ='<div class="pq" id="pq">'+
 
 /* textos que acompañan a cada boceto */
 const INFO={
+ giro1:{k:'Giro · idea 1 de 5',t:'Tiempo congelado',d:'En el instante del último corte, todo se para: las chispas quedan suspendidas en el aire y el material sobrante deja de moverse. La cámara da una vuelta completa alrededor del isotipo a cámara lenta, con los reflejos deslizándose por el titanio. Al volver de frente, el tiempo se reanuda y las chispas caen.',
+  s:[['14–20 %','El último corte: destello.'],['24 %','Todo se congela.'],['26–78 %','La cámara da la vuelta completa al isotipo.'],['80–100 %','El tiempo se reanuda: las chispas caen y el sobrante se aleja.'],['86–96 %','El titular entra.']],
+  f:'Es el momento más espectacular: congela el corte para enseñar el isotipo por todos sus lados.',r:'Con muchas chispas en el aire pide algo más de gráfica; en móvil se reducirían.'},
+ giro2:{k:'Giro · idea 2 de 5',t:'Giro en espejo y encaje',d:'Las dos cuñas se separan y giran en sentidos opuestos, enseñando su grosor y sus biseles pulidos mientras cruzan la luz. Después vuelven a su sitio cada vez más rápido y encajan a la vez, con un golpe seco y un destello en el vértice.',
+  s:[['6–30 %','El sobrante se aleja tras el corte.'],['32–48 %','Las cuñas se separan.'],['36–66 %','Giran en espejo, una vuelta completa cada una.'],['60–74 %','Vuelven a su sitio, acelerando.'],['74 %','Encajan: golpe y destello en el vértice.'],['80–92 %','El titular entra.']],
+  f:'Es la firma de la marca, las dos mitades, convertida en un momento físico y rotundo.',r:'Ninguno técnico.'},
+ giro3:{k:'Giro · idea 3 de 5',t:'Del canto a la cara',d:'Tras el corte, las cuñas giran hasta quedar de canto y la luz baja: solo se ven dos líneas brillantes. Luego giran 90° a la vez, como dos puertas que se abren, y un reflejo recorre el metal de lado a lado.',
+  s:[['6–30 %','El sobrante se aleja tras el corte.'],['30–40 %','Las cuñas se ponen de canto; la luz baja.'],['40–50 %','Dos líneas de luz en la oscuridad.'],['50–78 %','Se abren como dos puertas; un reflejo las recorre.'],['80–92 %','El titular entra.']],
+  f:'Enlaza con el hero que te gustó al principio (el isotipo de canto como línea de luz).',r:'Más sobrio que el 1 y el 2.'},
+ giro4:{k:'Giro · idea 4 de 5',t:'Gira la luz, no el objeto',d:'El isotipo se queda quieto en pantalla y es el estudio de luz el que da la vuelta a su alrededor. Los reflejos corren por las caras y los cantos como en un anuncio de producto.',
+  s:[['6–30 %','El sobrante se aleja tras el corte.'],['32–84 %','El estudio gira: los reflejos recorren el titanio.'],['84–94 %','El titular entra.']],
+  f:'El más elegante y el más ligero. Pura fotografía de producto.',r:'Es el menos espectacular de los cinco; su fuerza está en el acabado.'},
+ giro5:{k:'Giro · idea 5 de 5',t:'Gíralo tú',d:'Al terminar la secuencia, el visitante puede agarrar el isotipo con el ratón o el dedo y hacerlo girar, con inercia, hasta que vuelve solo de frente. Mientras nadie lo toca, oscila suavemente para invitar a hacerlo.',
+  s:[['6–30 %','El sobrante se aleja tras el corte.'],['34 %','Aparece la invitación: arrastra para girar.'],['50–62 %','El titular entra.']],
+  f:'La única con interacción: el visitante «toca» el titanio.',r:'En móvil hay que cuidar que arrastrar el isotipo no impida hacer scroll.'},
  tolerancia:{k:'Por qué HALVEX · nuevo',t:'Tolerancia cero',d:'Cada compromiso es un encaje perfecto entre piezas de titanio mecanizadas, que se deslizan hasta unirse sin que se vea la junta. Al final, las dos cuñas del isotipo encajan en su sitio.',
   s:[['Inicio','Un bloque de titanio girando.'],['01','Dos mitades se unen y la junta desaparece: un solo equipo.'],['02','Una tapa cierra la caja y la luz de dentro se apaga: su perímetro.'],['03','Una única llave entra y gira: una persona decide.'],['04','El calibre se cierra sobre la pieza: probado a fondo.'],['05','Una pieza se hunde en el bloque hasta desaparecer: discreción.'],['Final','Las dos cuñas del isotipo encajan.']],
   f:'Es la marca (dos mitades) convertida en precisión de taller. Cada compromiso se entiende en un segundo.',r:'En la versión final cuidaría más cada mecanismo (la llave, el calibre) para que parezcan piezas reales.'},
@@ -1004,6 +1027,122 @@ C.pulso={grp:'pq',dur:24,html:PQ+'<span class="lab" id="lab"></span>',make(){
       if(k!==lastK){lastK=k;t0=t;}const per=2.6,ph=((t-t0)+per*.85)%per;mat.uniforms.uR.value=ph/per*7;mat.uniforms.uR2.value=ph/per*7-3.5;
       tor.rotation.y=t*.2;bigI.rotation.y=Math.sin(t*.3)*.2;
       pqCam(cam,W,H,.45+mouse.sx*.15,.62-mouse.sy*.06,Z0,.5);}};
+}};
+
+/* ——— Giro: cinco formas de girar el isotipo después del corte ——— */
+function giroBase(){
+  const scene=new THREE.Scene();scene.environment=studio();scene.fog=new THREE.Fog(0,5.2,9.5);
+  const cam=new THREE.PerspectiveCamera(30,1,.02,100);
+  const TI=new THREE.Color().setRGB(.80,.79,.76,THREE.SRGBColorSpace);
+  const ti=()=>new THREE.MeshPhysicalMaterial({color:TI,metalness:1,roughness:.2,clearcoat:.5,clearcoatRoughness:.1,envMapIntensity:1.35});
+  const bm=ti(),wm=ti();
+  const DEP=.2,EXB={depth:DEP,bevelEnabled:true,bevelThickness:.012,bevelSize:.012,bevelSegments:6,curveSegments:1},EXc={depth:DEP,bevelEnabled:false,curveSegments:1};
+  const geo=(pts,ex)=>{const g=new THREE.ExtrudeGeometry(shapeOf(pts),ex);g.translate(0,0,-DEP/2);g.computeVertexNormals();return g;};
+  const rootG=new THREE.Group();scene.add(rootG);
+  const block=new THREE.Mesh(geo([[24,20],[176,20],[176,172],[24,172]],EXB),bm);rootG.add(block);
+  const isoG=new THREE.Group();rootG.add(isoG);
+  const piece=(pts,m,ex,par)=>{const q=pts.map(p=>P(p[0],p[1])),cx=q.reduce((a,p)=>a+p[0],0)/q.length,cy=q.reduce((a,p)=>a+p[1],0)/q.length;
+    const me=new THREE.Mesh(geo(pts,ex),m);me.position.set(-cx,-cy,0);const g=new THREE.Group();g.add(me);g.position.set(cx,cy,0);g.userData.c=[cx,cy];g.visible=false;par.add(g);return g;};
+  const WL=piece(LT,wm,EXB,isoG),WR=piece(RT,wm,EXB,isoG);
+  const offs=[piece([[24,20],[96.2,172],[24,172]],bm,EXc,rootG),piece([[60,20],[140,20],[103.8,172],[96.2,172]],bm,EXc,rootG),piece([[176,20],[176,172],[103.8,172]],bm,EXc,rootG)];
+  const drift=[[-1.05,-.2,-2.2,.5,.9,.35],[0,-.62,-2.6,-1,0,0],[1.05,-.2,-2.2,.45,-.9,-.35]];
+  const FY=-.86,mir=new Reflector(new THREE.PlaneGeometry(30,30),{textureWidth:MOB()?512:1024,textureHeight:MOB()?512:1024,color:0x8c8c8c,clipBias:.003});mir.rotation.x=-Math.PI/2;mir.position.y=FY;rootG.add(mir);
+  const fc=D.createElement('canvas');fc.width=fc.height=512;const fx=fc.getContext('2d'),gr=fx.createRadialGradient(256,256,20,256,256,256);gr.addColorStop(0,'rgba(0,0,0,.45)');gr.addColorStop(.55,'rgba(0,0,0,.8)');gr.addColorStop(1,'rgba(0,0,0,1)');fx.fillStyle=gr;fx.fillRect(0,0,512,512);
+  const fade=new THREE.Mesh(new THREE.PlaneGeometry(9,9),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(fc),transparent:true,depthWrite:false,fog:false}));fade.rotation.x=-Math.PI/2;fade.position.y=FY+.003;rootG.add(fade);
+  const key=new THREE.DirectionalLight(0xffffff,.7);key.position.set(-3,3,3);const sweep=new THREE.DirectionalLight(0xffffff,0);scene.add(key,sweep);
+  /* costuras incandescentes de los cuatro cortes */
+  const CUTS=[[[24,20],[96.2,172]],[[60,20],[96.2,172]],[[140,20],[103.8,172]],[[176,20],[103.8,172]]].map(c=>PL(c));
+  const hotM=new THREE.ShaderMaterial({uniforms:{uH:{value:0}},transparent:true,depthWrite:false,blending:THREE.AdditiveBlending,
+    vertexShader:'attribute float aS;void main(){gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',fragmentShader:'uniform float uH;void main(){gl_FragColor=vec4(vec3(1.,.97,.93)*uH*2.6,1.);}'});
+  const seamM=new THREE.MeshBasicMaterial({color:0x020202,transparent:true,opacity:.95,depthWrite:false});
+  const hot=new THREE.Mesh(ribbon(CUTS,.016),hotM),seam=new THREE.Mesh(ribbon(CUTS,.006),seamM);hot.position.z=DEP/2+.013;seam.position.z=DEP/2+.0125;seam.renderOrder=2;hot.renderOrder=3;rootG.add(seam,hot);
+  /* chispas deterministas: su posición depende solo del «tiempo de chispa», así se pueden congelar */
+  const NS=800,S=[];for(let i=0;i<NS;i++){const c=CUTS[i%4],t=Math.random(),a=Math.random()*Math.PI*2,v=.5+Math.random()*1.8;
+    S.push({x:lerp(c[0][0],c[1][0],t),y:lerp(c[0][1],c[1][1],t),vx:Math.cos(a)*v*.55,vy:Math.abs(Math.sin(a))*v*.6+.2,vz:.2+Math.random()*1.3,b:Math.random()*.18,L:.7+Math.random()*1.1});}
+  const sp=new Float32Array(NS*6),sc=new Float32Array(NS*6),sg2=new THREE.BufferGeometry();sg2.setAttribute('position',new THREE.BufferAttribute(sp,3));sg2.setAttribute('color',new THREE.BufferAttribute(sc,3));
+  const sparks=new THREE.LineSegments(sg2,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false,fog:false}));sparks.frustumCulled=false;rootG.add(sparks);
+  const zf=DEP/2+.013;
+  function sparksAt(tau,frozen){for(let i=0;i<NS;i++){const s=S[i],o=i*6,tt=tau-s.b;let b=0,x=0,y=0,z=0,vy=0;
+      if(tt>0&&tt<s.L){x=s.x+s.vx*tt;vy=s.vy-3.2*tt;y=s.y+s.vy*tt-1.6*tt*tt;z=zf+s.vz*tt;if(y<FY+.004){y=FY+.004;vy=0;}const k=1-tt/s.L;b=k*k*3*(frozen?1.25:1);}
+      sp[o]=x;sp[o+1]=y;sp[o+2]=z;sp[o+3]=x-s.vx*.028;sp[o+4]=y-vy*.028;sp[o+5]=z-s.vz*.028;sc[o]=sc[o+1]=b;sc[o+2]=b*.93;sc[o+3]=sc[o+4]=sc[o+5]=0;}
+    sg2.attributes.position.needsUpdate=true;sg2.attributes.color.needsUpdate=true;}
+  const flash=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false,fog:false}));flash.position.set(0,-.5,.15);flash.scale.set(.55,.55,1);isoG.add(flash);
+  const comp=new EffectComposer(renderer);comp.addPass(new RenderPass(scene,cam));const bloom=new UnrealBloomPass(new THREE.Vector2(256,256),.5,.42,1.3);comp.addPass(bloom);comp.addPass(new OutputPass());
+  const B={scene,cam,comp,bloom,rootG,isoG,WL,WR,key,sweep,flash,wm,Z0:5,W:1,H:1,
+    resize(w,h){B.W=w;B.H=h;cam.aspect=w/h;B.Z0=fitZ(cam,1,1,.4,MOB()?.62:.58);cam.updateProjectionMatrix();comp.setPixelRatio(renderer.getPixelRatio());comp.setSize(w,h);},
+    /* estado del corte: heat = brillo de las costuras; q = cuánto se ha alejado el material sobrante */
+    cut(heat,q){const rel=q>0;block.visible=!rel;WL.visible=WR.visible=rel;hotM.uniforms.uH.value=heat;seamM.opacity=.95*(1-sg(q,0,.15));seam.visible=hot.visible=q<.15;
+      offs.forEach((g,i)=>{const d=drift[i];g.visible=rel&&q<.995;g.position.set(g.userData.c[0]+d[0]*q,g.userData.c[1]+d[1]*q,d[2]*q);g.rotation.set(d[3]*q,d[4]*q,d[5]*q);});},
+    sparksAt,
+    orbit(yaw,pit,dm,shake=0){const R=B.Z0*dm;cam.position.set(Math.sin(yaw)*Math.cos(pit)*R+(Math.random()-.5)*shake,Math.sin(pit)*R+.1+(Math.random()-.5)*shake,Math.cos(yaw)*Math.cos(pit)*R);cam.lookAt(0,-.04,0);},
+    wedge(g,s,x,y,z,rx,ry,rz){g.position.set(g.userData.c[0]+s*x,g.userData.c[1]+y,z);g.rotation.set(rx,s*ry,s*rz);},
+    render(){comp.render();},dispose(){comp.dispose();bloom.dispose();mir.getRenderTarget().dispose();}};
+  return B;
+}
+/* el comienzo común: el bloque recién cortado se enfría y el material sobrante se aleja */
+function giroIntro(B,p){const q=eIO(sg(p,.06,.3));B.cut(Math.exp(-p/.06)*(1-sg(p,.05,.08)),q);B.sparksAt(.25+p*4.5,false);}
+
+/* 1 · TIEMPO CONGELADO */
+C.giro1={grp:'hero',dur:14,html:HERO,make(){const B=giroBase();
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
+    update(p,t){const strike=Math.sin(Math.PI*sg(p,.14,.2));
+      /* el último corte, y en ese instante todo se para */
+      const tau=p<.2?0:p<.24?(p-.2)/.04*.35:p<.8?.35:.35+(p-.8)/.2*1.6;
+      const q=p<.2?0:p<.24?(p-.2)/.04*.12:p<.8?.12:.12+eIO(sg(p,.8,.96))*.88;
+      B.cut(p<.2?sg(p,.14,.2):Math.exp(-tau/.45)*(p>=.24&&p<.8?.35:1),q);B.sparksAt(tau,p>=.24&&p<.8);
+      B.bloom.strength=.5+strike*.3+(p>=.24&&p<.8?.15:0);B.key.intensity=.7+strike*.6;
+      /* la cámara da la vuelta completa mientras el tiempo está congelado */
+      const o=eIO(sg(p,.26,.78));B.orbit(.18+o*Math.PI*2,.06+Math.sin(Math.PI*o)*.18,1-.12*Math.sin(Math.PI*o),strike*.01);
+      B.sweep.position.set(Math.sin(o*Math.PI*2+1)*4,2,Math.cos(o*Math.PI*2+1)*4);B.sweep.intensity=1.2*Math.sin(Math.PI*o);
+      const fr=$('fz');if(fr)fr.style.opacity=(p>=.24&&p<.8?1:0)*(1-Math.abs(o-.5)*0)*.9;
+      hero(p,.86,.96);}};
+}};
+/* 2 · GIRO EN ESPEJO Y ENCAJE */
+C.giro2={grp:'hero',dur:12,html:HERO,make(){const B=giroBase();
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
+    update(p,t){giroIntro(B,p);
+      const out=eIO(sg(p,.32,.48)),spin=sg(p,.36,.66),back=sg(p,.6,.74),inn=back*back*back;
+      const sepx=(MOB()?.32:.55)*out*(1-inn),z=.35*out*(1-inn),ry=(1-Math.cos(Math.PI*spin))/2*Math.PI*2;
+      B.wedge(B.WL,-1,sepx,.05*out*(1-inn),z,0,-ry,0);B.wedge(B.WR,1,sepx,.05*out*(1-inn),z,0,-ry,0);
+      /* encaje: golpe seco y destello en el vértice */
+      const lk=Math.exp(-Math.pow((p-.745)/.012,2));B.flash.material.opacity=lk*.85;B.bloom.strength=.5+lk*.5;
+      B.sweep.position.set(lerp(4,-4,spin),2,2.5);B.sweep.intensity=1.6*Math.sin(Math.PI*spin);
+      B.orbit(.16-.1*eIO(sg(p,.3,.8)),.08,1-.06*out*(1-inn),lk*.02);hero(p,.8,.92);}};
+}};
+/* 3 · DEL CANTO A LA CARA */
+C.giro3={grp:'hero',dur:12,html:HERO,make(){const B=giroBase();
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
+    update(p,t){giroIntro(B,p);
+      const toEdge=eIO(sg(p,.3,.4)),open=eIO(sg(p,.5,.78)),ang=Math.PI/2*toEdge*(1-open);
+      B.wedge(B.WL,-1,0,0,0,0,ang,0);B.wedge(B.WR,1,0,0,0,0,ang,0);
+      const dim=sg(p,.3,.42)*(1-sg(p,.5,.62));B.wm.envMapIntensity=1.35*(1-.75*dim);B.key.intensity=.7*(1-.8*dim);
+      /* de canto son dos líneas de luz; al abrirse, un reflejo recorre el metal */
+      B.sweep.position.set(lerp(-4,4,open),1.5,2.5);B.sweep.intensity=dim*1.6+2*Math.sin(Math.PI*open);
+      B.orbit(.08,.06,1-.08*open);hero(p,.8,.92);}};
+}};
+/* 4 · GIRA LA LUZ, NO EL OBJETO */
+C.giro4={grp:'hero',dur:12,html:HERO,make(){const B=giroBase();
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
+    update(p,t){giroIntro(B,p);
+      /* el isotipo y la cámara giran juntos: en pantalla no se mueve, pero el estudio da la vuelta y los reflejos corren */
+      const th=eIO(sg(p,.32,.84))*Math.PI*2*1.25;B.rootG.rotation.y=th;
+      const R=B.Z0*.98,y0=.1;B.cam.position.set(Math.sin(th+.12)*R,y0,Math.cos(th+.12)*R);B.cam.lookAt(0,-.04,0);
+      B.sweep.position.set(Math.sin(th*1.6)*4,2.5,Math.cos(th*1.6)*4);B.sweep.intensity=1.4*Math.sin(Math.PI*sg(p,.32,.84));
+      B.bloom.strength=.55;hero(p,.84,.94);}};
+}};
+/* 5 · GÍRALO TÚ */
+C.giro5={grp:'hero',dur:9,html:HERO+'<p class="hint3" id="h3">Arrastra para girar</p>',make(){const B=giroBase();
+  let rot=0,vel=0,drag=false,lx=0,touched=false;
+  const dn=e=>{drag=true;lx=e.clientX;touched=true;stage.setPointerCapture&&stage.setPointerCapture(e.pointerId);},
+        mv=e=>{if(!drag)return;const dx=e.clientX-lx;lx=e.clientX;vel=dx*.012;rot+=vel;},up=()=>{drag=false;};
+  stage.addEventListener('pointerdown',dn);stage.addEventListener('pointermove',mv);W.addEventListener('pointerup',up);
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,
+    dispose(){B.dispose();stage.removeEventListener('pointerdown',dn);stage.removeEventListener('pointermove',mv);W.removeEventListener('pointerup',up);},
+    update(p,t,dt){giroIntro(B,p);const live=p>.34;
+      if(!drag){rot+=vel;vel*=.94;if(Math.abs(vel)<.002){const tgt=Math.round(rot/(Math.PI*2))*Math.PI*2;rot+=(tgt-rot)*.06;}}
+      if(live&&!touched&&!drag)rot=Math.sin((p-.34)/.66*Math.PI*2)*.5;
+      B.isoG.rotation.y=rot;B.sweep.position.set(Math.sin(rot+1)*4,2,Math.cos(rot+1)*4);B.sweep.intensity=1.2;
+      B.orbit(.12,.06,.98);const h=$('h3');if(h)h.style.opacity=live&&!touched?(.6+.3*Math.sin(t*3)).toFixed(2):0;hero(p,.5,.62);}};
 }};
 
 /* ——— motor ——— */
