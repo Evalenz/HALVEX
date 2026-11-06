@@ -1257,14 +1257,14 @@ C.eclipse={grp:'hero',dur:13,html:HERO,make(){const B=tiBase();B.key.intensity=0
     update(p,t){
       /* la luz nace detrás: la silueta negra se recorta contra un resplandor */
       const c=eo(sg(p,.06,.3)),a=eIO(sg(p,.42,.76));
-      corona.material.opacity=c*.95*(1-.85*a);corona.scale.setScalar(lerp(.6,1.9,c)*(1+.25*a));
-      halo.material.opacity=c*.5*(1-a);halo.scale.setScalar(lerp(1.5,4.6,c));
+      corona.material.opacity=c*.9*(1-a);corona.scale.setScalar(lerp(.5,1.35,c)*(1+.2*a));
+      halo.material.opacity=c*.28*(1-a);halo.scale.setScalar(lerp(1.2,3.4,c));
       /* borde finísimo: luces rasantes desde atrás que solo tocan los biseles */
       rim.position.set(0,.6,-3);rim.intensity=4.5*c*(1-a);rim2.position.set(0,-1.5,-3);rim2.intensity=1.6*c*(1-a);
       /* el anillo de diamante en el vértice */
       const dm=Math.exp(-Math.pow((p-.35)/.025,2));ring.material.opacity=dm;ring.scale.set(.7*dm+.05,.18*dm+.02,1);
       /* la luz pasa por encima del isotipo y lo enciende de frente */
-      const th=Math.PI*a;B.key.position.set(lerp(.2,-2.4,a),.6+2.8*Math.sin(th),-3.4*Math.cos(th));B.key.intensity=a>0?3.2*Math.sin(Math.PI*Math.min(1,a*1.15))+.7*a:0;
+      const th=Math.PI*a;B.key.position.set(lerp(.2,-2.4,a),.6+2.8*Math.sin(th),-3.4*Math.cos(th));B.key.intensity=a>0?1.4*Math.sin(Math.PI*Math.min(1,a*1.15))+.7*a:0;
       B.mat.envMapIntensity=1.35*eIO(sg(p,.55,.86));
       const sw=sg(p,.68,.96);B.sweep.position.set(lerp(4,-4,sw),2,2.5);B.sweep.intensity=1.5*Math.sin(Math.PI*sw);
       B.bloom.strength=.5+.25*c*(1-a)+dm*.4;
@@ -1336,7 +1336,7 @@ diffuseColor.rgb*=mix(.7+.22*gN_+.12*gM_,1.,kP_);`)
       B.bloom.strength=.5+.2*Math.sin(Math.PI*b);
       B.iso.rotation.set(mouse.sy*.06,Math.sin(Math.PI*sg(p,.62,.98))*-.4+.12*(1-sg(p,.2,.6))+mouse.sx*.15,0);
       B.iso.position.y=.015*Math.sin(t*.8);
-      B.orbit(lerp(.3,.06,eIO(sg(p,0,.9))),lerp(.14,.07,eIO(sg(p,0,1))),lerp(.82,1,eIO(sg(p,0,.85))));hero(p,.8,.92);}};
+      B.orbit(lerp(.3,.06,eIO(sg(p,0,.9))),lerp(.14,.07,eIO(sg(p,0,1))),lerp(.82,1,eIO(sg(p,0,.85))),-.12);hero(p,.8,.92);}};
 }};
 
 /* 5 · ESPEJO INFINITO: un túnel de copias que se pliega en una sola pieza */
@@ -1350,7 +1350,7 @@ C.espejo={grp:'hero',dur:13,html:HERO,make(){const B=tiBase();B.iso.visible=fals
   return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
     update(p,t){const e=eIO(sg(p,.36,.7)),merged=p>=.7;
       for(let i=0;i<NC;i++){const on=sg(p,.03+i*.009,.09+i*.009),b=Math.pow(.84,i*(1-e))*on*(i&&merged?0:1)*(i?1-.3*e:1);
-        const [x,y,z]=base[i];dm.position.set(x*(1-e),y*(1-e),z*(1-e));dm.rotation.set(0,(i%2?-.02:.02)*(1-e)+(i?0:mouse.sx*.15*sg(p,.75,.9)),0);dm.updateMatrix();
+        const [x,y,z]=base[i];dm.position.set(x*(1-e),y*(1-e),z*(1-e));dm.scale.setScalar(b<.002||(i&&e>.985)?0:1);dm.rotation.set(0,(i%2?-.02:.02)*(1-e)+(i?0:mouse.sx*.15*sg(p,.75,.9)),0);dm.updateMatrix();
         iL.setMatrixAt(i,dm.matrix);iR.setMatrixAt(i,dm.matrix);col.setRGB(b,b,b);iL.setColorAt(i,col);iR.setColorAt(i,col);
         /* el marco de cada reflejo */
         const fb=.32*Math.pow(.86,i)*on*(1-e),s=.78+.0*i;for(let k=0;k<4;k++){const a=C4[k],c=C4[(k+1)%4],o=(i*4+k)*6;
@@ -1370,12 +1370,12 @@ C.espejo={grp:'hero',dur:13,html:HERO,make(){const B=tiBase();B.iso.visible=fals
 /* 6 · TE MIRA: tan pulido que refleja el titular; se inclina hacia quien mira */
 function envTitular(){const s=new THREE.Scene();s.background=new THREE.Color(0);
   const pan=(w,h,x,y,z,k)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color(k,k,k),side:THREE.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);s.add(m);};
-  pan(7,7,0,7,1,1.1);pan(6,10,-7,1,-2,.35);pan(6,10,7,1,-2,.3);pan(1.1,9,-6,1,1.5,2.2);pan(.5,9,6,.5,2.5,2.6);pan(9,.35,0,2.2,-6,2);pan(.35,6,3.5,1,-5,1.6);pan(2.5,.25,-2,4.2,4,2);pan(14,1,0,4.5,8,.6);
+  pan(7,7,0,7,1,.9);pan(6,10,-7,1,-2,.3);pan(6,10,7,1,-2,.25);pan(1.1,9,-6,1,1.5,1.1);pan(.5,9,6,.5,2.5,1.2);pan(9,.35,0,2.2,-6,1.4);pan(.35,6,3.5,1,-5,1);pan(30,2,0,6.2,6,.35);
   const c=D.createElement('canvas');c.width=2048;c.height=640;const x=c.getContext('2d');x.fillStyle='#000';x.fillRect(0,0,2048,640);
   x.translate(2048,0);x.scale(-1,1);x.fillStyle='#fff';x.textAlign='center';x.textBaseline='middle';x.font='600 190px -apple-system,"SF Pro Display","Helvetica Neue",Arial,sans-serif';
   x.fillText('Decisiones que',1024,210);x.fillStyle='#8a8a8f';x.fillText('no admiten error.',1024,430);
   const tx=new THREE.CanvasTexture(c);tx.colorSpace=THREE.SRGBColorSpace;
-  const tp=new THREE.Mesh(new THREE.PlaneGeometry(15,4.7),new THREE.MeshBasicMaterial({map:tx,color:new THREE.Color(2.4,2.4,2.4),side:THREE.DoubleSide}));tp.position.set(0,-.4,8);tp.lookAt(0,-.4,0);s.add(tp);
+  const tp=new THREE.Mesh(new THREE.PlaneGeometry(24,7.5),new THREE.MeshBasicMaterial({map:tx,color:new THREE.Color(2.4,2.4,2.4),side:THREE.DoubleSide}));tp.position.set(0,-.2,6.5);tp.lookAt(0,-.2,0);s.add(tp);
   const pm=new THREE.PMREMGenerator(renderer),rt=pm.fromScene(s,0);pm.dispose();disposeScene(s);return rt;}
 C.temira={grp:'hero',dur:10,html:HERO+'<p class="hint3" id="h3"></p>',make(){const rt=envTitular();
   const mat=new THREE.MeshPhysicalMaterial({color:TIc(),metalness:1,roughness:.05,clearcoat:1,clearcoatRoughness:.03,envMapIntensity:1.3});
@@ -1389,7 +1389,7 @@ C.temira={grp:'hero',dur:10,html:HERO+'<p class="hint3" id="h3"></p>',make(){con
     dispose(){B.dispose();stage.removeEventListener('pointermove',mv);W.removeEventListener('deviceorientation',ori);stage.removeEventListener('pointerdown',ask);},
     update(p,t,dt){const live=performance.now()-lastIn<2500;
       let tx,ty;if(live){tx=useG?gx:mouse.x;ty=useG?gy:mouse.y;}else{tx=Math.sin(t*.45)*.75;ty=Math.sin(t*.31+1)*.45;}
-      const k=1-Math.exp(-(dt||.016)*4);ry+=(tx*.42-ry)*k;rx+=(ty*.22-rx)*k;
+      const k=1-Math.exp(-(dt||.016)*4);ry+=(tx*.3-ry)*k;rx+=(ty*.13-rx)*k;
       const rev=eo(sg(p,0,.2));mat.envMapIntensity=1.3*rev;B.key.intensity=.35*rev;
       B.iso.rotation.set(rx,ry,0);B.iso.position.y=.012*Math.sin(t*.9);
       B.orbit(.0,.04,lerp(.9,1,eIO(sg(p,0,.3))),-.02);
