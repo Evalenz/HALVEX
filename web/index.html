@@ -212,14 +212,11 @@ html.intro-on,html.intro-on body{overflow:hidden}
 .sob{padding-top:clamp(140px,20vh,240px)}
 .sob .head{max-width:1000px}.sob .head h2{max-width:13em}
 .sob .head .lead{margin-top:26px;max-width:28em}
-.sob .grow{position:relative;height:300vh;margin-top:clamp(30px,5vh,70px)}
-.sob .grow .pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
-.sob .frame{position:absolute;inset:0;overflow:hidden;will-change:clip-path}
-.sob .ghost{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:var(--go,0);transform:scale(1.32)}
-.sob .edge{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:var(--eo,0)}
-.sob .edge polygon{fill:none;stroke:rgba(245,245,247,.7);stroke-width:1;vector-effect:non-scaling-stroke}
-.sob .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(var(--is,1));will-change:transform}
-.sob .frame .cap{position:absolute;left:0;right:0;bottom:0;padding:180px var(--gr) calc(clamp(36px,7vh,70px) + env(safe-area-inset-bottom,0px)) var(--gl);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;color:#fff;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.72));opacity:var(--co,1)}
+.sob .grow{position:relative;height:200vh;margin-top:clamp(56px,8vh,100px)}
+.sob .grow .pin{position:sticky;top:0;height:100vh;height:100svh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.sob .frame{position:relative;width:var(--fw,64%);height:var(--fh,62%);overflow:hidden}
+.sob .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(var(--is,1.15))}
+.sob .frame .cap{position:absolute;left:0;right:0;bottom:0;padding:180px var(--gr) calc(clamp(36px,7vh,70px) + env(safe-area-inset-bottom,0px)) var(--gl);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;color:#fff;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.72));opacity:var(--co,0)}
 .sob .frame .cap p{font-weight:600;font-size:clamp(24px,2.4vw,38px);letter-spacing:-.02em;line-height:1.15;max-width:16em}
 .sob .frame .cap span{font-size:15px;color:#D2D2D7;max-width:22em}
 @media (max-width:720px){.sob .frame .cap{flex-direction:column;align-items:flex-start}}
@@ -246,9 +243,6 @@ html.intro-on,html.intro-on body{overflow:hidden}
 .px .tb .n b{color:#F5F5F7;font-variant-numeric:tabular-nums}
 .px .tb h3{font-weight:700;font-size:clamp(44px,5.2vw,86px);letter-spacing:-.04em;line-height:1.02;margin-top:18px}
 .px .tb .d{font-size:clamp(18px,1.45vw,22px);line-height:1.45;color:var(--g1);margin-top:22px;max-width:22em}
-.px .tb.e{left:0;right:0;bottom:calc(clamp(40px,8vh,90px) + env(safe-area-inset-bottom,0px));text-align:center}
-.px .tb.e .n{justify-content:center}
-.px .tb.e h3{font-size:clamp(36px,4vw,64px)}.px .tb.e h3 span{color:var(--g3)}
 @media (max-width:720px){
   .px .tb.l{left:var(--gl);right:var(--gr);width:auto;top:auto;margin-top:0;bottom:calc(44px + env(safe-area-inset-bottom,0px))}
   .px .tb h3{font-size:44px;margin-top:12px}.px .tb .d{font-size:17px;margin-top:12px}
@@ -324,7 +318,7 @@ html.intro-on,html.intro-on body{overflow:hidden}
 
 /* ------------------------------------------------------------ 8 · compañía · desde dentro de la letra
    La sección empieza con una fotografía a pantalla completa. Al bajar, la cámara se aleja y
-   resulta que estábamos dentro de la «t» de «proyectos»: la foto solo queda en las letras. */
+   resulta que estábamos dentro de la «t» de «crítico»: la foto solo queda en las letras. */
 .co{position:relative;padding-bottom:clamp(110px,15vh,190px)}
 .co .zoom{position:relative;height:270vh}
 .co .pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
@@ -391,7 +385,7 @@ footer .wm{width:96px;height:19px;fill:#D2D2D7;margin-bottom:14px}
 footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:34px;padding-top:18px;border-top:1px solid var(--line-d)}
 @media (max-width:720px){footer .cols{grid-template-columns:1fr 1fr}}
 .rvw{overflow:hidden;margin-top:clamp(50px,8vh,90px)}
-.rvw svg{width:100%;height:auto;fill:#1A1A1C;transform:translateY(102%);transition:transform 1.6s var(--out)}
+.rvw svg{width:100%;height:auto;transform:translateY(102%);transition:transform 1.6s var(--out)}
 .rvw.in svg{transform:none}
 
 /* movimiento reducido */
@@ -404,7 +398,7 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
   .caps .mob figure{position:relative;aspect-ratio:1/1;overflow:hidden;background:#0A0A0B}
   .caps .mob h3{font-weight:700;font-size:32px;margin-top:22px}.caps .mob p{color:var(--g1);margin-top:10px}
   .sob .grow{height:auto}.sob .grow .pin{position:relative;height:80vh}
-  .sob .frame img{transform:none}.sob .frame .cap{opacity:1}
+  .sob .frame{width:100%;height:100%}.sob .frame img{transform:none}.sob .frame .cap{opacity:1}
   .co .zoom{height:auto}.co .pin{position:relative;height:auto;padding:140px 0 60px}.co #coC{display:none}
   .co .eyb,.co .eq{position:relative;left:auto!important;top:auto;opacity:1;padding:0 var(--gr) 0 var(--gl);white-space:normal;font-size:clamp(48px,7.4vw,112px)}.co .eq .ln>span{transform:none}
   .ct .cz{height:auto}.ct .pin{position:relative;height:70vh}.ct .big .ch,.ct .sub{opacity:1!important}
@@ -528,12 +522,10 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
     </div>
     <div class="grow" id="grow">
       <div class="pin">
-        <img class="ghost" id="ghost" src="img/arquitectura.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
         <figure class="frame" id="frame">
           <img src="img/arquitectura.jpg" alt="Edificios de vidrio y acero vistos desde abajo" loading="lazy" decoding="async">
           <figcaption class="cap"><p>Arquitectura auditada de principio a fin.</p><span>Cada componente se documenta, se prueba y se revisa antes de entrar en producción.</span></figcaption>
         </figure>
-        <svg class="edge" id="edge" aria-hidden="true"><polygon/><polygon/></svg>
       </div>
     </div>
   </section>
@@ -551,7 +543,6 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
         <div class="tb l"><p class="n"><b>03</b>Decisiones</p><h3>Una persona decide.</h3><p class="d">La tecnología propone. Ninguna decisión crítica es automática.</p></div>
         <div class="tb l"><p class="n"><b>04</b>Rigor</p><h3>Probado a fondo.</h3><p class="d">Cada sistema se diseña, se prueba y se audita antes de llegar a producción.</p></div>
         <div class="tb l"><p class="n"><b>05</b>Discreción</p><h3>Discreción.</h3><p class="d">Confidencialidad absoluta. Nunca citamos a un cliente.</p></div>
-        <div class="tb e"><p class="n"><b>HALVEX</b></p><h3>Precisión.<br><span>Sin margen.</span></h3></div>
       </div>
     </div>
   </section>
@@ -609,7 +600,7 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
       <div class="pin">
         <canvas id="coC" aria-hidden="true"></canvas>
         <p class="eyebrow eyb" id="coE">Compañía</p>
-        <h2 class="eq" id="coEq"><span class="sr">Menos proyectos. </span><span class="ln"><span>Más</span></span> <span class="ln"><span id="coEq2">precisión.</span></span></h2>
+        <h2 class="eq" id="coEq"><span class="sr">Lo crítico </span><span class="ln"><span>no se</span></span> <span class="ln"><span id="coEq2">delega.</span></span></h2>
       </div>
     </div>
     <div class="wrap">
@@ -655,7 +646,7 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
           <div><h4>Legal</h4><ul><li>Aviso legal</li><li>Privacidad</li><li>Cookies</li></ul></div>
         </div>
         <div class="bot"><span>© 2026 HALVEX. Todos los derechos reservados.</span><span>Madrid, España</span></div>
-        <div class="rvw" aria-hidden="true"><svg viewBox="0 -4 552 108"><use href="#wm"/></svg></div>
+        <div class="rvw" aria-hidden="true"><svg viewBox="0 -4 552 108"><defs><linearGradient id="tiF" gradientUnits="userSpaceOnUse" x1="0" y1="-4" x2="552" y2="104" spreadMethod="reflect"><stop offset="0" stop-color="#3a3937"/><stop offset=".22" stop-color="#8e8c87"/><stop offset=".34" stop-color="#d6d4cf"/><stop offset=".46" stop-color="#77756f"/><stop offset=".64" stop-color="#b3b1ab"/><stop offset=".82" stop-color="#55544f"/><stop offset="1" stop-color="#8f8d88"/><animateTransform id="tiA" attributeName="gradientTransform" type="translate" values="-552 0;552 0" dur="14s" repeatCount="indefinite"/></linearGradient></defs><use href="#wm" fill="url(#tiF)"/></svg></div>
       </footer>
     </div>
   </section>
@@ -761,31 +752,17 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
     capSet(i); capP.style.setProperty('--p', (p * 6 - i).toFixed(3));
   }
 
-  /* soberanía: la fotografía se ve primero a través del isotipo; las dos cuñas se abren
-     hasta convertirse en las dos mitades de la pantalla */
-  var grow = $('grow'), frame = $('frame'), fImg = frame.querySelector('img'), lastClip = '', ghost = $('ghost'), edge = $('edge'), edgeP = edge.querySelectorAll('polygon');
-  var ISO_L = [[96.2, 172], [24, 20], [60, 20], [96.2, 172]], ISO_R = [[103.8, 172], [140, 20], [176, 20], [103.8, 172]];
+  /* soberanía: la imagen empieza recortada y crece hasta ocupar la pantalla */
+  var grow = $('grow'), frame = $('frame');
   function growFrame() {
     if (RM) return;
     var r = grow.getBoundingClientRect(); if (r.bottom < 0 || r.top > innerHeight) return;
-    var p = clamp(-r.top / (grow.offsetHeight - innerHeight), 0, 1);
-    var w = frame.clientWidth, h = frame.clientHeight, e = eIO(seg(p, 0.16, 0.7));
-    var z = 0.9 + 0.1 * eIO(seg(p, 0, 0.16)), S = Math.min(h * (w < 720 ? 0.44 : 0.56), w * 0.66) / 152 * z, cx = w / 2, cy = h / 2;
-    var T = [[0, h], [0, 0], [w / 2, 0], [w / 2, h], [w / 2, h], [w / 2, 0], [w, 0], [w, h]];
-    var clip = 'none';
-    if (e < 0.999) {
-      var pts = ISO_L.concat(ISO_R).map(function (q, i) {
-        var x = cx + (q[0] - 100) * S, y = cy + (q[1] - 96) * S;
-        return [(x + (T[i][0] - x) * e).toFixed(1), (y + (T[i][1] - y) * e).toFixed(1)];
-      });
-      clip = 'polygon(' + pts.map(function (q) { return q[0] + 'px ' + q[1] + 'px'; }).join(',') + ')';
-      edgeP[0].setAttribute('points', pts.slice(0, 4).join(' ')); edgeP[1].setAttribute('points', pts.slice(4).join(' '));
-    }
-    edge.style.setProperty('--eo', (1 - seg(e, 0, 0.35)).toFixed(3));
-    ghost.style.setProperty('--go', (0.13 * (1 - seg(e, 0, 0.6))).toFixed(3));
-    if (clip !== lastClip) { frame.style.clipPath = clip; frame.style.webkitClipPath = clip; lastClip = clip; }
-    fImg.style.setProperty('--is', (1.32 - 0.32 * e).toFixed(4));
-    frame.style.setProperty('--co', seg(p, 0.74, 0.9).toFixed(3));
+    var p = clamp(-r.top / (grow.offsetHeight - innerHeight), 0, 1), e = eIO(seg(p, 0, 0.6));
+    var w0 = innerWidth < 720 ? 86 : 64, h0 = innerWidth < 720 ? 58 : 62;
+    frame.style.setProperty('--fw', (w0 + (100 - w0) * e).toFixed(2) + '%');
+    frame.style.setProperty('--fh', (h0 + (100 - h0) * e).toFixed(2) + '%');
+    frame.style.setProperty('--is', (1.15 - 0.15 * e).toFixed(4));
+    frame.style.setProperty('--co', seg(p, 0.6, 0.85).toFixed(3));
   }
 
   /* método: de lo amplio a lo preciso (puntos que se ordenan fase a fase) */
@@ -879,6 +856,7 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
   });
 
   /* apariciones */
+  if (RM) { var tiA = $('tiA'); if (tiA) tiA.remove(); }
   var rvs = D.querySelectorAll('.rv, .mk, .rvw');
   if ('IntersectionObserver' in W && !RM) {
     var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -10% 0px' });
@@ -1151,8 +1129,8 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
 
 <script>
 /* Compañía · desde dentro de la letra. La sección empieza con la fotografía a pantalla completa:
-   es el interior de la «t» de «proyectos». Al bajar, la cámara se aleja y la foto queda solo dentro
-   de las letras de «Menos proyectos.»; debajo sube «Más precisión.» en tinta. */
+   es el interior de la «t» de «crítico». Al bajar, la cámara se aleja y la foto queda solo dentro
+   de las letras de «Lo crítico»; debajo sube «no se delega.» en tinta. */
 (function () {
   'use strict';
   var D = document, W = window, $ = function (i) { return D.getElementById(i); };
@@ -1169,11 +1147,11 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
     var r = cv.getBoundingClientRect(), d = Math.min(W.devicePixelRatio || 1, 2);
     Wd = r.width; Hd = r.height; cv.width = Math.round(Wd * d); cv.height = Math.round(Hd * d); cx.setTransform(d, 0, 0, d, 0, 0);
     var mob = Wd < 721, g = Math.max(22, Math.min(80, Wd * 0.05)); x0 = Wd >= 1440 ? (Wd - 1280) / 2 : g;
-    lines = mob ? ['Menos', 'proyectos.'] : ['Menos proyectos.'];
+    lines = mob ? ['Lo', 'crítico'] : ['Lo crítico'];
     cx.font = font(100); ls = 'letterSpacing' in cx ? -4.5 : 0;
     if (ls) cx.letterSpacing = ls + 'px';
     var mw = Math.max.apply(null, lines.map(function (l) { return cx.measureText(l).width; }));
-    var eqw = mob ? cx.measureText('precisión.').width : cx.measureText('Más precisión.').width;
+    var eqw = mob ? cx.measureText('delega.').width : cx.measureText('no se delega.').width;
     F = Math.min((Wd - 2 * x0) * 0.985 / (Math.max(mw, eqw) / 100), Hd * (mob ? 0.12 : 0.21));
     var nEq = mob ? 2 : 1, n = lines.length + nEq, lh = F * 0.92, top = Hd / 2 - n * lh / 2 + (mob ? 10 : 24);
     base = lines.map(function (l, i) { return top + lh * (i + 0.8); });
@@ -1232,7 +1210,7 @@ const eIO = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 const sec = $('porque'), pin = $('pxPin'), cv = $('pxC'), TB = $('pxT').children, N_ = $('pxN'), bars = $('pxBars').children;
 
 /* ---------- texto: entra desde el desenfoque, sale encogiendo */
-const RANGES = [[-1, -1, .22, .55], [.78, 1.02, 1.42, 1.62], [1.78, 2.02, 2.42, 2.62], [2.78, 3.02, 3.42, 3.62], [3.78, 4.02, 4.42, 4.62], [4.78, 5.02, 5.42, 5.62], [5.8, 6.02, 99, 99]];
+const RANGES = [[-1, -1, .22, .55], [.78, 1.02, 1.42, 1.62], [1.78, 2.02, 2.42, 2.62], [2.78, 3.02, 3.42, 3.62], [3.78, 4.02, 4.42, 4.62], [4.78, 5.02, 5.42, 5.62]];
 const cache = [];
 function text(u) {
   for (let j = 0; j < TB.length; j++) {
@@ -1340,7 +1318,7 @@ else {
       if (M) { look.set((fi - 2) * SX * ex, 0, -(fi - 2) * .5 * ex); stack.localToWorld(look); look.multiplyScalar(ex); } else look.set(0, 0, 0);
       cam.position.set(look.x + Math.sin(yaw) * Math.cos(pit) * R, look.y + Math.sin(pit) * R, look.z + Math.cos(yaw) * Math.cos(pit) * R); cam.lookAt(look);
       const side = sg(u, .5, 1) * (1 - sg(u, 5.2, 5.9));
-      if (M) cam.setViewOffset(Wd, Hd, 0, Hd * (.17 * side + .1 * end), Wd, Hd); else cam.setViewOffset(Wd, Hd, -Wd * .18 * side, Hd * .1 * end, Wd, Hd);
+      if (M) cam.setViewOffset(Wd, Hd, 0, Hd * .17 * side, Wd, Hd); else cam.setViewOffset(Wd, Hd, -Wd * .18 * side, 0, Wd, Hd);
       cam.updateMatrixWorld();
       const show = sg(ex, .6, 1);
       L.forEach((o, i) => { v3.set(anc[0], anc[1], 0); o.localToWorld(v3); v3.project(cam); const x = (v3.x + 1) / 2 * Wd, y = (1 - v3.y) / 2 * Hd;
@@ -1384,12 +1362,15 @@ if (RM) fallback();
 else {
   try {
     const THREE = await import('three');
-    const { RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js');
     const renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true, powerPreference: 'high-performance' });
     renderer.setPixelRatio(Math.min(W.devicePixelRatio || 1, 2));
     renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
-    const scene = new THREE.Scene(), pmrem = new THREE.PMREMGenerator(renderer);
-    scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), .035).texture;
+    const scene = new THREE.Scene();
+    scene.environment = (() => { const s = new THREE.Scene(); s.background = new THREE.Color(0);
+      const pan = (w, h, x, y, z, k) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color(k, k, k), side: THREE.DoubleSide })); m.position.set(x, y, z); m.lookAt(0, 0, 0); s.add(m); };
+      pan(7, 7, 0, 7, 1, 1.1); pan(14, 6, 0, 3, 9, .55); pan(6, 10, -7, 1, -2, .35); pan(6, 10, 7, 1, -2, .3); pan(1.1, 9, -6, 1, 1.5, 2.2); pan(.5, 9, 6, .5, 2.5, 2.6);
+      pan(12, 4, 0, 2.4, 7, 1.05); pan(3, 7, -5, 0, 5, .5); pan(9, .35, 0, 2.2, -6, 2); pan(.35, 6, 3.5, 1, -5, 1.6); pan(2.5, .25, -2, 4.2, 4, 2);
+      const pm = new THREE.PMREMGenerator(renderer), t = pm.fromScene(s, 0).texture; pm.dispose(); return t; })();
     const camera = new THREE.PerspectiveCamera(28, 1, .1, 50);
     const P = (x, y) => [(x - 100) / 152, (96 - y) / 152];
     const shape = pts => { const s = new THREE.Shape(); pts.forEach((p, i) => { const [x, y] = P(p[0], p[1]); if (i) s.lineTo(x, y); else s.moveTo(x, y); }); s.closePath(); return s; };
