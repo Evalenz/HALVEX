@@ -30,9 +30,9 @@ python3 -m http.server 8000
 - Respeta `prefers-reduced-motion`.
 - El formulario de contacto es de maqueta: valida, pero no envía.
 
-## Hero · «Titanio»
+## Hero · «El corte»
 
-El isotipo es un objeto 3D en tiempo real (three.js 0.160, sin compilación): dos cuñas de titanio pulido que aparecen de canto, como una línea de luz, giran hasta revelarse, siguen al cursor y se colocan de frente con el scroll. Si el dispositivo no tiene WebGL o pide movimiento reducido, se muestra `img/hero-poster.jpg`.
+El isotipo se esculpe en directo en un bloque macizo de titanio liso (three.js 0.160, sin compilación). Tras la apertura, la cámara sale de un macro del canto del bloque y lo descubre entero; cuatro cuchillas de luz lo atraviesan, cada una con su destello y una lluvia de chispas que rebotan en un suelo espejo; el material sobrante se aleja a cámara lenta y queda el isotipo, que gira mientras la luz del estudio lo recorre. El titular entra cuando termina el corte (unos 4,6 s) y el scroll adelanta la secuencia si hace falta. Después, con el scroll, las dos cuñas se abren y dejan una línea de luz («Precisión. Sin margen.»). Iluminación de estudio propia (paneles de luz en un PMREM) y resplandor con UnrealBloomPass. Si el dispositivo no tiene WebGL o pide movimiento reducido, se muestra `img/hero-poster.jpg`.
 
 Tipografía: la del sistema de Apple (SF Pro en Mac, iPhone e iPad) con Inter (Google Fonts) como equivalente en el resto.
 
@@ -40,7 +40,7 @@ Tipografía: la del sistema de Apple (SF Pro en Mac, iPhone e iPad) con Inter (G
 
 - **La firma: las dos mitades.** El isotipo son dos cuñas; el movimiento de la marca es que se separan. Aparece en la apertura (el isotipo se traza, se abre un instante y vuela a la navegación), al final del hero (las dos cuñas de titanio se separan y queda una sola línea de luz: «Precisión. Sin margen.»), en «Despliegue soberano» (la fotografía se ve a través del isotipo y las dos cuñas se abren hasta ser las dos mitades de la pantalla) y en el logotipo de la navegación al pasar el cursor.
 - **Navegación por corte.** Los enlaces del menú no recorren la página: un velo de 0,2 s tapa el salto y la sección de destino aparece ya resuelta. Las animaciones solo se reproducen al hacer scroll.
-- **Por qué HALVEX · un universo que se ordena.** 15.000 partículas de luz en 3D (three.js; 7.000 en móvil). La galaxia inicial se reorganiza en una estructura matemática por compromiso: un atractor de Aizawa (un solo equipo), una cúpula geodésica con datos en órbitas de Lissajous dentro (su perímetro), las líneas de campo de un dipolo que convergen en un punto (una persona decide), la fibración de Hopf (rigor) y un agujero negro con disco kepleriano y anillo de luz (discreción); al final, el isotipo. Entre formaciones la cámara orbita y las partículas viajan en ola; el texto entra desde el desenfoque.
+- **Por qué HALVEX · despiece.** El isotipo se abre en cinco capas, como la ficha técnica de un producto, y cada capa es un compromiso con su etiqueta: carcasa de una sola pieza de titanio (un solo equipo), junta de sellado (su perímetro), núcleo de cristal negro con un único punto de luz en el vértice (una persona decide), estructura en celosía (probado a fondo) y base negra sin marcas (discreción). La capa activa se adelanta y se ilumina; en móvil la cámara la sigue como un carrusel. Al final las capas se cierran y vuelve a ser una sola pieza.
 - **Sectores:** carrusel de tarjetas con fotografía.
 - **Compañía · desde dentro de la letra.** La sección empieza con una fotografía a pantalla completa; al bajar, la cámara se aleja y resulta que era el interior de la «t» de «proyectos»: la foto queda solo dentro de «Menos proyectos.» y debajo sube «Más precisión.».
 - **Hablemos · el cierre.** Las dos cuñas de titanio que se separaron al final del hero vuelven desde los lados; la línea de luz se acorta hasta desaparecer, destello en el vértice al unirse, y «Hablemos.» entra letra a letra desde el desenfoque.

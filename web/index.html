@@ -154,7 +154,7 @@ html.intro-on,html.intro-on body{overflow:hidden}
 .hero .wmk{width:clamp(118px,9.5vw,150px);height:auto;fill:#F5F5F7;overflow:hidden}
 .hero .wmk path{transform:translateY(118px);transition:transform 1.25s var(--out)}
 .hero .wmk path:nth-child(2){transition-delay:.05s}.hero .wmk path:nth-child(3){transition-delay:.1s}.hero .wmk path:nth-child(4){transition-delay:.15s}.hero .wmk path:nth-child(5){transition-delay:.2s}.hero .wmk path:nth-child(6){transition-delay:.25s}
-.is-ready .hero .wmk path{transform:none}
+.hero-in .hero .wmk path{transform:none}
 .hero .bot{position:absolute;left:0;right:0;bottom:calc(clamp(44px,8vh,84px) + env(safe-area-inset-bottom,0px));text-align:center;padding:0 var(--gr) 0 var(--gl)}
 .hero h1{font-weight:700;font-size:clamp(40px,5.2vw,84px);line-height:1.04;letter-spacing:-.035em;max-width:13em;margin:0 auto}
 .hero h1 .ln{display:block;overflow:hidden;padding-bottom:.06em}
@@ -162,8 +162,8 @@ html.intro-on,html.intro-on body{overflow:hidden}
 .hero h1 .ln:nth-child(2)>span{transition-delay:.08s}
 .hero h1 .g{color:var(--g1)}
 .hero .acts{display:flex;align-items:center;justify-content:center;gap:28px;margin-top:30px;opacity:0;transform:translateY(12px);transition:opacity 1.2s var(--apple) .35s,transform 1.2s var(--apple) .35s}
-.is-ready .hero .acts{opacity:1;transform:none}
-.is-ready .hero h1 .ln>span{transform:none}
+.hero-in .hero .acts{opacity:1;transform:none}
+.hero-in .hero h1 .ln>span{transform:none}
 .hero .two{position:absolute;left:0;right:0;bottom:calc(clamp(48px,9vh,96px) + env(safe-area-inset-bottom,0px));text-align:center;pointer-events:none;opacity:0;padding:0 var(--gr) 0 var(--gl)}
 .hero .two p{font-weight:700;font-size:clamp(40px,5.6vw,92px);letter-spacing:-.04em;line-height:1.02}
 .hero .two p span{color:var(--g3)}
@@ -172,7 +172,7 @@ html.intro-on,html.intro-on body{overflow:hidden}
 .hero .cue i{position:relative;width:1px;height:46px;background:rgba(255,255,255,.16);overflow:hidden}
 .hero .cue i::after{content:"";position:absolute;left:0;top:-45%;width:1px;height:45%;background:#F5F5F7;animation:cue 2.4s var(--io) infinite}
 @keyframes cue{to{top:100%}}
-.is-ready .hero .cue{opacity:1}
+.hero-in .hero .cue{opacity:1}
 @media (max-width:900px){.hero .cue{display:none}}
 @media (max-width:720px){.hero .top{top:calc(84px + env(safe-area-inset-top,0px))}.hero .acts{flex-direction:column;gap:18px}}
 
@@ -224,9 +224,9 @@ html.intro-on,html.intro-on body{overflow:hidden}
 .sob .frame .cap span{font-size:15px;color:#D2D2D7;max-width:22em}
 @media (max-width:720px){.sob .frame .cap{flex-direction:column;align-items:flex-start}}
 
-/* ------------------------------------------------------------ 5 · por qué · materia que se ordena
-   Miles de partículas de luz en 3D: una nube que se condensa en cada compromiso escrito a gran
-   tamaño, gira en un vórtice entre uno y otro, se aparta del cursor y acaba en el isotipo. */
+/* ------------------------------------------------------------ 5 · por qué · despiece
+   El isotipo se abre en cinco capas, como la ficha técnica de un producto; cada capa es un
+   compromiso y lleva su etiqueta. Al final vuelve a cerrarse en una sola pieza. */
 .px{position:relative;height:720vh;background:#000}
 .px .pin{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
 .px canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
@@ -254,6 +254,13 @@ html.intro-on,html.intro-on body{overflow:hidden}
   .px .tb h3{font-size:44px;margin-top:12px}.px .tb .d{font-size:17px;margin-top:12px}
 }
 @media (max-width:720px){.px .bars{display:none}}
+.px .co{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.px .co line{stroke:rgba(255,255,255,.7);stroke-width:1}
+.px .co circle{fill:#F5F5F7}
+.px .col{position:absolute;inset:0;pointer-events:none}
+.px .col .cl{position:absolute;left:0;top:0;white-space:nowrap;font-size:13px;font-weight:600;color:#F5F5F7;letter-spacing:.01em;padding:0 8px;opacity:0;will-change:transform,opacity}
+.px .col .cl b{color:var(--g1);font-weight:600;margin-right:.6em;font-variant-numeric:tabular-nums}
+.px.no-gl .co,.px.no-gl .col{display:none}
 
 /* ------------------------------------------------------------ 6 · sectores */
 .sec{padding:clamp(130px,18vh,220px) 0 clamp(120px,16vh,200px)}
@@ -535,6 +542,7 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
   <section class="px dark" id="porque" data-tone="d" aria-label="Por qué HALVEX">
     <div class="pin" id="pxPin">
       <canvas id="pxC" aria-hidden="true"></canvas>
+      <svg class="co" id="pxCo" aria-hidden="true"></svg><div class="col" id="pxCL" aria-hidden="true"></div>
       <div class="wrap hd"><p class="eyebrow">Por qué HALVEX</p><p class="cnt" aria-hidden="true"><span><b id="pxN">01</b> / 05</span><span class="bars" id="pxBars"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></span></p></div>
       <div class="pxt" id="pxT">
         <div class="tb c"><p class="eyebrow">Otra forma de trabajar</p><h2 class="h-l">Cinco compromisos que no se negocian.</h2></div>
@@ -893,7 +901,11 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
   /* apertura: el isotipo se traza, se abre un instante (la firma de la marca) y vuela
      hasta su sitio en la navegación mientras se levanta el telón */
   var intro = $('intro'), deep = location.hash.length > 1 && D.querySelector(location.hash);
-  function ready() { root.classList.add('is-ready'); if (!W.HX.go) W.HX.go = performance.now(); }
+  function ready() {
+    root.classList.add('is-ready'); if (!W.HX.go) W.HX.go = performance.now();
+    /* el titular del hero entra cuando termina el corte (lo marca la escena 3D); si no hay 3D, ya */
+    if (!W.HX.cut || RM) root.classList.add('hero-in'); else setTimeout(function () { root.classList.add('hero-in'); }, 9000);
+  }
   if (RM || deep || !intro) {
     if (intro) intro.remove(); ready();
     if (deep && !RM) { if ('scrollRestoration' in history) history.scrollRestoration = 'manual'; W.addEventListener('load', function () { var y = deep.getBoundingClientRect().top + W.scrollY; if (lenis) lenis.scrollTo(y, { immediate: true, force: true }); else W.scrollTo(0, y); }); }
@@ -1209,17 +1221,15 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
 </script>
 
 <script type="module">
-/* Por qué HALVEX · un universo que se ordena.
-   Miles de partículas de luz en 3D (three.js). La galaxia inicial se reorganiza, compromiso a
-   compromiso, en una estructura matemática: un atractor extraño, una cúpula geodésica, las líneas
-   de campo de un dipolo, la fibración de Hopf y un agujero negro. Entre una y otra la
-   cámara orbita y las partículas viajan en ola; el texto entra nítido desde el desenfoque. */
+/* Por qué HALVEX · despiece. El isotipo se abre en cinco capas, como la ficha técnica de un producto:
+   carcasa de titanio, junta de sellado, núcleo de cristal con un único punto de luz, estructura en
+   celosía y base negra. Cada capa es un compromiso y lleva su etiqueta; la cámara pasa de una a otra
+   y al final las capas se cierran y vuelve a ser una sola pieza. El texto entra desde el desenfoque. */
 const D = document, W = window, $ = i => D.getElementById(i);
 const RM = W.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const cl = (v, a, b) => v < a ? a : v > b ? b : v, sg = (v, a, b) => cl((v - a) / (b - a), 0, 1);
+const cl = (v, a, b) => v < a ? a : v > b ? b : v, sg = (v, a, b) => cl((v - a) / (b - a), 0, 1), lerp = (a, b, t) => a + (b - a) * t;
 const eIO = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 const sec = $('porque'), pin = $('pxPin'), cv = $('pxC'), TB = $('pxT').children, N_ = $('pxN'), bars = $('pxBars').children;
-const TAU = Math.PI * 2;
 
 /* ---------- texto: entra desde el desenfoque, sale encogiendo */
 const RANGES = [[-1, -1, .22, .55], [.78, 1.02, 1.42, 1.62], [1.78, 2.02, 2.42, 2.62], [2.78, 3.02, 3.42, 3.62], [3.78, 4.02, 4.42, 4.62], [4.78, 5.02, 5.42, 5.62], [5.8, 6.02, 99, 99]];
@@ -1246,7 +1256,7 @@ const uOf = p => Math.min(p * 6.35, 6);
 
 function fallback() {
   sec.classList.add('no-gl');
-  const f = () => { text(RM ? Math.round(uOf(progress())) : uOf(progress())); requestAnimationFrame(f); };
+  const f = () => { text(RM ? Math.round(uOf(progress())) + .1 : uOf(progress())); requestAnimationFrame(f); };
   requestAnimationFrame(f);
 }
 
@@ -1254,163 +1264,94 @@ if (RM) fallback();
 else {
   try {
     const THREE = await import('three');
-    const renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: false, alpha: true, powerPreference: 'high-performance' });
-    const PR = Math.min(W.devicePixelRatio || 1, 2); renderer.setPixelRatio(PR);
-    const scene = new THREE.Scene(), FOV = 30, camera = new THREE.PerspectiveCamera(FOV, 1, 1, 8000);
-    const rnd = (s => () => (s = s * 16807 % 2147483647) / 2147483647)(20261105);
-    let Wd = 1, Hd = 1, N = 0, U = 100, OXc = 0, OYc = 0, Z0 = 1000, geo, pts, mat, P, S0, S1, S2, S3, OX, OY, G, ISO;
-
-    /* ---------- estructuras matemáticas precalculadas (normalizadas, radio ~1) */
-    /* atractor de Aizawa: una trayectoria caótica que nunca se repite y nunca se escapa */
-    const AT = (() => { const a = .95, b = .7, c = .6, d = 3.5, e = .25, f = .1, L = 9000, out = new Float32Array(L * 3);
-      let x = .1, y = 0, z = 0; const dt = .008;
-      for (let n = 0; n < L + 2000; n++) for (let s = 0; s < 3; s++) {
-        const dx = (z - b) * x - d * y, dy = d * x + (z - b) * y, dz = c + a * z - z * z * z / 3 - (x * x + y * y) * (1 + e * z) + f * z * x * x * x;
-        x += dx * dt; y += dy * dt; z += dz * dt;
-        if (s === 2 && n >= 2000) { const m = (n - 2000) * 3; out[m] = x; out[m + 1] = z - .7; out[m + 2] = y; }
-      }
-      let M = 0; for (let n = 0; n < out.length; n++) M = Math.max(M, Math.abs(out[n])); for (let n = 0; n < out.length; n++) out[n] /= M;
-      return out; })();
-    /* cúpula geodésica: icosaedro subdividido en frecuencia 4, proyectado a la esfera */
-    const GE = (() => { const t = (1 + Math.sqrt(5)) / 2, V = [[-1, t, 0], [1, t, 0], [-1, -t, 0], [1, -t, 0], [0, -1, t], [0, 1, t], [0, -1, -t], [0, 1, -t], [t, 0, -1], [t, 0, 1], [-t, 0, -1], [-t, 0, 1]];
-      const F = [[0, 11, 5], [0, 5, 1], [0, 1, 7], [0, 7, 10], [0, 10, 11], [1, 5, 9], [5, 11, 4], [11, 10, 2], [10, 7, 6], [7, 1, 8], [3, 9, 4], [3, 4, 2], [3, 2, 6], [3, 6, 8], [3, 8, 9], [4, 9, 5], [2, 4, 11], [6, 2, 10], [8, 6, 7], [9, 8, 1]];
-      const fq = 3, nz = v => { const l = Math.hypot(v[0], v[1], v[2]); return [v[0] / l, v[1] / l, v[2] / l]; }, seen = new Set(), E = [];
-      const key = v => v.map(c => Math.round(c * 1e4)).join(',');
-      F.forEach(([ia, ib, ic]) => { const A = V[ia], B = V[ib], C = V[ic];
-        const pt = (i, j) => nz([A[0] + (B[0] - A[0]) * i / fq + (C[0] - A[0]) * j / fq, A[1] + (B[1] - A[1]) * i / fq + (C[1] - A[1]) * j / fq, A[2] + (B[2] - A[2]) * i / fq + (C[2] - A[2]) * j / fq]);
-        const add = (p, q) => { const k1 = key(p), k2 = key(q), k = k1 < k2 ? k1 + '|' + k2 : k2 + '|' + k1; if (!seen.has(k)) { seen.add(k); E.push([p, q]); } };
-        for (let i = 0; i < fq; i++) for (let j = 0; j < fq - i; j++) { add(pt(i, j), pt(i + 1, j)); add(pt(i, j), pt(i, j + 1)); add(pt(i + 1, j), pt(i, j + 1)); } });
-      return E; })();
-    const LS = [.5, .68, .86, 1.04, 1.22];                                   /* capas de líneas de campo */
-    const HT = [.36, .62, .62];                                             /* toros de la fibración de Hopf */
-
-    /* ---------- las formaciones: escriben la posición de la partícula i en v */
-    const o = [0, 0, 0], o2 = [0, 0, 0];
-    function rotXZ(v, ax, az) { let y = v[1] * Math.cos(ax) - v[2] * Math.sin(ax), z = v[1] * Math.sin(ax) + v[2] * Math.cos(ax); v[1] = y; v[2] = z; const x = v[0] * Math.cos(az) - v[1] * Math.sin(az); v[1] = v[0] * Math.sin(az) + v[1] * Math.cos(az); v[0] = x; }
-    function rotY(v, a) { const c = Math.cos(a), s = Math.sin(a), x = v[0] * c + v[2] * s; v[2] = -v[0] * s + v[2] * c; v[0] = x; }
-    function form(k, i, t, v) {
-      const s0 = S0[i], s1 = S1[i], s2 = S2[i], s3 = S3[i], j = i * 3;
-      if (k === 0) {                                   /* la galaxia */
-        const c = Math.cos(t * .06), s = Math.sin(t * .06), x = G[j], z = G[j + 2];
-        v[0] = x * c - z * s; v[1] = G[j + 1]; v[2] = x * s + z * c; return;
-      }
-      if (k === 6) { v[0] = ISO[j]; v[1] = ISO[j + 1]; v[2] = ISO[j + 2]; return; }
-      if (k === 1) {
-        /* 01 · un solo equipo: un atractor extraño. Miles de trayectorias distintas que forman un
-           único sistema: todo se mueve, nada se escapa. */
-        const L = AT.length / 3, f = (s1 * L + t * 55) % L, n = Math.floor(f), w = f - n, a = n * 3, b = ((n + 1) % L) * 3, R = U * 1.12, jt = (s3 - .5) * .012;
-        v[0] = (AT[a] + (AT[b] - AT[a]) * w + jt) * R; v[1] = (AT[a + 1] + (AT[b + 1] - AT[a + 1]) * w) * R; v[2] = (AT[a + 2] + (AT[b + 2] - AT[a + 2]) * w - jt) * R;
-        rotY(v, t * .1); rotXZ(v, .35, 0);
-      } else if (k === 2) {
-        /* 02 · su perímetro: una cúpula geodésica cerrada y, dentro, los datos circulando en
-           órbitas de Lissajous que nunca alcanzan la superficie. */
-        if (s0 < .1) { const r = U * .42, ph = s1 * 6.283; v[0] = Math.sin(t * (.31 + s2 * .2) + ph) * r * (.4 + .6 * s3); v[1] = Math.sin(t * (.23 + s3 * .2) + ph * 1.7) * r * (.4 + .6 * s2); v[2] = Math.sin(t * (.27 + s1 * .2) + ph * 2.3) * r * (.4 + .6 * s1); }
-        else if (s0 < .16) { const e = GE[Math.floor(s1 * GE.length)], r = U * 1.04, w = (s2 - .5) * .025; v[0] = (e[0][0] + w) * r; v[1] = (e[0][1] - w) * r; v[2] = (e[0][2] + w) * r; rotY(v, t * .12); }
-        else { const e = GE[Math.floor(s1 * GE.length)], u = s2, R = U * 1.04; v[0] = (e[0][0] + (e[1][0] - e[0][0]) * u) * R; v[1] = (e[0][1] + (e[1][1] - e[0][1]) * u) * R; v[2] = (e[0][2] + (e[1][2] - e[0][2]) * u) * R;
-          const l = Math.hypot(v[0], v[1], v[2]) / R; v[0] /= l; v[1] /= l; v[2] /= l; rotY(v, t * .12); }
-        rotXZ(v, .3, .15);
-      } else if (k === 3) {
-        /* 03 · una persona decide: líneas de campo de un dipolo. Todas las corrientes, desde
-           cualquier dirección, acaban pasando por un único punto. */
-        if (s0 < .05) { const r = U * .04 * s1, a = s2 * 6.283, z = s3 * 2 - 1, q = Math.sqrt(1 - z * z), pu = 1 + .3 * Math.sin(t * 3); v[0] = Math.cos(a) * q * r * pu; v[1] = z * r * pu; v[2] = Math.sin(a) * q * r * pu; }
-        else { const li = Math.floor(s1 * 90), Lk = LS[li % 5] * U * 1.35, ph = (Math.floor(li / 5) / 18) * 6.283 + (li % 2) * .17, eps = .08;
-          const u = (s2 + t * .09 / LS[li % 5]) % 1, th = eps + (Math.PI - 2 * eps) * (1 - u), r = Lk * Math.sin(th) * Math.sin(th);
-          v[0] = r * Math.sin(th) * Math.cos(ph); v[1] = r * Math.cos(th); v[2] = r * Math.sin(th) * Math.sin(ph); rotY(v, t * .08); }
-        rotXZ(v, .4, -.25);
-      } else if (k === 4) {
-        /* 04 · rigor: la fibración de Hopf. Círculos que se enlazan entre sí sin cortarse nunca,
-           ordenados sobre toros anidados: precisión matemática pura. */
-        const ti = Math.floor(s1 * 3), et = HT[ti], fb = Math.floor(s2 * 18) / 18 * 6.283 + ti * .17, sp = s3 * 6.283 + t * .3;
-        const ce = Math.cos(et), se = Math.sin(et), x4 = se * Math.sin(sp), den = 1.0001 - x4, R = U * .6;
-        v[0] = ce * Math.cos(sp + fb) / den * R; v[1] = se * Math.cos(sp) / den * R; v[2] = ce * Math.sin(sp + fb) / den * R;
-        const m = Math.hypot(v[0], v[1], v[2]); if (m > U * 2.2) { const k2 = U * 2.2 / m; v[0] *= k2; v[1] *= k2; v[2] *= k2; }
-        rotY(v, t * .12); rotXZ(v, .68, 0); v[0] -= U * .16;
-      } else {
-        /* 05 · discreción: un agujero negro. El disco orbita a velocidad kepleriana y la luz que
-           pasa por detrás se curva en un anillo; en el centro, nada se ve. */
-        if (s0 < .34) { const r = U * (.56 + .2 * Math.pow(s1, 2.5)), a = s2 * 6.283 + t * .25; v[0] = Math.cos(a) * r; v[1] = Math.sin(a) * r * .97; v[2] = (s3 - .5) * U * .02; }
-        else if (s0 < .4) { const r = U * (1.6 + s1 * 1.3), a = s2 * 6.283; v[0] = Math.cos(a) * r; v[1] = Math.sin(a) * r * .55; v[2] = (s3 - .5) * U; }
-        else { const r = U * (.62 + 1.05 * Math.pow(s1, 1.8)), a = s2 * 6.283 + t * .55 * Math.pow(U * .62 / r, 1.5); v[0] = Math.cos(a) * r; v[1] = (s3 - .5) * U * .015 * (r / U); v[2] = Math.sin(a) * r; rotXZ(v, .2, -.08); }
-      }
-      v[0] += OXc; v[1] += OYc;
-    }
-
-    function build() {
-      const r = pin.getBoundingClientRect(); Wd = r.width; Hd = r.height;
-      const mob = Wd < 721;
-      renderer.setSize(Wd, Hd, false); camera.aspect = Wd / Hd;
-      Z0 = (Hd / 2) / Math.tan(THREE.MathUtils.degToRad(FOV / 2)); camera.position.set(0, 0, Z0); camera.updateProjectionMatrix();
-      U = mob ? Math.min(Wd * .36, Hd * .2) : Math.min(Hd * .3, Wd * .2);
-      OXc = mob ? 0 : Wd * .2; OYc = mob ? Hd * .14 : 0;
-      const n = mob ? 7000 : 15000;
-      if (n !== N) {
-        N = n; if (pts) { scene.remove(pts); geo.dispose(); }
-        geo = new THREE.BufferGeometry(); P = new Float32Array(N * 3); const SZ = new Float32Array(N), SE = new Float32Array(N);
-        S0 = new Float32Array(N); S1 = new Float32Array(N); S2 = new Float32Array(N); S3 = new Float32Array(N); OX = new Float32Array(N); OY = new Float32Array(N);
-        for (let i = 0; i < N; i++) { S0[i] = rnd(); S1[i] = rnd(); S2[i] = rnd(); S3[i] = rnd(); SE[i] = rnd(); SZ[i] = .8 + Math.pow(rnd(), 3) * 2.4; }
-        geo.setAttribute('position', new THREE.BufferAttribute(P, 3).setUsage(THREE.DynamicDrawUsage));
-        geo.setAttribute('aSeed', new THREE.BufferAttribute(SE, 1)); geo.setAttribute('aSize', new THREE.BufferAttribute(SZ, 1));
-        mat = new THREE.ShaderMaterial({
-          uniforms: { uT: { value: 0 }, uPR: { value: PR }, uDist: { value: 1 } },
-          vertexShader: `attribute float aSeed; attribute float aSize; uniform float uT, uPR, uDist; varying float vA;
-            void main(){ vec4 mv = modelViewMatrix * vec4(position, 1.); gl_Position = projectionMatrix * mv;
-              float tw = .72 + .28 * sin(uT * 1.7 + aSeed * 60.); vA = tw * clamp(1.6 - (-mv.z / uDist) * .6, .25, 1.);
-              gl_PointSize = aSize * uPR * 2.1 * (uDist / -mv.z); }`,
-          fragmentShader: `varying float vA; void main(){ float d = length(gl_PointCoord - .5); float a = smoothstep(.5, .05, d); gl_FragColor = vec4(vec3(.97, .97, .98), a * vA); }`,
-          transparent: true, depthWrite: false, blending: THREE.AdditiveBlending
-        });
-        pts = new THREE.Points(geo, mat); pts.frustumCulled = false; scene.add(pts);
-      }
-      mat.uniforms.uDist.value = Z0;
-      G = new Float32Array(N * 3); const M = Math.max(Wd, Hd);
-      for (let i = 0; i < N; i++) {
-        const arm = i % 3, r = Math.pow(rnd(), .7) * M * .62, th = r / (M * .62) * 3.2 + arm * 2.094 + (rnd() - .5) * .9;
-        G[i * 3] = Math.cos(th) * r; G[i * 3 + 1] = (rnd() - .5) * 140 * (1 - r / (Wd * .7)) + (rnd() - .5) * 30; G[i * 3 + 2] = Math.sin(th) * r * .9;
-      }
-      ISO = new Float32Array(N * 3); const S = Math.min(Wd, Hd) * (mob ? .46 : .42) / 152, tri = [[[24, 20], [60, 20], [96.2, 172]], [[176, 20], [140, 20], [103.8, 172]]];
-      for (let i = 0; i < N; i++) { const t = tri[i % 2]; let u = rnd(), v = rnd(); if (u + v > 1) { u = 1 - u; v = 1 - v; }
-        const x = t[0][0] + u * (t[1][0] - t[0][0]) + v * (t[2][0] - t[0][0]), y = t[0][1] + u * (t[1][1] - t[0][1]) + v * (t[2][1] - t[0][1]);
-        ISO[i * 3] = (x - 100) * S; ISO[i * 3 + 1] = (96 - y) * S + Hd * .07; ISO[i * 3 + 2] = (rnd() - .5) * 14; }
-    }
-    if (D.fonts && D.fonts.ready) await D.fonts.ready;
-    build();
-    let rt; W.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(build, 200); });
-    let mx = -1e5, my = -1e5, smx = 0, smy = 0, inside = false;
-    pin.addEventListener('pointermove', e => { const r = pin.getBoundingClientRect(); mx = e.clientX - r.left - Wd / 2; my = Hd / 2 - (e.clientY - r.top); inside = true; }, { passive: true });
-    pin.addEventListener('pointerleave', () => { inside = false; mx = my = -1e5; });
+    const renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(W.devicePixelRatio || 1, 2)); renderer.setClearColor(0, 1);
+    renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+    const env = (() => { const s = new THREE.Scene(); s.background = new THREE.Color(0);
+      const pan = (w, h, x, y, z, k) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color(k, k, k), side: THREE.DoubleSide })); m.position.set(x, y, z); m.lookAt(0, 0, 0); s.add(m); };
+      pan(7, 7, 0, 7, 1, 1.1); pan(14, 6, 0, 3, 9, .55); pan(6, 10, -7, 1, -2, .35); pan(6, 10, 7, 1, -2, .3); pan(1.1, 9, -6, 1, 1.5, 2.2); pan(.5, 9, 6, .5, 2.5, 2.6);
+      pan(12, 4, 0, 2.4, 7, 1.05); pan(3, 7, -5, 0, 5, .5); pan(9, .35, 0, 2.2, -6, 2); pan(.35, 6, 3.5, 1, -5, 1.6); pan(2.5, .25, -2, 4.2, 4, 2);
+      const pm = new THREE.PMREMGenerator(renderer), t = pm.fromScene(s, 0).texture; pm.dispose(); return t; })();
+    const scene = new THREE.Scene(); scene.environment = env;
+    const cam = new THREE.PerspectiveCamera(30, 1, .05, 100);
+    const P = (x, y) => [(x - 100) / 152, (96 - y) / 152];
+    const LT = [[24, 20], [60, 20], [96.2, 172]], RT = [[176, 20], [140, 20], [103.8, 172]];
+    const tri = T => T.map(p => P(p[0], p[1])), cen = T => { const q = tri(T); return [(q[0][0] + q[1][0] + q[2][0]) / 3, (q[0][1] + q[1][1] + q[2][1]) / 3]; };
+    const inset = (T, k) => { const c = cen(T); return tri(T).map(([x, y]) => [c[0] + (x - c[0]) * k, c[1] + (y - c[1]) * k]); };
+    const shp = pts => { const s = new THREE.Shape(); pts.forEach(([x, y], i) => i ? s.lineTo(x, y) : s.moveTo(x, y)); s.closePath(); return s; };
+    const plate = (shapes, d, m, b) => { const g = new THREE.ExtrudeGeometry(shapes, { depth: d, bevelEnabled: b > 0, bevelThickness: b, bevelSize: b, bevelSegments: 4, curveSegments: 1 }); g.translate(0, 0, -d / 2); return new THREE.Mesh(g, m); };
+    const TI = new THREE.Color().setRGB(.80, .79, .76, THREE.SRGBColorSpace);
+    const M1 = new THREE.MeshPhysicalMaterial({ color: TI, metalness: 1, roughness: .2, clearcoat: .6, clearcoatRoughness: .08, envMapIntensity: 1.3 });
+    const M2 = new THREE.MeshBasicMaterial({ color: new THREE.Color(2.2, 2.2, 2.2), toneMapped: false });
+    const M3 = new THREE.MeshPhysicalMaterial({ color: 0x0b0b0c, metalness: .1, roughness: .05, clearcoat: 1, envMapIntensity: 1.3, transparent: true, opacity: .92 });
+    const M4 = new THREE.MeshPhysicalMaterial({ color: TI, metalness: 1, roughness: .28, envMapIntensity: 1.2 });
+    const M5 = new THREE.MeshPhysicalMaterial({ color: 0x1a1a1d, metalness: .7, roughness: .42, clearcoat: .5, envMapIntensity: 1.4 });
+    const L = [], stack = new THREE.Group(); scene.add(stack);
+    L.push(plate([shp(tri(LT)), shp(tri(RT))], .07, M1, .012));                                       /* 01 carcasa */
+    L.push(plate([LT, RT].map(T => { const s = shp(tri(T)), h = new THREE.Path(); inset(T, .86).forEach(([x, y], i) => i ? h.lineTo(x, y) : h.moveTo(x, y)); h.closePath(); s.holes.push(h); return s; }), .012, M2, 0)); /* 02 junta */
+    const core = new THREE.Group(); core.add(plate([shp(tri(LT)), shp(tri(RT))], .03, M3, .004));      /* 03 núcleo */
+    const vx = P(100, 168), orb = new THREE.Mesh(new THREE.SphereGeometry(.03, 24, 12), new THREE.MeshBasicMaterial({ color: new THREE.Color(5, 5, 5), toneMapped: false }));
+    orb.position.set(vx[0], vx[1], .03); core.add(orb);
+    const gc = D.createElement('canvas'); gc.width = gc.height = 128; const gx = gc.getContext('2d'), gg = gx.createRadialGradient(64, 64, 0, 64, 64, 64);
+    gg.addColorStop(0, 'rgba(255,255,255,1)'); gg.addColorStop(.25, 'rgba(255,255,255,.35)'); gg.addColorStop(1, 'rgba(255,255,255,0)'); gx.fillStyle = gg; gx.fillRect(0, 0, 128, 128);
+    const halo = new THREE.Sprite(new THREE.SpriteMaterial({ map: new THREE.CanvasTexture(gc), transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false }));
+    halo.scale.set(.35, .35, 1); halo.position.copy(orb.position); core.add(halo); L.push(core);
+    L.push(plate([LT, RT].map(T => { const s = shp(tri(T)), q = inset(T, .8);                         /* 04 celosía */
+      const inT = (x, y) => { const [a, b, c] = q, d = (p1, p2, p3) => (p1[0] - p3[0]) * (p2[1] - p3[1]) - (p2[0] - p3[0]) * (p1[1] - p3[1]), s1 = d([x, y], a, b), s2 = d([x, y], b, c), s3 = d([x, y], c, a); return !((s1 < 0 || s2 < 0 || s3 < 0) && (s1 > 0 || s2 > 0 || s3 > 0)); };
+      const r = .028; for (let j = -20; j < 20; j++) for (let i = -20; i < 20; i++) { const cx = i * r * 1.85 + (j & 1) * r * .925, cy = j * r * 1.6, hx = [...Array(6)].map((_, k) => [cx + Math.cos(k * Math.PI / 3 + Math.PI / 6) * r * .78, cy + Math.sin(k * Math.PI / 3 + Math.PI / 6) * r * .78]);
+        if (hx.every(([x, y]) => inT(x, y))) { const h = new THREE.Path(); hx.forEach(([x, y], k) => k ? h.lineTo(x, y) : h.moveTo(x, y)); h.closePath(); s.holes.push(h); } } return s; }), .03, M4, .003));
+    L.push(plate([shp(tri(LT)), shp(tri(RT))], .05, M5, .006));                                      /* 05 base */
+    L.forEach(o => stack.add(o));
+    const mats = [[M1], [], [M3], [M4], [M5]], base = [1.3, 0, 1.3, 1.2, 1.1];
+    /* etiquetas de despiece */
+    const NAMES = ['Una sola pieza de titanio', 'Sellado en todo su perímetro', 'Un único núcleo de decisión', 'Estructura verificada', 'Negro absoluto, sin marcas'];
+    const coL = $('pxCL'), coS = $('pxCo');
+    coL.innerHTML = NAMES.map((n, i) => `<div class="cl"><b>0${i + 1}</b>${n}</div>`).join(''); coS.innerHTML = NAMES.map(() => '<line/><circle r="3.5"/>').join('');
+    const labs = [...coL.children], lines = [...coS.querySelectorAll('line')], dots = [...coS.querySelectorAll('circle')];
+    let Wd = 1, Hd = 1, Z0 = 5;
+    const mob = () => Wd / Hd < .8;
+    function size() { Wd = pin.clientWidth; Hd = pin.clientHeight; renderer.setSize(Wd, Hd, false); cam.aspect = Wd / Hd;
+      const t = Math.tan(THREE.MathUtils.degToRad(15)); Z0 = Math.max(1 / (mob() ? .3 : .42) / (2 * t), 1 / (mob() ? .62 : .34) / (2 * t * cam.aspect));
+      cam.updateProjectionMatrix(); coS.setAttribute('viewBox', `0 0 ${Wd} ${Hd}`); }
+    size(); let rt; W.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(size, 120); });
+    let mx = 0, my = 0, smx = 0, smy = 0;
+    pin.addEventListener('pointermove', e => { const r = pin.getBoundingClientRect(); mx = (e.clientX - r.left) / r.width * 2 - 1; my = (e.clientY - r.top) / r.height * 2 - 1; }, { passive: true });
+    pin.addEventListener('pointerleave', () => { mx = my = 0; });
     let vis = false; new IntersectionObserver(es => { vis = es[0].isIntersecting; }, { rootMargin: '150px 0px' }).observe(sec);
+    const v3 = new THREE.Vector3(), anc = P(100, 20), look = new THREE.Vector3();
     let t = 0, last = 0;
     const tick = now => {
       requestAnimationFrame(tick);
       const dt = Math.min(.05, (now - (last || now)) / 1000); last = now;
       if (!vis) return;
-      t += dt; mat.uniforms.uT.value = t;
-      const u = uOf(progress()), k = Math.min(5, Math.floor(u)), f = u - k, m = eIO(sg(f, k === 0 ? .3 : .42, 1)), arc = Math.sin(Math.PI * m);
-      text(u);
-      const R = 120, R2 = R * R;
-      for (let i = 0, j = 0; i < N; i++, j += 3) {
-        form(k, i, t, o); let x = o[0], y = o[1], z = o[2];
-        if (m > 0) {
-          form(k + 1, i, t, o2);
-          const mi = eIO(cl((m - S3[i] * .32) / .68, 0, 1)), ar = Math.sin(Math.PI * mi);       /* viajan en ola */
-          x += (o2[0] - x) * mi; y += (o2[1] - y) * mi; z += (o2[2] - z) * mi + ar * (S0[i] - .35) * 420;
-        }
-        x += Math.sin(t * .8 + S1[i] * 50) * 1.1; y += Math.cos(t * .7 + S2[i] * 40) * 1.1;
-        let px = 0, py = 0;
-        if (inside) { const dx = x - mx, dy = y - my, d2 = dx * dx + dy * dy; if (d2 < R2) { const d = Math.sqrt(d2) + .01, fo = 1 - d / R; px = dx / d * fo * fo * 70; py = dy / d * fo * fo * 70; } }
-        OX[i] += (px - OX[i]) * .12; OY[i] += (py - OY[i]) * .12;
-        P[j] = x + OX[i]; P[j + 1] = y + OY[i]; P[j + 2] = z;
-      }
-      geo.attributes.position.needsUpdate = true;
-      smx += ((inside ? mx / Wd : 0) - smx) * .04; smy += ((inside ? my / Hd : 0) - smy) * .04;
-      const dir = k % 2 ? 1 : -1;                                                        /* la cámara orbita en el cambio */
-      pts.rotation.y = smx * .2 + arc * .5 * dir + (k === 0 ? (1 - m) * .25 : 0);
-      pts.rotation.x = -smy * .12 + (k === 0 ? (1 - m) * .5 : 0) + arc * .08;
-      camera.position.z = Z0 * (1 - .1 * arc);
-      renderer.render(scene, camera);
+      t += dt; smx += (mx - smx) * .05; smy += (my - smy) * .05;
+      const u = uOf(progress()); text(u);
+      const k = Math.min(5, Math.floor(u)), f = u - k, us = k + eIO(sg(f, .55, 1));          /* se queda quieto y luego pasa a la siguiente capa */
+      const ex = eIO(sg(u, .3, 1)) * (1 - eIO(sg(u, 5.2, 5.9))), fi = cl(us - 1, 0, 4), M = mob();
+      const SX = M ? .85 : .5;
+      L.forEach((o, i) => { const w = Math.max(0, 1 - Math.abs(fi - i) * 1.4) * sg(ex, .7, 1);
+        o.position.set((i - 2) * SX * ex, w * .04, -(i - 2) * .5 * ex + w * .14); o.scale.setScalar(lerp(1, M ? .78 : .72, ex) * (1 + w * .08));
+        const dim = lerp(lerp(.45, 1, sg(u, .25, 1)) * (u > 5 ? 1 : 1), lerp(.42, 1.15, w), ex);
+        mats[i].forEach(m => { m.envMapIntensity = base[i] * dim; }); if (i === 1) M2.color.setScalar(lerp(2.2, lerp(.35, 2.6, w), ex)); });
+      orb.visible = halo.visible = ex > .25; halo.material.opacity = .5 + .4 * Math.sin(t * 3);
+      const end = sg(u, 5.3, 6);
+      stack.rotation.y = lerp(Math.sin(t * .3) * .22, -.32, ex) + smx * .12; stack.rotation.x = lerp(0, .08, ex) + smy * .05;
+      const R = Z0 * lerp(lerp(1.25, 1.05, end), M ? 1.2 : 1.5, ex), yaw = lerp(.1, .05, ex), pit = lerp(.08, .2, ex);
+      if (M) { look.set((fi - 2) * SX * ex, 0, -(fi - 2) * .5 * ex); stack.localToWorld(look); look.multiplyScalar(ex); } else look.set(0, 0, 0);
+      cam.position.set(look.x + Math.sin(yaw) * Math.cos(pit) * R, look.y + Math.sin(pit) * R, look.z + Math.cos(yaw) * Math.cos(pit) * R); cam.lookAt(look);
+      const side = sg(u, .5, 1) * (1 - sg(u, 5.2, 5.9));
+      if (M) cam.setViewOffset(Wd, Hd, 0, Hd * (.17 * side + .1 * end), Wd, Hd); else cam.setViewOffset(Wd, Hd, -Wd * .18 * side, Hd * .1 * end, Wd, Hd);
+      cam.updateMatrixWorld();
+      const show = sg(ex, .6, 1);
+      L.forEach((o, i) => { v3.set(anc[0], anc[1], 0); o.localToWorld(v3); v3.project(cam); const x = (v3.x + 1) / 2 * Wd, y = (1 - v3.y) / 2 * Hd;
+        const w = Math.max(0, 1 - Math.abs(fi - i) * 1.25), op = show * (M ? w : lerp(.3, 1, w)), ly = y - (M ? 30 : (i % 2 ? 36 : 66));
+        dots[i].setAttribute('cx', x); dots[i].setAttribute('cy', y); dots[i].style.opacity = op;
+        lines[i].setAttribute('x1', x); lines[i].setAttribute('y1', y); lines[i].setAttribute('x2', x); lines[i].setAttribute('y2', ly); lines[i].style.opacity = op;
+        labs[i].style.opacity = op; labs[i].style.transform = `translate(${x.toFixed(1)}px,${ly.toFixed(1)}px) translate(-50%,-110%)`; });
+      renderer.render(scene, cam);
     };
     requestAnimationFrame(tick);
-  } catch (e) { console.warn('partículas no disponibles', e); fallback(); }
+  } catch (e) { console.warn('3D no disponible', e); fallback(); }
 }
 </script>
 
@@ -1456,7 +1397,7 @@ else {
     const gL = new THREE.ExtrudeGeometry(shape([[24, 20], [60, 20], [96.2, 172]]), EX), gR = new THREE.ExtrudeGeometry(shape([[176, 20], [140, 20], [103.8, 172]]), EX);
     gL.computeBoundingBox(); gR.computeBoundingBox(); const bb = gL.boundingBox.clone().union(gR.boundingBox), ctr = bb.getCenter(new THREE.Vector3());
     [gL, gR].forEach(g => { g.translate(-ctr.x, -ctr.y, -ctr.z); g.computeVertexNormals(); });
-    const mat = new THREE.MeshPhysicalMaterial({ color: 0xB4B6BA, metalness: 1, roughness: .22, clearcoat: .7, clearcoatRoughness: .14, envMapIntensity: 1.55 });
+    const mat = new THREE.MeshPhysicalMaterial({ color: new THREE.Color().setRGB(.80, .79, .76, THREE.SRGBColorSpace), metalness: 1, roughness: .2, clearcoat: .6, clearcoatRoughness: .1, envMapIntensity: 1.55 });
     const pivL = new THREE.Group(), pivR = new THREE.Group(); pivL.add(new THREE.Mesh(gL, mat)); pivR.add(new THREE.Mesh(gR, mat));
     const group = new THREE.Group(); group.add(pivL, pivR); scene.add(group);
     const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(2.5, 3, 4); scene.add(key);
@@ -1509,98 +1450,152 @@ else {
 </script>
 
 <script type="module">
-/* Escena 3D: el isotipo de HALVEX como objeto de titanio pulido */
-const stage = document.getElementById('stage'), canvas = document.getElementById('gl'), root = document.documentElement;
-const HX = window.HX;
-const fail = () => root.classList.add('no-gl');
+/* Hero · El corte. Un bloque macizo de titanio liso aparece en la oscuridad; cuatro cuchillas de luz
+   lo atraviesan, con destello y chispas que rebotan en un suelo espejo; el material sobrante se aleja
+   a cámara lenta y queda el isotipo. Con el scroll, las dos cuñas se abren y dejan una línea de luz
+   (la firma que se cierra en Hablemos). La secuencia del corte se reproduce sola al entrar. */
+const D = document, W = window, stage = D.getElementById('stage'), canvas = D.getElementById('gl'), root = D.documentElement, HX = W.HX;
+const heroIn = () => root.classList.add('hero-in');
+const fail = () => { root.classList.add('no-gl'); heroIn(); };
 if (HX.rm) fail();
 else {
+  HX.cut = true;
   try {
     const THREE = await import('three');
-    const { RoomEnvironment } = await import('three/addons/environments/RoomEnvironment.js');
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance', preserveDrawingBuffer: true });
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
-    const scene = new THREE.Scene();
-    const pmrem = new THREE.PMREMGenerator(renderer);
-    scene.environment = pmrem.fromScene(new RoomEnvironment(renderer), 0.035).texture;
-
-    const camera = new THREE.PerspectiveCamera(28, 1, 0.1, 50);
+    const [{ Reflector }, { EffectComposer }, { RenderPass }, { UnrealBloomPass }, { OutputPass }] = await Promise.all([
+      import('three/addons/objects/Reflector.js'), import('three/addons/postprocessing/EffectComposer.js'), import('three/addons/postprocessing/RenderPass.js'),
+      import('three/addons/postprocessing/UnrealBloomPass.js'), import('three/addons/postprocessing/OutputPass.js')]);
+    const cl = (v, a, b) => v < a ? a : v > b ? b : v, sg = (v, a, b) => cl((v - a) / (b - a), 0, 1), lerp = (a, b, t) => a + (b - a) * t;
+    const eIO = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2, eo = t => 1 - Math.pow(1 - t, 4), ss = t => t * t * (3 - 2 * t);
+    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+    renderer.setPixelRatio(Math.min(W.devicePixelRatio || 1, 2)); renderer.setClearColor(0, 1);
+    renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
+    const mob = () => stage.clientWidth / stage.clientHeight < .8;
+    /* estudio fotográfico: paneles de luz que se reflejan en el titanio */
+    const env = (() => { const s = new THREE.Scene(); s.background = new THREE.Color(0);
+      const pan = (w, h, x, y, z, k) => { const m = new THREE.Mesh(new THREE.PlaneGeometry(w, h), new THREE.MeshBasicMaterial({ color: new THREE.Color(k, k, k), side: THREE.DoubleSide })); m.position.set(x, y, z); m.lookAt(0, 0, 0); s.add(m); };
+      pan(7, 7, 0, 7, 1, 1.1); pan(14, 6, 0, 3, 9, .55); pan(6, 10, -7, 1, -2, .35); pan(6, 10, 7, 1, -2, .3); pan(1.1, 9, -6, 1, 1.5, 2.2); pan(.5, 9, 6, .5, 2.5, 2.6);
+      pan(12, 4, 0, 2.4, 7, 1.05); pan(3, 7, -5, 0, 5, .5); pan(9, 1.2, 0, -2.5, 7, .35); pan(9, .35, 0, 2.2, -6, 2); pan(.35, 6, 3.5, 1, -5, 1.6); pan(2.5, .25, -2, 4.2, 4, 2);
+      const pm = new THREE.PMREMGenerator(renderer), t = pm.fromScene(s, 0).texture; pm.dispose(); return t; })();
+    const scene = new THREE.Scene(); scene.environment = env; scene.fog = new THREE.Fog(0, 5.2, 9.5);
+    const cam = new THREE.PerspectiveCamera(30, 1, .02, 100);
+    const TI = new THREE.Color().setRGB(.80, .79, .76, THREE.SRGBColorSpace);
+    const ti = () => new THREE.MeshPhysicalMaterial({ color: TI, metalness: 1, roughness: .2, clearcoat: .5, clearcoatRoughness: .1, envMapIntensity: 0 });
+    const bm = ti(), wm = ti();
     const P = (x, y) => [(x - 100) / 152, (96 - y) / 152];
-    const shape = pts => { const s = new THREE.Shape(); pts.forEach((p, i) => { const [x, y] = P(p[0], p[1]); if (i) s.lineTo(x, y); else s.moveTo(x, y); }); s.closePath(); return s; };
-    /* dos cuñas independientes: al final del hero se separan y dejan una sola línea de luz */
-    const EX = { depth: 0.13, bevelEnabled: true, bevelThickness: 0.01, bevelSize: 0.0045, bevelSegments: 5, curveSegments: 1 };
-    const gL = new THREE.ExtrudeGeometry(shape([[24, 20], [60, 20], [96.2, 172]]), EX);
-    const gR = new THREE.ExtrudeGeometry(shape([[176, 20], [140, 20], [103.8, 172]]), EX);
-    const bb = new THREE.Box3(); gL.computeBoundingBox(); gR.computeBoundingBox(); bb.copy(gL.boundingBox).union(gR.boundingBox);
-    const ctr = bb.getCenter(new THREE.Vector3());
-    [gL, gR].forEach(g => { g.translate(-ctr.x, -ctr.y, -ctr.z); g.computeVertexNormals(); });
-    const mat = new THREE.MeshPhysicalMaterial({ color: 0xB4B6BA, metalness: 1, roughness: 0.22, clearcoat: 0.7, clearcoatRoughness: 0.14, envMapIntensity: 1.55 });
-    const mL = new THREE.Mesh(gL, mat), mR = new THREE.Mesh(gR, mat);
-    const pivL = new THREE.Group(), pivR = new THREE.Group();
-    pivL.add(mL); pivR.add(mR);
-    const group = new THREE.Group(); group.add(pivL, pivR); scene.add(group);
-    /* la línea de luz que queda entre las dos mitades */
-    const lc = document.createElement('canvas'); lc.width = 64; lc.height = 256;
-    const lx = lc.getContext('2d'), id = lx.createImageData(64, 256);
-    for (let y = 0; y < 256; y++) for (let x = 0; x < 64; x++) {
-      const gx = Math.exp(-Math.pow((x - 31.5) / 9, 2)), v = y / 255, gy = Math.pow(Math.sin(Math.PI * v), 1.6), o = (y * 64 + x) * 4;
-      id.data[o] = id.data[o + 1] = id.data[o + 2] = 255; id.data[o + 3] = Math.round(255 * gx * gy);
-    }
-    lx.putImageData(id, 0, 0);
-    const ltex = new THREE.CanvasTexture(lc); ltex.colorSpace = THREE.SRGBColorSpace;
-    const lmat = new THREE.MeshBasicMaterial({ map: ltex, transparent: true, opacity: 0, depthWrite: false, toneMapped: false, blending: THREE.AdditiveBlending });
-    const line = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), lmat);
-    const glow = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), lmat.clone());
-    line.position.set(0, 0, 0.07); glow.position.copy(line.position);
-    group.add(glow, line);
-    const key = new THREE.DirectionalLight(0xffffff, 1.6); key.position.set(2.5, 3, 4); scene.add(key);
-    const rim = new THREE.DirectionalLight(0xffffff, 2.2); rim.position.set(-3, 1, -2.5); scene.add(rim);
-
-    let BASE_Y = 0.2, SPL = 0.78;
+    const shapeOf = pts => { const s = new THREE.Shape(); pts.forEach((p, i) => { const [x, y] = P(p[0], p[1]); if (i) s.lineTo(x, y); else s.moveTo(x, y); }); s.closePath(); return s; };
+    const LT = [[24, 20], [60, 20], [96.2, 172]], RT = [[176, 20], [140, 20], [103.8, 172]];
+    const DEP = .2, EXB = { depth: DEP, bevelEnabled: true, bevelThickness: .012, bevelSize: .012, bevelSegments: 6, curveSegments: 1 }, EXc = { depth: DEP, bevelEnabled: false, curveSegments: 1 };
+    const geo = (pts, ex) => { const g = new THREE.ExtrudeGeometry(shapeOf(pts), ex); g.translate(0, 0, -DEP / 2); g.computeVertexNormals(); return g; };
+    const rootG = new THREE.Group(); scene.add(rootG);
+    const block = new THREE.Mesh(geo([[24, 20], [176, 20], [176, 172], [24, 172]], EXB), bm); rootG.add(block);
+    const isoG = new THREE.Group(); rootG.add(isoG);
+    const piece = (pts, m, ex, par) => { const q = pts.map(p => P(p[0], p[1])), cx = q.reduce((a, p) => a + p[0], 0) / q.length, cy = q.reduce((a, p) => a + p[1], 0) / q.length;
+      const me = new THREE.Mesh(geo(pts, ex), m); me.position.set(-cx, -cy, 0); const g = new THREE.Group(); g.add(me); g.position.set(cx, cy, 0); g.userData.c = [cx, cy]; g.visible = false; par.add(g); return g; };
+    const WL = piece(LT, wm, EXB, isoG), WR = piece(RT, wm, EXB, isoG);
+    const offs = [piece([[24, 20], [96.2, 172], [24, 172]], bm, EXc, rootG), piece([[60, 20], [140, 20], [103.8, 172], [96.2, 172]], bm, EXc, rootG), piece([[176, 20], [176, 172], [103.8, 172]], bm, EXc, rootG)];
+    const drift = [[-1.05, -.2, -2.2, .5, .9, .35], [0, -.62, -2.6, -1, 0, 0], [1.05, -.2, -2.2, .45, -.9, -.35]];
+    /* suelo espejo que se funde con la oscuridad */
+    const FY = -.86, mir = new Reflector(new THREE.PlaneGeometry(30, 30), { textureWidth: mob() ? 512 : 1024, textureHeight: mob() ? 512 : 1024, color: 0x8c8c8c, clipBias: .003 });
+    mir.rotation.x = -Math.PI / 2; mir.position.y = FY; rootG.add(mir);
+    const fc = D.createElement('canvas'); fc.width = fc.height = 512; const fx = fc.getContext('2d'), gr = fx.createRadialGradient(256, 256, 20, 256, 256, 256);
+    gr.addColorStop(0, 'rgba(0,0,0,.45)'); gr.addColorStop(.55, 'rgba(0,0,0,.8)'); gr.addColorStop(1, 'rgba(0,0,0,1)'); fx.fillStyle = gr; fx.fillRect(0, 0, 512, 512);
+    const fade = new THREE.Mesh(new THREE.PlaneGeometry(9, 9), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(fc), transparent: true, depthWrite: false, fog: false }));
+    fade.rotation.x = -Math.PI / 2; fade.position.y = FY + .003; rootG.add(fade);
+    const hide = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshBasicMaterial({ color: 0, transparent: true, opacity: 0, depthWrite: false, fog: false })); hide.rotation.x = -Math.PI / 2; hide.position.y = FY + .006; rootG.add(hide);
+    const key = new THREE.DirectionalLight(0xffffff, 0); key.position.set(-3, 3, 3); const sweep = new THREE.DirectionalLight(0xffffff, 0); scene.add(key, sweep);
+    /* tiras de luz: la costura de cada corte y su filo incandescente */
+    const ribbon = (a, b, w) => { const l = Math.hypot(b[0] - a[0], b[1] - a[1]), n = Math.ceil(l / .008), dx = (b[0] - a[0]) / l, dy = (b[1] - a[1]) / l, nx = -dy * w / 2, ny = dx * w / 2, pos = [], s = [], idx = [];
+      for (let i = 0; i <= n; i++) { const t = i / n, x = a[0] + (b[0] - a[0]) * t, y = a[1] + (b[1] - a[1]) * t; pos.push(x + nx, y + ny, 0, x - nx, y - ny, 0); s.push(t, t); if (i < n) idx.push(i * 2, i * 2 + 1, i * 2 + 2, i * 2 + 1, i * 2 + 3, i * 2 + 2); }
+      const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('aS', new THREE.Float32BufferAttribute(s, 1)); g.setIndex(idx); return g; };
+    const vs = 'attribute float aS;varying float vS;void main(){vS=aS;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}';
+    const TC = [1.8, 2.35, 2.9, 3.45], DUR = .2, zf = DEP / 2 + .013;
+    const cuts = [[[24, 20], [96.2, 172]], [[60, 20], [96.2, 172]], [[140, 20], [103.8, 172]], [[176, 20], [103.8, 172]]].map(c => {
+      const a = P(c[0][0], c[0][1]), b = P(c[1][0], c[1][1]);
+      const seam = new THREE.Mesh(ribbon(a, b, .006), new THREE.ShaderMaterial({ uniforms: { uC: { value: 0 }, uO: { value: 1 } }, transparent: true, depthWrite: false, vertexShader: vs,
+        fragmentShader: 'uniform float uC,uO;varying float vS;void main(){if(vS>uC)discard;gl_FragColor=vec4(vec3(.004),.95*uO);}' }));
+      const hot = new THREE.Mesh(ribbon(a, b, .016), new THREE.ShaderMaterial({ uniforms: { uC: { value: 0 }, uH: { value: 0 } }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, vertexShader: vs,
+        fragmentShader: 'uniform float uC,uH;varying float vS;void main(){if(vS>uC)discard;float tip=exp(-(uC-vS)*14.);gl_FragColor=vec4(vec3(1.,.97,.93)*(uH*2.6+tip*uH*4.),1.);}' }));
+      seam.position.z = DEP / 2 + .0125; hot.position.z = zf; seam.renderOrder = 2; hot.renderOrder = 3; rootG.add(seam, hot);
+      const len = Math.hypot(b[0] - a[0], b[1] - a[1]), ang = Math.atan2(b[1] - a[1], b[0] - a[0]);
+      const sheet = new THREE.Mesh(new THREE.PlaneGeometry(len * 1.3, 1.6), new THREE.ShaderMaterial({ uniforms: { uO: { value: 0 }, uC: { value: 0 } }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
+        vertexShader: 'varying vec2 vU;void main(){vU=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+        fragmentShader: 'uniform float uO,uC;varying vec2 vU;void main(){float al=1.-smoothstep(uC-.02,uC+.02,vU.x);float d=abs(vU.y-.5)*2.;gl_FragColor=vec4(vec3(1.,.98,.95)*pow(1.-d,3.)*al*uO*.9,1.);}' }));
+      sheet.position.set((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, 0); sheet.rotation.set(0, 0, ang); sheet.rotateX(Math.PI / 2); rootG.add(sheet);
+      return { seam, hot, sheet, a, b };
+    });
+    const flash = new THREE.PointLight(0xffffff, 0, 3, 1.4); rootG.add(flash);
+    /* chispas: segmentos de luz con gravedad que rebotan en el suelo */
+    const NS = 900, sp = new Float32Array(NS * 6), sc = new Float32Array(NS * 6), sv = []; for (let i = 0; i < NS; i++) sv.push({ x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, l: 0, L: 1 });
+    const sgeo = new THREE.BufferGeometry(); sgeo.setAttribute('position', new THREE.BufferAttribute(sp, 3)); sgeo.setAttribute('color', new THREE.BufferAttribute(sc, 3));
+    const sparks = new THREE.LineSegments(sgeo, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false, fog: false }));
+    sparks.frustumCulled = false; rootG.add(sparks);
+    /* la línea de luz que queda entre las dos mitades al abrirse */
+    const lc = D.createElement('canvas'); lc.width = 64; lc.height = 256; const lx = lc.getContext('2d'), id = lx.createImageData(64, 256);
+    for (let y = 0; y < 256; y++) for (let x = 0; x < 64; x++) { const gx = Math.exp(-Math.pow((x - 31.5) / 9, 2)), gy = Math.pow(Math.sin(Math.PI * y / 255), 1.6), o = (y * 64 + x) * 4; id.data[o] = id.data[o + 1] = id.data[o + 2] = 255; id.data[o + 3] = Math.round(255 * gx * gy); }
+    lx.putImageData(id, 0, 0); const ltex = new THREE.CanvasTexture(lc); ltex.colorSpace = THREE.SRGBColorSpace;
+    const lmat = new THREE.MeshBasicMaterial({ map: ltex, transparent: true, opacity: 0, depthWrite: false, toneMapped: false, blending: THREE.AdditiveBlending, fog: false });
+    const line = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), lmat), glow = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), lmat.clone()); line.position.z = glow.position.z = .02; isoG.add(glow, line);
+    const comp = new EffectComposer(renderer); comp.addPass(new RenderPass(scene, cam));
+    const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), .5, .42, 1.3); comp.addPass(bloom); comp.addPass(new OutputPass());
+    let Z0 = 5, BASE = .3, SPL = .78;
     function size() {
-      const w = stage.clientWidth, h = stage.clientHeight;
-      renderer.setSize(w, h, false); camera.aspect = w / h;
-      const fit = w / h < 0.8 ? 0.34 : 0.38;
-      const need = Math.max(1 / fit, (w / h < 0.8 ? 1.25 : 1) / camera.aspect);
-      camera.position.set(0, 0, (need / 2) / Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
-      BASE_Y = w / h < 0.8 ? 0.24 : 0.2;
-      SPL = 0.78 * Math.min(1, Math.max(0.4, (w / h) / 1.6));
-      camera.updateProjectionMatrix();
+      const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false); cam.aspect = w / h;
+      const t = Math.tan(THREE.MathUtils.degToRad(15)); Z0 = Math.max(1 / (mob() ? .27 : .31) / (2 * t), 1 / (mob() ? .56 : .58) / (2 * t * cam.aspect));
+      BASE = (mob() ? .12 : .135) * 2 * Z0 * t; SPL = .78 * Math.min(1, Math.max(.4, (w / h) / 1.6));
+      scene.fog.near = Z0 + .7; scene.fog.far = Z0 + 5; cam.updateProjectionMatrix(); comp.setPixelRatio(renderer.getPixelRatio()); comp.setSize(w, h);
     }
-    size(); window.addEventListener('resize', size);
-
-    let vis = true;
-    new IntersectionObserver(es => { vis = es[0].isIntersecting; }).observe(stage);
-    const t0 = performance.now(); let sx = 0, sy = 0;
-    const ss = t => t * t * (3 - 2 * t), sg = (v, a, b) => Math.min(1, Math.max(0, (v - a) / (b - a)));
-    const eo = t => 1 - Math.pow(1 - t, 4), cl = (v, a, b) => Math.min(b, Math.max(a, v));
+    size(); W.addEventListener('resize', size);
+    let vis = true; new IntersectionObserver(es => { vis = es[0].isIntersecting; }).observe(stage);
     root.classList.add('gl-on');
+    let last = 0, Tl = -1, si = 0, sx = 0, sy = 0, shown = false; const far = new THREE.Vector3(), near = new THREE.Vector3();
     function tick(now) {
       requestAnimationFrame(tick);
-      if (!vis) return;
-      const t = (now - t0) / 1000;
-      const tg = HX.go ? (now - HX.go) / 1000 : -1;
-      const intro = eo(cl((tg - 0.05) / 2.7, 0, 1));         /* aparece de canto, como una línea de luz */
-      const p = HX.p;
-      const front = 1 - cl(p / 0.45, 0, 1);                  /* el scroll lo coloca de frente */
-      const idle = Math.sin(t * 0.42) * 0.2 * front;
-      sx += (HX.mx - sx) * 0.05; sy += (HX.my - sy) * 0.05;
-      group.rotation.set(intro * (sy * 0.16 * front) + (1 - intro) * 0.05,
-                         (1 - intro) * (Math.PI / 2 - 0.02) + intro * (-0.38 * front + idle + sx * 0.32 * front), 0);
-      const k = cl((p - 0.05) / 0.5, 0, 1);
-      group.scale.setScalar((0.9 + 0.1 * intro) * (1 + 0.28 * k));
-      group.position.y = BASE_Y + 0.06 * k;
-      /* la firma: las dos mitades se abren y queda la precisión, una línea */
-      const sp = ss(sg(p, 0.5, 0.92)), ln = sg(p, 0.48, 0.78);
-      pivL.position.x = -SPL * sp; pivR.position.x = SPL * sp;
-      pivL.rotation.y = 0.42 * sp; pivR.rotation.y = -0.42 * sp;
-      pivL.position.z = pivR.position.z = -0.12 * sp;
-      line.scale.set(0.018, 0.04 + 2.5 * eo(ln), 1); line.material.opacity = Math.min(1, ln * 1.6);
-      glow.scale.set(0.34, 0.04 + 1.9 * eo(ln), 1); glow.material.opacity = 0.22 * ln;
-      line.visible = glow.visible = ln > 0.001;
-      renderer.render(scene, camera);
+      const dt = Math.min(.05, (now - (last || now)) / 1000); last = now;
+      const p = HX.p, tg = HX.go ? (now - HX.go) / 1000 : 0;
+      const T = Math.max(tg, 7 * sg(p, 0, .12));                    /* el scroll adelanta el corte si hace falta */
+      if (!shown && T > 4.6) { shown = true; heroIn(); }
+      if (!vis) { Tl = T; return; }
+      const jump = T - Tl > .35; Tl = T;
+      sx += (HX.mx - sx) * .05; sy += (HX.my - sy) * .05;
+      /* 1 · el bloque aparece: la cámara sale del canto y lo descubre entero */
+      const rev = eo(sg(T, .1, 1.4)); bm.envMapIntensity = wm.envMapIntensity = 1.35 * rev; key.intensity = .7 * rev;
+      /* 2 · cuatro cortes de luz */
+      let fl = 0;
+      cuts.forEach((c, j) => {
+        const s = sg(T, TC[j] - DUR / 2, TC[j] + DUR / 2), h = T >= TC[j] - DUR / 2 ? Math.exp(-Math.max(0, T - TC[j]) / .45) : 0, off = 1 - sg(T, 3.9, 4.4);
+        c.seam.material.uniforms.uC.value = c.hot.material.uniforms.uC.value = s; c.hot.material.uniforms.uH.value = h * off; c.seam.material.uniforms.uO.value = off;
+        const st = Math.sin(Math.PI * s); c.sheet.material.uniforms.uO.value = st; c.sheet.material.uniforms.uC.value = s * 1.15; c.sheet.visible = st > .001; fl += st;
+        if (s > 0 && s < 1) { flash.position.set(lerp(c.a[0], c.b[0], s), lerp(c.a[1], c.b[1], s), .3);
+          if (!jump) { const n = Math.round(dt * 5200); for (let q = 0; q < n; q++) { const S = sv[si]; si = (si + 1) % NS; const tt = Math.random() * s, a = Math.random() * Math.PI * 2, v = .5 + Math.random() * 1.8;
+            S.x = lerp(c.a[0], c.b[0], tt); S.y = lerp(c.a[1], c.b[1], tt); S.z = zf; S.vx = Math.cos(a) * v * .55; S.vy = Math.abs(Math.sin(a)) * v * .6 + .2; S.vz = .2 + Math.random() * 1.3; S.l = S.L = .7 + Math.random() * 1.1; } } }
+      });
+      flash.intensity = fl * 1.1; bloom.strength = .5 + fl * .15;
+      for (let i = 0; i < NS; i++) { const s = sv[i], o = i * 6; if (s.l > 0) { s.l -= dt; s.vy -= 3.2 * dt; s.x += s.vx * dt; s.y += s.vy * dt; s.z += s.vz * dt; if (s.y < FY + .004 && s.vy < 0) { s.y = FY + .004; s.vy *= -.32; s.vx *= .7; s.vz *= .7; } }
+        const k = Math.max(0, s.l / s.L), b = k * k * 3; sp[o] = s.x; sp[o + 1] = s.y; sp[o + 2] = s.z; sp[o + 3] = s.x - s.vx * .028; sp[o + 4] = s.y - s.vy * .028; sp[o + 5] = s.z - s.vz * .028; sc[o] = sc[o + 1] = b; sc[o + 2] = b * .93; sc[o + 3] = sc[o + 4] = sc[o + 5] = 0; }
+      sgeo.attributes.position.needsUpdate = true; sgeo.attributes.color.needsUpdate = true;
+      /* 3 · el material sobrante se aleja a cámara lenta */
+      const rel = T >= 3.95; block.visible = !rel; WL.visible = WR.visible = rel;
+      const q = eIO(sg(T, 4, 6.2)); offs.forEach((g, i) => { const d = drift[i]; g.visible = rel && q < .995; g.position.set(g.userData.c[0] + d[0] * q, g.userData.c[1] + d[1] * q, d[2] * q); g.rotation.set(d[3] * q, d[4] * q, d[5] * q); });
+      /* 4 · el isotipo gira y la luz lo recorre; después, el scroll lo abre */
+      const tw = sg(T, 4.2, 6.8), front = 1 - cl(p / .45, 0, 1), done = sg(T, 6, 7);
+      const spl = ss(sg(p, .5, .92)), ln = sg(p, .48, .78), k = sg(p, .05, .55);
+      isoG.rotation.y = Math.sin(Math.PI * tw) * -.42 + done * front * (Math.sin(now / 1000 * .42) * .12 + sx * .3);
+      isoG.rotation.x = done * front * sy * .12;
+      sweep.position.set(lerp(4, -4, tw), 2, 2.5); sweep.intensity = 1.2 * Math.sin(Math.PI * tw);
+      WL.position.set(WL.userData.c[0] - .03 * tw - SPL * spl, WL.userData.c[1], -.12 * spl); WR.position.set(WR.userData.c[0] + .03 * tw + SPL * spl, WR.userData.c[1], -.12 * spl);
+      WL.rotation.y = .42 * spl; WR.rotation.y = -.42 * spl;
+      line.scale.set(.018, .04 + 2.5 * eo(ln), 1); line.material.opacity = Math.min(1, ln * 1.6);
+      glow.scale.set(.34, .04 + 1.9 * eo(ln), 1); glow.material.opacity = .22 * ln; line.visible = glow.visible = ln > .001;
+      rootG.scale.setScalar(1 + .22 * k); rootG.position.y = .06 * k;
+      hide.material.opacity = sg(T, 5, 7.5); mir.visible = hide.material.opacity < .99;
+      /* cámara: del macro del canto al plano entero */
+      const e = eIO(sg(T, 0, 1.6)), yaw = lerp(.22, -.06, eIO(sg(T, 3.9, 6.8)));
+      far.set(Math.sin(yaw) * Z0, .14, Math.cos(yaw) * Z0).multiplyScalar(1 - .06 * sg(T, 3.9, 6.8));
+      near.set(-.15, .62, 1.05); near.lerp(far, e);
+      if (fl > 0) { near.x += (Math.random() - .5) * .012 * fl; near.y += (Math.random() - .5) * .012 * fl; }
+      cam.position.copy(near); cam.lookAt(lerp(-.36, 0, e), lerp(.46, -.04 - BASE, e), 0);
+      comp.render();
     }
     requestAnimationFrame(tick);
   } catch (e) { console.warn('3D no disponible', e); fail(); }
