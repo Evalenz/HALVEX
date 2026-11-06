@@ -98,6 +98,14 @@ header p{margin:0;font-size:13px;color:var(--mute);max-width:52ch}
   </header>
 
   <nav class="tabs" role="tablist" aria-label="Bocetos" id="tabs">
+    <div class="grp"><span>Hero · sin corte</span>
+      <button role="tab" data-id="emerge">1 · Emerge</button>
+      <button role="tab" data-id="eclipse">2 · Eclipse</button>
+      <button role="tab" data-id="caida">3 · La caída</button>
+      <button role="tab" data-id="pulido">4 · Pulido</button>
+      <button role="tab" data-id="espejo">5 · Espejo infinito</button>
+      <button role="tab" data-id="temira">6 · Te mira</button>
+    </div>
     <div class="grp"><span>Hero</span>
       <button role="tab" data-id="corte">El corte</button>
       <button role="tab" data-id="caminos">Mil caminos</button>
@@ -176,6 +184,24 @@ const PQ='<div class="pq" id="pq">'+
 
 /* textos que acompañan a cada boceto */
 const INFO={
+ emerge:{k:'Hero sin corte · idea 1 de 6',t:'Emerge',d:'Toda la pantalla es una lámina de titanio pulido que ondula despacio. El isotipo la empuja desde detrás: primero un bulto blando, luego sus cantos. Cuando el relieve llega arriba, la pieza se suelta y flota hacia delante, mientras la lámina rebota y una onda corre por el metal.',
+  s:[['0–10 %','Una lámina de titanio que ondula.'],['10–46 %','El isotipo la empuja desde detrás.'],['36–50 %','Un destello recorre el relieve.'],['50 %','Se suelta: la lámina rebota y ondula.'],['50–72 %','El isotipo flota hacia delante.'],['78–90 %','El titular entra.']],
+  f:'El isotipo nace del propio material, sin romper nada.',r:'Es el que más pide a la gráfica (la lámina tiene muchos vértices); en móvil iría más ligera.'},
+ eclipse:{k:'Hero sin corte · idea 2 de 6',t:'Eclipse',d:'Negro absoluto. El isotipo está ahí, pero no se ve. Por detrás asoma una luz y la pieza se recorta, negra, contra el resplandor, con un borde blanco finísimo en los biseles. Un destello en el vértice y la luz pasa por encima hasta encender de frente el titanio.',
+  s:[['6–30 %','Nace la luz detrás: la silueta se recorta.'],['35 %','Destello en el vértice.'],['42–76 %','La luz pasa por encima del isotipo.'],['55–86 %','El titanio se enciende de frente.'],['80–92 %','El titular entra.']],
+  f:'El más sobrio y elegante: blanco y negro puros, sin efectos de más.',r:'Necesita una pantalla con buen negro para lucir del todo.'},
+ caida:{k:'Hero sin corte · idea 3 de 6',t:'La caída',d:'El isotipo cae desde arriba a cámara lenta, girando, y llega de frente justo al tocar el suelo de espejo. Un pequeño rebote, un destello en el punto de contacto y el suelo se comporta como metal líquido: una onda sale del vértice y los reflejos tiemblan hasta quedarse quietos.',
+  s:[['4–40 %','Cae girando a cámara lenta.'],['40 %','Toca el suelo: destello.'],['40–51 %','Un rebote corto.'],['40–100 %','La onda se abre y se apaga.'],['70–82 %','El titular entra.']],
+  f:'Da peso: algo macizo, serio, que llega para quedarse.',r:'La onda es lo que más impresiona; habría que cuidar que no parezca agua.'},
+ pulido:{k:'Hero sin corte · idea 4 de 6',t:'Pulido',d:'El isotipo aparece en titanio en bruto, mate y granulado. Una línea de luz lo recorre una sola vez y, por donde pasa, el metal queda liso como un espejo. Después un reflejo lo cruza y gira despacio para enseñar el acabado.',
+  s:[['0–16 %','Titanio en bruto, mate.'],['22–60 %','La línea de luz lo pule a su paso.'],['64–94 %','Ya liso: el reflejo lo recorre y gira.'],['80–92 %','El titular entra.']],
+  f:'Cuenta justo lo que querías: el acabado liso es lo que se revela.',r:'El contraste mate/espejo se ve mejor en pantallas grandes.'},
+ espejo:{k:'Hero sin corte · idea 5 de 6',t:'Espejo infinito',d:'Dos espejos enfrentados repiten el isotipo en un túnel que se pierde en el fondo; los reflejos se encienden en cadena. Al avanzar, todas las copias se pliegan hacia delante y se funden en una sola pieza real, con un destello.',
+  s:[['3–30 %','Los reflejos se encienden en cadena.'],['36–70 %','El túnel se pliega hacia delante.'],['70 %','Se funden en una sola pieza: destello.'],['72–97 %','Un reflejo recorre el isotipo.'],['80–92 %','El titular entra.']],
+  f:'Muchas posibilidades que acaban en una única decisión precisa.',r:'Es el más «conceptual»; hay que explicarlo poco y dejar que se vea.'},
+ temira:{k:'Hero sin corte · idea 6 de 6',t:'Te mira',d:'El isotipo está quieto y es tan pulido que refleja el titular de la web. Al mover el ratón (o inclinar el móvil) se inclina unos grados hacia ti y los reflejos corren por el metal. Si nadie lo toca, oscila solo.',
+  s:[['0–20 %','Aparece el isotipo pulido.'],['22–36 %','El titular entra.'],['30 %','Invitación a moverlo.']],
+  f:'Sutil y muy de producto. Se puede sumar al final de cualquiera de las otras.',r:'En iPhone, inclinar pide permiso al tocar la pantalla.'},
  giro1:{k:'Giro · idea 1 de 5',t:'Tiempo congelado',d:'En el instante del último corte, todo se para: las chispas quedan suspendidas en el aire y el material sobrante deja de moverse. La cámara da una vuelta completa alrededor del isotipo a cámara lenta, con los reflejos deslizándose por el titanio. Al volver de frente, el tiempo se reanuda y las chispas caen.',
   s:[['14–20 %','El último corte: destello.'],['24 %','Todo se congela.'],['26–78 %','La cámara da la vuelta completa al isotipo.'],['80–100 %','El tiempo se reanuda: las chispas caen y el sobrante se aleja.'],['86–96 %','El titular entra.']],
   f:'Es el momento más espectacular: congela el corte para enseñar el isotipo por todos sus lados.',r:'Con muchas chispas en el aire pide algo más de gráfica; en móvil se reducirían.'},
@@ -1145,6 +1171,231 @@ C.giro5={grp:'hero',dur:9,html:HERO+'<p class="hint3" id="h3">Arrastra para gira
       B.orbit(.12,.06,.98);const h=$('h3');if(h)h.style.opacity=live&&!touched?(.6+.3*Math.sin(t*3)).toFixed(2):0;hero(p,.5,.62);}};
 }};
 
+/* ——— Hero sin corte: el isotipo de titanio liso, entero ——— */
+const TIc=()=>new THREE.Color().setRGB(.80,.79,.76,THREE.SRGBColorSpace);
+function floorFade(scene,FY){const fc=D.createElement('canvas');fc.width=fc.height=512;const fx=fc.getContext('2d'),gr=fx.createRadialGradient(256,256,20,256,256,256);gr.addColorStop(0,'rgba(0,0,0,.45)');gr.addColorStop(.55,'rgba(0,0,0,.8)');gr.addColorStop(1,'rgba(0,0,0,1)');fx.fillStyle=gr;fx.fillRect(0,0,512,512);
+  const f=new THREE.Mesh(new THREE.PlaneGeometry(9,9),new THREE.MeshBasicMaterial({map:new THREE.CanvasTexture(fc),transparent:true,depthWrite:false,fog:false}));f.rotation.x=-Math.PI/2;f.position.y=FY+.003;scene.add(f);return f;}
+function tiBase(o={}){
+  const scene=new THREE.Scene();scene.environment=o.env||studio();
+  const cam=new THREE.PerspectiveCamera(30,1,.02,100);
+  const mat=o.mat||new THREE.MeshPhysicalMaterial({color:TIc(),metalness:1,roughness:.2,clearcoat:.5,clearcoatRoughness:.1,envMapIntensity:1.35});
+  const DEP=.2,EXB={depth:DEP,bevelEnabled:true,bevelThickness:.012,bevelSize:.012,bevelSegments:6,curveSegments:1};
+  const geo=pts=>{const g=new THREE.ExtrudeGeometry(shapeOf(pts),EXB);g.translate(0,0,-DEP/2);g.computeVertexNormals();return g;};
+  const gL=geo(LT),gR=geo(RT),iso=new THREE.Group();iso.add(new THREE.Mesh(gL,mat),new THREE.Mesh(gR,mat));scene.add(iso);
+  const FY=o.fy??-.86;let mir=null;
+  if(o.floor){mir=new Reflector(new THREE.PlaneGeometry(30,30),Object.assign({textureWidth:MOB()?512:1024,textureHeight:MOB()?512:1024,color:0x8c8c8c,clipBias:.003},o.shader?{shader:o.shader}:{}));mir.rotation.x=-Math.PI/2;mir.position.y=FY;scene.add(mir);floorFade(scene,FY);}
+  const key=new THREE.DirectionalLight(0xffffff,.7);key.position.set(-3,3,3);const sweep=new THREE.DirectionalLight(0xffffff,0);scene.add(key,sweep);
+  const comp=new EffectComposer(renderer);comp.addPass(new RenderPass(scene,cam));const bloom=new UnrealBloomPass(new THREE.Vector2(256,256),.5,.42,1.3);comp.addPass(bloom);comp.addPass(new OutputPass());
+  const B={scene,cam,comp,bloom,iso,mat,gL,gR,key,sweep,mir,FY,DEP,Z0:5,W:1,H:1,
+    resize(w,h){B.W=w;B.H=h;cam.aspect=w/h;B.Z0=fitZ(cam,1,1,.4,MOB()?.62:.58);cam.updateProjectionMatrix();comp.setPixelRatio(renderer.getPixelRatio());comp.setSize(w,h);B.onResize&&B.onResize(w,h);},
+    orbit(yaw,pit,dm,ty=-.04,shake=0){const R=B.Z0*dm;cam.position.set(Math.sin(yaw)*Math.cos(pit)*R+(Math.random()-.5)*shake,Math.sin(pit)*R+ty+.14+(Math.random()-.5)*shake,Math.cos(yaw)*Math.cos(pit)*R);cam.lookAt(0,ty,0);},
+    render(){comp.render();},dispose(){comp.dispose();bloom.dispose();mir&&mir.getRenderTarget().dispose();B.onDispose&&B.onDispose();}};
+  return B;
+}
+/* máscara del isotipo (fila 0 = abajo) y desenfoque de caja, para los mapas de altura */
+function isoMask(N,HS){const c=D.createElement('canvas');c.width=c.height=N;const x=c.getContext('2d');x.fillStyle='#000';x.fillRect(0,0,N,N);x.fillStyle='#fff';
+  const tp=([px,py])=>{const [X,Y]=P(px,py);return [(X/HS+.5)*N,(.5-Y/HS)*N];};
+  [LT,RT].forEach(T=>{x.beginPath();T.forEach((p,i)=>{const [a,b]=tp(p);i?x.lineTo(a,b):x.moveTo(a,b);});x.closePath();x.fill();});
+  const d=x.getImageData(0,0,N,N).data,f=new Float32Array(N*N);for(let y=0;y<N;y++)for(let i=0;i<N;i++)f[(N-1-y)*N+i]=d[(y*N+i)*4]/255;return f;}
+function boxBlur(src,N,r,passes=3){const a=Float32Array.from(src),b=new Float32Array(N*N),n=2*r+1;
+  for(let k=0;k<passes;k++){
+    for(let y=0;y<N;y++){const o=y*N;let s=0;for(let i=-r;i<=r;i++)s+=a[o+cl(i,0,N-1)];for(let x=0;x<N;x++){b[o+x]=s/n;s+=a[o+cl(x+r+1,0,N-1)]-a[o+cl(x-r,0,N-1)];}}
+    for(let x=0;x<N;x++){let s=0;for(let i=-r;i<=r;i++)s+=b[cl(i,0,N-1)*N+x];for(let y=0;y<N;y++){a[y*N+x]=s/n;s+=b[cl(y+r+1,0,N-1)*N+x]-b[cl(y-r,0,N-1)*N+x];}}}
+  return a;}
+function halfTex(f,N){const t=new THREE.DataTexture(Uint16Array.from(f,v=>THREE.DataUtils.toHalfFloat(v)),N,N,THREE.RedFormat,THREE.HalfFloatType);t.minFilter=t.magFilter=THREE.LinearFilter;t.needsUpdate=true;return t;}
+const NOISE_GLSL=`float hs_(vec3 p){p=fract(p*.3183099+.1);p*=17.;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
+float vn_(vec3 x){vec3 i=floor(x),f=fract(x);f=f*f*(3.-2.*f);return mix(mix(mix(hs_(i),hs_(i+vec3(1,0,0)),f.x),mix(hs_(i+vec3(0,1,0)),hs_(i+vec3(1,1,0)),f.x),f.y),mix(mix(hs_(i+vec3(0,0,1)),hs_(i+vec3(1,0,1)),f.x),mix(hs_(i+vec3(0,1,1)),hs_(i+vec3(1,1,1)),f.x),f.y),f.z);}`;
+
+/* 1 · EMERGE: el isotipo empuja una lámina de titanio desde detrás y se desprende */
+C.emerge={grp:'hero',dur:13,html:HERO,pr:1.5,make(){const B=tiBase();
+  const HS=2.4,N=512,m0=isoMask(N,HS),sharp=boxBlur(m0,N,3),soft=boxBlur(m0,N,26),mixd=sharp.map((v,i)=>.82*v+.18*soft[i]);
+  const tA=halfTex(soft,N),tB=halfTex(mixd,N);
+  const U={tA:{value:tA},tB:{value:tB},uAmp:{value:0},uM:{value:0},uRA:{value:0},uRT:{value:0},uW:{value:0},uT:{value:0},uV:{value:1}};
+  const sm=new THREE.MeshPhysicalMaterial({color:TIc(),metalness:1,roughness:.24,clearcoat:.4,clearcoatRoughness:.12,envMapIntensity:1});
+  sm.onBeforeCompile=sh=>{Object.assign(sh.uniforms,U);
+    sh.vertexShader=sh.vertexShader.replace('#include <common>',`#include <common>
+uniform sampler2D tA,tB;uniform float uAmp,uM,uRA,uRT,uW,uT;varying vec2 vQ;
+float Hf(vec2 q){vec2 uv=q/${HS.toFixed(2)}+.5;float m=0.;if(uv.x>0.&&uv.x<1.&&uv.y>0.&&uv.y<1.)m=mix(texture2D(tA,uv).r,texture2D(tB,uv).r,uM);
+ float r=length(q);float rp=uRA*sin(r*19.-uRT*6.5)*exp(-r*1.15)*smoothstep(uRT*.95+.05,uRT*.95-.45,r);
+ float w=uW*.022*sin(q.x*2.1+uT*.7)*sin(q.y*1.6-uT*.5);return m*uAmp+rp+w;}`)
+    .replace('#include <beginnormal_vertex>',`vec2 q_=position.xy;float e_=.011;float h0_=Hf(q_);vQ=q_;
+vec3 objectNormal=normalize(vec3(-(Hf(q_+vec2(e_,0.))-Hf(q_-vec2(e_,0.)))/(2.*e_),-(Hf(q_+vec2(0.,e_))-Hf(q_-vec2(0.,e_)))/(2.*e_),1.));
+#ifdef USE_TANGENT
+vec3 objectTangent=vec3(tangent.xyz);
+#endif`)
+    .replace('#include <begin_vertex>','vec3 transformed=vec3(position.xy,h0_);');
+    sh.fragmentShader=sh.fragmentShader.replace('#include <common>','#include <common>\nvarying vec2 vQ;uniform float uV;')
+    .replace('#include <opaque_fragment>','outgoingLight*=smoothstep(2.,.55,length(vQ*vec2(.8,1.)))*uV;\n#include <opaque_fragment>');};
+  const SEG=MOB()?240:340,sheet=new THREE.Mesh(new THREE.PlaneGeometry(4.4,4.4,SEG,SEG),sm);B.scene.add(sheet);
+  B.iso.visible=false;
+  const glint=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));glint.scale.set(1.6,.5,1);B.scene.add(glint);
+  B.onDispose=()=>{tA.dispose();tB.dispose();};
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
+    update(p,t){U.uT.value=t;U.uW.value=1-sg(p,.1,.3);
+      /* la presión desde detrás: primero un bulto blando, luego los cantos del isotipo */
+      const push=eIO(sg(p,.1,.46)),rel=p>=.5;U.uM.value=sg(p,.2,.46);
+      /* al soltarse, la lámina rebota y una onda corre por el metal */
+      const rt=Math.max(0,p-.5)*13;U.uAmp.value=rel?.112*Math.exp(-rt*2.3)*Math.cos(rt*7):.112*push;
+      U.uRT.value=rt;U.uRA.value=rel?.03*Math.exp(-rt*.55):0;
+      sm.envMapIntensity=lerp(1,.38,eIO(sg(p,.5,.8)));U.uV.value=1-.45*sg(p,.55,.85);
+      B.iso.visible=rel;const fl=eIO(sg(p,.5,.72));B.iso.position.set(0,.02*Math.sin(t*.8)*sg(p,.7,.85),.02+fl*.62);
+      B.iso.rotation.set(-.05*fl+mouse.sy*.06*sg(p,.75,.9),Math.sin(Math.PI*sg(p,.5,.95))*-.32+mouse.sx*.18*sg(p,.75,.9),0);
+      /* un destello recorre los cantos cuando el relieve llega arriba */
+      const g=sg(p,.36,.5);glint.position.set(lerp(-.9,.9,g),lerp(.45,-.1,g),.2);glint.material.opacity=Math.sin(Math.PI*g)*.5;
+      const sw=sg(p,.5,.92);B.sweep.position.set(lerp(4,-4,sw),2,2.5);B.sweep.intensity=2*Math.sin(Math.PI*sw);
+      const e=eIO(sg(p,0,.6));B.orbit(lerp(.42,.06,e)+mouse.sx*.03,lerp(.32,.06,e),lerp(.78,1.02,eIO(sg(p,.05,.8))),-.02);
+      hero(p,.78,.9);}};
+}};
+
+/* 2 · ECLIPSE: el isotipo en negro, la luz asoma por detrás y luego lo enciende */
+C.eclipse={grp:'hero',dur:13,html:HERO,make(){const B=tiBase();B.key.intensity=0;
+  const corona=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));corona.position.set(0,.02,-.9);B.scene.add(corona);
+  const halo=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));halo.position.set(0,.02,-1.6);B.scene.add(halo);
+  const ring=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));ring.position.set(0,-.5,.02);B.scene.add(ring);
+  const rim=new THREE.DirectionalLight(0xffffff,0),rim2=new THREE.DirectionalLight(0xffffff,0);B.scene.add(rim,rim2);
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
+    update(p,t){
+      /* la luz nace detrás: la silueta negra se recorta contra un resplandor */
+      const c=eo(sg(p,.06,.3)),a=eIO(sg(p,.42,.76));
+      corona.material.opacity=c*.95*(1-.85*a);corona.scale.setScalar(lerp(.6,1.9,c)*(1+.25*a));
+      halo.material.opacity=c*.5*(1-a);halo.scale.setScalar(lerp(1.5,4.6,c));
+      /* borde finísimo: luces rasantes desde atrás que solo tocan los biseles */
+      rim.position.set(0,.6,-3);rim.intensity=4.5*c*(1-a);rim2.position.set(0,-1.5,-3);rim2.intensity=1.6*c*(1-a);
+      /* el anillo de diamante en el vértice */
+      const dm=Math.exp(-Math.pow((p-.35)/.025,2));ring.material.opacity=dm;ring.scale.set(.7*dm+.05,.18*dm+.02,1);
+      /* la luz pasa por encima del isotipo y lo enciende de frente */
+      const th=Math.PI*a;B.key.position.set(lerp(.2,-2.4,a),.6+2.8*Math.sin(th),-3.4*Math.cos(th));B.key.intensity=a>0?3.2*Math.sin(Math.PI*Math.min(1,a*1.15))+.7*a:0;
+      B.mat.envMapIntensity=1.35*eIO(sg(p,.55,.86));
+      const sw=sg(p,.68,.96);B.sweep.position.set(lerp(4,-4,sw),2,2.5);B.sweep.intensity=1.5*Math.sin(Math.PI*sw);
+      B.bloom.strength=.5+.25*c*(1-a)+dm*.4;
+      B.iso.rotation.set(mouse.sy*.06*a,Math.sin(t*.25)*.06*a+mouse.sx*.15*a,0);
+      B.orbit(.0+.08*eIO(sg(p,.4,1)),.05,lerp(.92,1,eIO(sg(p,0,1))),-.02);hero(p,.8,.92);}};
+}};
+
+/* 3 · LA CAÍDA: baja a cámara lenta, se posa y el suelo ondula como metal líquido */
+const RIPPLE_SHADER={uniforms:{color:{value:null},tDiffuse:{value:null},textureMatrix:{value:null},uT:{value:0},uA:{value:0}},
+  vertexShader:`uniform mat4 textureMatrix;varying vec4 vUv;varying vec2 vW;
+#include <common>
+#include <logdepthbuf_pars_vertex>
+void main(){vUv=textureMatrix*vec4(position,1.);vW=(modelMatrix*vec4(position,1.)).xz;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);
+#include <logdepthbuf_vertex>
+}`,
+  fragmentShader:`uniform vec3 color;uniform sampler2D tDiffuse;uniform float uT,uA;varying vec4 vUv;varying vec2 vW;
+#include <logdepthbuf_pars_fragment>
+float bo(float b,float s){return b<.5?2.*b*s:1.-2.*(1.-b)*(1.-s);}
+void main(){
+#include <logdepthbuf_fragment>
+ float r=length(vW);float front=uT*.85;float env=smoothstep(front+.02,front-.5,r)*exp(-r*.75)*uA;
+ float ph=r*22.-uT*11.;float w=sin(ph)*env;vec2 dir=r>.0001?vW/r:vec2(0.);
+ vec4 base=texture2DProj(tDiffuse,vUv+vec4(dir.x*w*.05*vUv.w,-dir.y*w*.05*vUv.w,0.,0.));
+ vec3 c=vec3(bo(base.r,color.r),bo(base.g,color.g),bo(base.b,color.b));
+ c+=vec3(.95,.97,1.)*pow(max(0.,cos(ph)),6.)*env*.55;
+ gl_FragColor=vec4(c,1.);
+#include <tonemapping_fragment>
+#include <colorspace_fragment>
+}`};
+C.caida={grp:'hero',dur:12,html:HERO,make(){const B=tiBase({floor:true,fy:-.62,shader:RIPPLE_SHADER});const RU=B.mir.material.uniforms,REST=B.FY+.5+.004;
+  const dust=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false,fog:false}));dust.position.set(0,B.FY+.02,0);B.scene.add(dust);
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
+    update(p,t){const TI0=.4;
+      /* cae acelerando, girando, y llega de frente justo al tocar */
+      const s=sg(p,.04,TI0);const bounce=.045*Math.sin(Math.PI*sg(p,TI0,.47))+.012*Math.sin(Math.PI*sg(p,.47,.51));
+      B.iso.position.y=lerp(2.6,REST,s*s)+(p>TI0?bounce:0);const k=(1-s)*(1-s);B.iso.rotation.set(.25*k,k*Math.PI*2*1.25,-.22*k);
+      /* el impacto: destello en el punto de contacto y la onda en el suelo */
+      const it=Math.max(0,p-TI0)*12,hit=p>=TI0?Math.exp(-it*3):0;RU.uT.value=it;RU.uA.value=p>=TI0?Math.exp(-it*.32):0;
+      dust.material.opacity=hit*.9;dust.scale.set(.2+1.4*(1-hit),.06+.1*(1-hit),1);B.bloom.strength=.5+hit*.5;B.key.intensity=.7+hit*.6;
+      const sw=sg(p,.5,.9);B.sweep.position.set(lerp(4,-4,sw),2,2.5);B.sweep.intensity=1.6*Math.sin(Math.PI*sw);
+      B.iso.rotation.y+=mouse.sx*.15*sg(p,.6,.75);
+      /* cámara baja, casi a ras del suelo, que se aleja despacio */
+      B.orbit(lerp(.22,.06,eIO(sg(p,0,.9))),lerp(-.02,.07,eIO(sg(p,.3,.95))),lerp(.9,1.04,eIO(sg(p,0,1))),-.06,hit*.03);
+      hero(p,.7,.82);}};
+}};
+
+/* 4 · PULIDO: de titanio en bruto a espejo, por donde pasa la luz */
+C.pulido={grp:'hero',dur:12,html:HERO,make(){
+  const U={uX:{value:-1},uE:{value:0}};
+  const mat=new THREE.MeshPhysicalMaterial({color:TIc(),metalness:1,roughness:.2,clearcoat:.5,clearcoatRoughness:.1,envMapIntensity:1.35});
+  mat.onBeforeCompile=sh=>{Object.assign(sh.uniforms,U);
+    sh.vertexShader=sh.vertexShader.replace('#include <common>','#include <common>\nvarying vec3 vOP;').replace('#include <begin_vertex>','#include <begin_vertex>\nvOP=position;');
+    sh.fragmentShader=sh.fragmentShader.replace('#include <common>','#include <common>\nvarying vec3 vOP;uniform float uX,uE;\n'+NOISE_GLSL)
+    .replace('#include <color_fragment>',`#include <color_fragment>
+float dB_=dot(vOP.xy,normalize(vec2(1.,.35)));float kP_=smoothstep(uX+.012,uX-.012,dB_);float gN_=vn_(vOP*150.);float gM_=vn_(vOP*38.+7.);
+diffuseColor.rgb*=mix(.7+.22*gN_+.12*gM_,1.,kP_);`)
+    .replace('#include <roughnessmap_fragment>','#include <roughnessmap_fragment>\nroughnessFactor=mix(.5+.14*gN_+.1*gM_,.16,kP_);')
+    .replace('#include <normal_fragment_maps>','#include <normal_fragment_maps>\nnormal=normalize(normal+vec3(vn_(vOP*190.+3.)-.5,vn_(vOP*190.+11.)-.5,0.)*.55*(1.-kP_));')
+    .replace('#include <emissivemap_fragment>','#include <emissivemap_fragment>\ntotalEmissiveRadiance+=vec3(1.,.97,.93)*exp(-pow((dB_-uX)/.008,2.))*uE;')
+    .replace('#include <lights_physical_fragment>','#include <lights_physical_fragment>\n#ifdef USE_CLEARCOAT\nmaterial.clearcoat*=kP_;\n#endif');};
+  const B=tiBase({floor:true,mat});
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
+    update(p,t){const rev=eo(sg(p,0,.16));mat.envMapIntensity=1.35*rev;B.key.intensity=.8*rev;
+      /* la banda de luz pule el metal a su paso */
+      const b=sg(p,.22,.6);U.uX.value=lerp(-.72,.72,eIO(b));U.uE.value=Math.sin(Math.PI*b)*3.2;
+      B.sweep.position.set(lerp(-3,3,eIO(b)),1.6,2.6);B.sweep.intensity=b>0&&b<1?1.4*Math.sin(Math.PI*b):0;
+      /* ya pulido, un reflejo lo recorre y gira despacio para enseñarlo */
+      const s2=sg(p,.64,.94);B.sweep.intensity+=2*Math.sin(Math.PI*s2);if(s2>0)B.sweep.position.set(lerp(4,-4,s2),2,2.5);
+      B.bloom.strength=.5+.2*Math.sin(Math.PI*b);
+      B.iso.rotation.set(mouse.sy*.06,Math.sin(Math.PI*sg(p,.62,.98))*-.4+.12*(1-sg(p,.2,.6))+mouse.sx*.15,0);
+      B.iso.position.y=.015*Math.sin(t*.8);
+      B.orbit(lerp(.3,.06,eIO(sg(p,0,.9))),lerp(.14,.07,eIO(sg(p,0,1))),lerp(.82,1,eIO(sg(p,0,.85))));hero(p,.8,.92);}};
+}};
+
+/* 5 · ESPEJO INFINITO: un túnel de copias que se pliega en una sola pieza */
+C.espejo={grp:'hero',dur:13,html:HERO,make(){const B=tiBase();B.iso.visible=false;
+  const NC=26,mat=B.mat,iL=new THREE.InstancedMesh(B.gL,mat,NC),iR=new THREE.InstancedMesh(B.gR,mat,NC);B.scene.add(iL,iR);
+  const dm=new THREE.Object3D(),col=new THREE.Color(),base=[...Array(NC)].map((_,i)=>[.075*i+.0016*i*i,.04*i,-.82*i]);
+  const FR=NC*4*2,fp=new Float32Array(FR*3),fcl=new Float32Array(FR*3),fg=new THREE.BufferGeometry();fg.setAttribute('position',new THREE.BufferAttribute(fp,3));fg.setAttribute('color',new THREE.BufferAttribute(fcl,3));
+  const frames=new THREE.LineSegments(fg,new THREE.LineBasicMaterial({vertexColors:true,transparent:true,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));frames.frustumCulled=false;B.scene.add(frames);
+  const flash=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));flash.position.set(0,0,.3);B.scene.add(flash);
+  const C4=[[-1,-1],[1,-1],[1,1],[-1,1]];
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
+    update(p,t){const e=eIO(sg(p,.36,.7)),merged=p>=.7;
+      for(let i=0;i<NC;i++){const on=sg(p,.03+i*.009,.09+i*.009),b=Math.pow(.84,i*(1-e))*on*(i&&merged?0:1)*(i?1-.3*e:1);
+        const [x,y,z]=base[i];dm.position.set(x*(1-e),y*(1-e),z*(1-e));dm.rotation.set(0,(i%2?-.02:.02)*(1-e)+(i?0:mouse.sx*.15*sg(p,.75,.9)),0);dm.updateMatrix();
+        iL.setMatrixAt(i,dm.matrix);iR.setMatrixAt(i,dm.matrix);col.setRGB(b,b,b);iL.setColorAt(i,col);iR.setColorAt(i,col);
+        /* el marco de cada reflejo */
+        const fb=.32*Math.pow(.86,i)*on*(1-e),s=.78+.0*i;for(let k=0;k<4;k++){const a=C4[k],c=C4[(k+1)%4],o=(i*4+k)*6;
+          fp[o]=x*(1-e)+a[0]*s;fp[o+1]=y*(1-e)+a[1]*s;fp[o+2]=z*(1-e)-.15;fp[o+3]=x*(1-e)+c[0]*s;fp[o+4]=y*(1-e)+c[1]*s;fp[o+5]=z*(1-e)-.15;
+          for(let j=0;j<6;j++)fcl[o+j]=fb;}}
+      iL.instanceMatrix.needsUpdate=iR.instanceMatrix.needsUpdate=true;iL.instanceColor.needsUpdate=iR.instanceColor.needsUpdate=true;
+      fg.attributes.position.needsUpdate=fg.attributes.color.needsUpdate=true;
+      /* al fundirse: destello y el isotipo queda solo */
+      const fl=Math.exp(-Math.pow((p-.705)/.02,2));flash.material.opacity=fl*.8;flash.scale.setScalar(.5+fl*.6);B.bloom.strength=.5+fl*.45;
+      const sw=sg(p,.72,.97);B.sweep.position.set(lerp(4,-4,sw),2,2.5);B.sweep.intensity=1.8*Math.sin(Math.PI*sw);
+      /* la cámara mira por el túnel y luego se pone de frente */
+      const q=eIO(sg(p,.3,.8)),R=B.Z0*lerp(1.1,1,q),yw=lerp(-.2,.04,q);
+      B.cam.position.set(Math.sin(yw)*R,lerp(-.12,.1,q),Math.cos(yw)*R);B.cam.lookAt(lerp(.55,0,q),lerp(.28,-.04,q),lerp(-3,0,q));
+      hero(p,.8,.92);}};
+}};
+
+/* 6 · TE MIRA: tan pulido que refleja el titular; se inclina hacia quien mira */
+function envTitular(){const s=new THREE.Scene();s.background=new THREE.Color(0);
+  const pan=(w,h,x,y,z,k)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color(k,k,k),side:THREE.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);s.add(m);};
+  pan(7,7,0,7,1,1.1);pan(6,10,-7,1,-2,.35);pan(6,10,7,1,-2,.3);pan(1.1,9,-6,1,1.5,2.2);pan(.5,9,6,.5,2.5,2.6);pan(9,.35,0,2.2,-6,2);pan(.35,6,3.5,1,-5,1.6);pan(2.5,.25,-2,4.2,4,2);pan(14,1,0,4.5,8,.6);
+  const c=D.createElement('canvas');c.width=2048;c.height=640;const x=c.getContext('2d');x.fillStyle='#000';x.fillRect(0,0,2048,640);
+  x.translate(2048,0);x.scale(-1,1);x.fillStyle='#fff';x.textAlign='center';x.textBaseline='middle';x.font='600 190px -apple-system,"SF Pro Display","Helvetica Neue",Arial,sans-serif';
+  x.fillText('Decisiones que',1024,210);x.fillStyle='#8a8a8f';x.fillText('no admiten error.',1024,430);
+  const tx=new THREE.CanvasTexture(c);tx.colorSpace=THREE.SRGBColorSpace;
+  const tp=new THREE.Mesh(new THREE.PlaneGeometry(15,4.7),new THREE.MeshBasicMaterial({map:tx,color:new THREE.Color(2.4,2.4,2.4),side:THREE.DoubleSide}));tp.position.set(0,-.4,8);tp.lookAt(0,-.4,0);s.add(tp);
+  const pm=new THREE.PMREMGenerator(renderer),rt=pm.fromScene(s,0);pm.dispose();disposeScene(s);return rt;}
+C.temira={grp:'hero',dur:10,html:HERO+'<p class="hint3" id="h3"></p>',make(){const rt=envTitular();
+  const mat=new THREE.MeshPhysicalMaterial({color:TIc(),metalness:1,roughness:.05,clearcoat:1,clearcoatRoughness:.03,envMapIntensity:1.3});
+  const B=tiBase({env:rt.texture,mat});B.onDispose=()=>rt.dispose();
+  let lastIn=-9,gx=0,gy=0,rx=0,ry=0,useG=false;
+  const mv=()=>{lastIn=performance.now();},ori=e=>{if(e.gamma==null)return;useG=true;lastIn=performance.now();gx=cl(e.gamma/28,-1,1);gy=cl((e.beta-45)/28,-1,1);},
+    ask=()=>{const R=W.DeviceOrientationEvent;if(R&&typeof R.requestPermission==='function')R.requestPermission().catch(()=>{});};
+  stage.addEventListener('pointermove',mv);W.addEventListener('deviceorientation',ori);stage.addEventListener('pointerdown',ask);
+  const h=$('h3');if(h)h.textContent=MOB()?'Inclina el móvil':'Mueve el ratón';
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,
+    dispose(){B.dispose();stage.removeEventListener('pointermove',mv);W.removeEventListener('deviceorientation',ori);stage.removeEventListener('pointerdown',ask);},
+    update(p,t,dt){const live=performance.now()-lastIn<2500;
+      let tx,ty;if(live){tx=useG?gx:mouse.x;ty=useG?gy:mouse.y;}else{tx=Math.sin(t*.45)*.75;ty=Math.sin(t*.31+1)*.45;}
+      const k=1-Math.exp(-(dt||.016)*4);ry+=(tx*.42-ry)*k;rx+=(ty*.22-rx)*k;
+      const rev=eo(sg(p,0,.2));mat.envMapIntensity=1.3*rev;B.key.intensity=.35*rev;
+      B.iso.rotation.set(rx,ry,0);B.iso.position.y=.012*Math.sin(t*.9);
+      B.orbit(.0,.04,lerp(.9,1,eIO(sg(p,0,.3))),-.02);
+      if(h)h.style.opacity=p>.3&&!live?(.55+.3*Math.sin(t*3)).toFixed(2):p>.3?'.25':'0';hero(p,.22,.36);}};
+}};
+
 /* ——— motor ——— */
 let cur=null,curId=null,p=0,playing=!RM,hold=0,t=0,last=0,visible=true,ok=false;
 const scrub=$('scrub'),pct=$('pct'),play=$('play'),ico=$('ico');
@@ -1161,7 +1412,7 @@ function steps(){const I=INFO[curId],li=D.querySelectorAll('#iS li');if(!li.leng
   else{on=Math.round(PQ_U(p));if(I.s[0][0]!=='Inicio')on=on-1;}
   li.forEach((l,i)=>l.classList.toggle('on',i===on));}
 function size(){if(!cur)return;const w=stage.clientWidth,h=stage.clientHeight;renderer.setPixelRatio(Math.min(W.devicePixelRatio||1,cur.pr||2));renderer.setSize(w,h,false);cur.resize&&cur.resize(w,h);}
-function load(id){if(!C[id])id='corte';
+function load(id){if(!C[id])id='emerge';
   if(cur){cur.dispose&&cur.dispose();disposeScene(cur.scene);}
   curId=id;ov.innerHTML=C[id].html||'';info(id);
   D.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.id===id?'true':'false'));
