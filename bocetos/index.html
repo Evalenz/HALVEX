@@ -101,6 +101,11 @@ header p{margin:0;font-size:13px;color:var(--mute);max-width:52ch}
       <button role="tab" data-id="monumento">5 · Detalle → monumento</button>
     </div>
     <div class="grp"><span>Por qué HALVEX</span>
+      <button role="tab" data-id="tolerancia">Tolerancia cero</button>
+      <button role="tab" data-id="lamina">Una lámina</button>
+      <button role="tab" data-id="hilo">El hilo</button>
+      <button role="tab" data-id="despiece">Despiece</button>
+      <button role="tab" data-id="pulso">Pulso</button>
       <button role="tab" data-id="cerradura">La cerradura</button>
       <button role="tab" data-id="sombras">Cinco sombras</button>
       <button role="tab" data-id="diafragma">A · Diafragma</button>
@@ -157,6 +162,21 @@ const PQ='<div class="pq" id="pq">'+
 
 /* textos que acompañan a cada boceto */
 const INFO={
+ tolerancia:{k:'Por qué HALVEX · nuevo',t:'Tolerancia cero',d:'Cada compromiso es un encaje perfecto entre piezas de titanio mecanizadas, que se deslizan hasta unirse sin que se vea la junta. Al final, las dos cuñas del isotipo encajan en su sitio.',
+  s:[['Inicio','Un bloque de titanio girando.'],['01','Dos mitades se unen y la junta desaparece: un solo equipo.'],['02','Una tapa cierra la caja y la luz de dentro se apaga: su perímetro.'],['03','Una única llave entra y gira: una persona decide.'],['04','El calibre se cierra sobre la pieza: probado a fondo.'],['05','Una pieza se hunde en el bloque hasta desaparecer: discreción.'],['Final','Las dos cuñas del isotipo encajan.']],
+  f:'Es la marca (dos mitades) convertida en precisión de taller. Cada compromiso se entiende en un segundo.',r:'En la versión final cuidaría más cada mecanismo (la llave, el calibre) para que parezcan piezas reales.'},
+ lamina:{k:'Por qué HALVEX · nuevo',t:'Una lámina, sin cortes',d:'Una sola lámina de titanio que se pliega sola, como un origami de metal rígido. En cada compromiso toma una forma distinta, sin cortarse nunca. Su último pliegue es el isotipo.',
+  s:[['Inicio','La lámina flota y ondula.'],['01','Un solo pliegue: dos caras, una pieza.'],['02','Se cierra en un perímetro.'],['03','Se pliega en abanico hacia un único punto.'],['04','Un teselado exacto de pliegues.'],['05','Se compacta hasta casi desaparecer.'],['Final','Se despliega en el isotipo.']],
+  f:'Nunca se corta ni se rompe: un solo equipo, de principio a fin. Muy sorprendente de ver.',r:'En la versión final los pliegues serían más nítidos y con grosor de metal real.'},
+ hilo:{k:'Por qué HALVEX · nuevo',t:'El hilo',d:'Un único hilo de titanio, finísimo, que se dobla en el aire y dibuja en tres dimensiones cada compromiso sin cortarse nunca. Una sola línea para toda la sección. Al final se tensa y dibuja el isotipo.',
+  s:[['Inicio','Un hilo suelto, casi recto.'],['01','Un nudo de una sola línea, sin principio ni fin.'],['02','Las aristas de un cubo: un perímetro.'],['03','Todos los trazos pasan por un único punto.'],['04','Una espiral de paso exacto.'],['05','El hilo se recoge en un punto.'],['Final','El hilo dibuja el isotipo.']],
+  f:'Elegante, mínimo y muy ligero en el móvil.',r:'Es el más sobrio; su fuerza está en el movimiento, más que en el impacto.'},
+ despiece:{k:'Por qué HALVEX · nuevo',t:'Despiece',d:'Un objeto de titanio cerrado y perfecto se abre en vista explosionada, capa a capa, como en una presentación de producto. Cada compromiso ilumina una capa. Al final se cierra en un bloque negro sin juntas, y el isotipo grabado aparece con la luz.',
+  s:[['Inicio','El objeto, cerrado.'],['01','Se abre: el chasis de una sola pieza.'],['02','La junta que lo sella.'],['03','Un único mando.'],['04','Los puntos de prueba se encienden uno a uno.'],['05','Se cierra en un bloque negro, sin juntas.'],['Final','El isotipo grabado en la tapa.']],
+  f:'Es como Apple enseña lo que hay dentro sin decir una palabra.',r:'Es un objeto ficticio; habría que decidir qué representa (vuestra plataforma, por ejemplo).'},
+ pulso:{k:'Por qué HALVEX · nuevo',t:'Pulso',d:'Oscuridad total. Un pulso de luz, como un sonar, recorre el suelo cada pocos segundos y, solo durante un instante, revela lo que hay escondido. Cada compromiso es una estructura distinta que únicamente se ve cuando pasa el pulso.',
+  s:[['Inicio','El pulso solo encuentra restos dispersos.'],['01','Un único anillo.'],['02','Un perímetro de muros alrededor de un núcleo.'],['03','Todos los caminos llegan a un solo punto.'],['04','Una retícula exacta.'],['05','Casi nada: un isotipo diminuto.'],['Final','El isotipo, enorme, revelado por el pulso.']],
+  f:'La discreción convertida en experiencia: lo importante existe, pero solo se ve cuando debe.',r:'Muy atmosférico; funciona mejor en pantalla grande y a oscuras.'},
  corte:{k:'Hero · nuevo',t:'El corte',d:'Un bloque macizo de titanio aparece en la oscuridad con un barrido de luz. Un láser lo recorre y corta cuatro líneas exactas, con chispas y un filo incandescente que se enfría en una costura negra. Después, todo el material que sobra cae al vacío y queda el isotipo: dos cuñas de titanio pulido, recorridas por un brillo de estudio. Al bajar, las cuñas se abren y la cámara pasa entre ellas.',
   s:[['0–12 %','El bloque de titanio aparece con un barrido de luz.'],['12–47 %','El láser corta las cuatro líneas del isotipo.'],['48–70 %','El material sobrante cae al vacío.'],['56–80 %','Quedan las dos cuñas de titanio pulido; un brillo las recorre.'],['64–78 %','El titular entra.'],['80–100 %','Scroll: las cuñas se abren y la cámara pasa entre ellas, como en la web actual.']],
   f:'El isotipo no se dibuja: se esculpe en titanio macizo quitando todo lo que sobra. Precisión literal.',r:'La iluminación de estudio y el resplandor del láser piden una tarjeta gráfica decente; en móviles antiguos se puede quitar el resplandor.'},
@@ -762,6 +782,192 @@ C.sombras={grp:'pq',dur:24,html:PQ+'<span class="lab" id="lab"></span>',pr:1,mak
     update(p,t){const ue=PQ_U(p);pqUI(ue);const e=$('lab');if(e)e.textContent=lab[Math.round(ue)];R.mat.uniforms.uT.value=t;
       const k=Math.min(5,Math.floor(ue)),m=ue-k;u.uVol.value=vols[k];u.uVol2.value=vols[k+1];u.uMix.value=m;u.uRot.value=lerp(ST[k],ST[k+1],m)+(ue<.02?Math.sin(t*.3)*.15:0);
       u.uSpot.value=.85+.15*Math.cos(Math.PI*2*Math.min(1,m*1.0));},dispose(){vols.forEach(v=>v.dispose());}};
+}};
+
+/* ——— Por qué: cinco ideas nuevas ——— */
+const LAB7=['Inicio','01','02','03','04','05','HALVEX'];
+const segU=p=>{const u=Math.min(p,1)*6,k=Math.min(5,Math.floor(u));return {k,f:u-k};};
+const tiM=(o={})=>new THREE.MeshPhysicalMaterial(Object.assign({color:new THREE.Color().setRGB(.80,.79,.76,THREE.SRGBColorSpace),metalness:1,roughness:.24,clearcoat:.5,clearcoatRoughness:.2,envMapIntensity:1.15},o));
+function rrect(w,h,r){const s=new THREE.Shape();s.moveTo(-w/2+r,-h/2);s.lineTo(w/2-r,-h/2);s.quadraticCurveTo(w/2,-h/2,w/2,-h/2+r);s.lineTo(w/2,h/2-r);s.quadraticCurveTo(w/2,h/2,w/2-r,h/2);s.lineTo(-w/2+r,h/2);s.quadraticCurveTo(-w/2,h/2,-w/2,h/2-r);s.lineTo(-w/2,-h/2+r);s.quadraticCurveTo(-w/2,-h/2,-w/2+r,-h/2);return s;}
+function pqCam(cam,W,H,yaw,pit,R,ty=0){cam.position.set(Math.sin(yaw)*Math.cos(pit)*R,Math.sin(pit)*R+ty,Math.cos(yaw)*Math.cos(pit)*R);cam.lookAt(0,ty,0);if(MOB())setOffset(cam,W,H,0,.17);else setOffset(cam,W,H,.2,0);}
+const pqLab=ue=>{const e=$('lab');if(e)e.textContent=LAB7[Math.round(ue)];};
+
+/* 1 · TOLERANCIA CERO */
+C.tolerancia={grp:'pq',dur:24,html:PQ+'<span class="lab" id="lab"></span>',make(){
+  const scene=new THREE.Scene();scene.environment=studio();const cam=new THREE.PerspectiveCamera(30,1,.05,100);
+  const ti=tiM(),dk=tiM({color:new THREE.Color().setRGB(.42,.42,.43,THREE.SRGBColorSpace),roughness:.3});
+  const glowM=()=>new THREE.MeshBasicMaterial({color:new THREE.Color(3,3,3),toneMapped:false,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false});
+  const G=[...Array(7)].map(()=>{const g=new THREE.Group();scene.add(g);return g;});
+  const box=(w,h,d,m,r=.012)=>{const g=new THREE.ExtrudeGeometry(rrect(w,h,Math.min(r*2,w/2,h/2)),{depth:d-2*r,bevelEnabled:true,bevelThickness:r,bevelSize:r,bevelSegments:3,curveSegments:6});g.translate(0,0,-(d-2*r)/2);return new THREE.Mesh(g,m);};
+  /* 0: un bloque */
+  const c0=box(.8,.8,.8,ti,.03);G[0].add(c0);
+  /* 1: dos mitades que se vuelven una */
+  const hc=s=>{const m=new THREE.Mesh(new THREE.CylinderGeometry(.42,.42,1.15,96,1,false,s?0:Math.PI,Math.PI),ti);m.rotation.z=Math.PI/2;return m;};
+  const h1=hc(0),h2=hc(1);const s1=new THREE.Mesh(new THREE.PlaneGeometry(.84,1.15),glowM());s1.rotation.y=Math.PI/2;s1.rotation.z=Math.PI/2;
+  const a1=new THREE.Group(),b1=new THREE.Group();a1.add(h1);b1.add(h2);G[1].add(a1,b1,s1);
+  /* 2: tapa hermética */
+  const bx=new THREE.Group();const W2=1,D2=.8,H2=.5,T=.05;
+  bx.add(Object.assign(box(W2,D2,T,ti),{}));bx.children[0].rotation.x=Math.PI/2;bx.children[0].position.y=-H2/2;
+  [[0,0,D2/2-T/2,W2,T],[0,0,-D2/2+T/2,W2,T],[W2/2-T/2,0,0,T,D2],[-W2/2+T/2,0,0,T,D2]].forEach(([x,y,z,w,d])=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,H2,d),ti);m.position.set(x,y,z);bx.add(m);});
+  const lid=box(W2,D2,T,ti);lid.rotation.x=Math.PI/2;const lidG=new THREE.Group();lidG.add(lid);
+  const inL=new THREE.PointLight(0xffffff,0,2,1.5);inL.position.y=-.05;const inG=new THREE.Mesh(new THREE.PlaneGeometry(W2-2*T,D2-2*T),glowM());inG.rotation.x=-Math.PI/2;inG.position.y=-H2/2+T/2+.002;
+  G[2].add(bx,lidG,inL,inG);
+  /* 3: una sola llave */
+  const blk=box(.9,.9,.9,dk,.03);const slot=new THREE.Mesh(new THREE.BoxGeometry(.02,.24,.06),new THREE.MeshBasicMaterial({color:0}));slot.position.set(.451,0,0);
+  const key=new THREE.Group();const blade=new THREE.Mesh(new THREE.BoxGeometry(.75,.14,.03),ti);blade.position.x=.375;
+  for(let i=0;i<5;i++){const n=new THREE.Mesh(new THREE.BoxGeometry(.06,.05+((i*37)%5)*.012,.031),ti);n.position.set(.1+i*.12,-.09,0);key.add(n);}
+  const bow=new THREE.Mesh(new THREE.TorusGeometry(.16,.045,24,64),ti);bow.position.x=.92;key.add(blade,bow);
+  G[3].add(blk,slot,key);
+  /* 4: el calibre */
+  const bar=new THREE.Mesh(new THREE.BoxGeometry(1.7,.09,.035),ti);bar.position.y=.5;
+  const jaw=(x)=>{const g=new THREE.Group();const m=new THREE.Mesh(new THREE.BoxGeometry(.09,.62,.04),ti);m.position.y=.22;g.add(m);g.position.x=x;return g;};
+  const jF=jaw(-.31),jM=jaw(.9);const cyl=new THREE.Mesh(new THREE.CylinderGeometry(.25,.25,.5,96),dk);cyl.rotation.x=Math.PI/2;cyl.position.y=.0;
+  const tk=new THREE.InstancedMesh(new THREE.BoxGeometry(.004,.03,.002),new THREE.MeshBasicMaterial({color:0x1a1a1c}),60);const o3=new THREE.Object3D();
+  for(let i=0;i<60;i++){o3.position.set(-.8+i*.027,.5+(i%5?.02:.028),.019);o3.scale.y=i%5?1:1.8;o3.updateMatrix();tk.setMatrixAt(i,o3.matrix);}
+  const okG=new THREE.Mesh(new THREE.PlaneGeometry(.02,.5),glowM());okG.position.set(.25,0,.27);
+  G[4].add(bar,jF,jM,cyl,tk,okG);
+  /* 5: una pieza que se hunde hasta desaparecer */
+  const B5=new THREE.Group(),hole=.32,BW=1.1,BH=.42;
+  [[-(BW/2+hole/2)/2-0,(BW/2-hole/2)],[(BW/2+hole/2)/2,(BW/2-hole/2)]].forEach(([x,w])=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,BH,BW),dk);m.position.x=x;B5.add(m);});
+  [[-(BW/2+hole/2)/2],[(BW/2+hole/2)/2]].forEach(([z])=>{const m=new THREE.Mesh(new THREE.BoxGeometry(hole,BH,(BW/2-hole/2)),dk);m.position.z=z;B5.add(m);});
+  const plug=new THREE.Mesh(new THREE.BoxGeometry(hole-.002,BH,hole-.002),ti.clone());const ring=new THREE.Mesh(new THREE.RingGeometry(hole*.7,hole*.74,4,1,Math.PI/4),glowM());ring.rotation.x=-Math.PI/2;ring.scale.setScalar(1.02);ring.position.y=BH/2+.002;
+  G[5].add(B5,plug,ring);
+  /* 6: las dos cuñas encajan en su sitio */
+  const {gL,gR}=wedges(.16);const wl=new THREE.Mesh(gL,ti),wr=new THREE.Mesh(gR,ti);wl.scale.setScalar(1.25);wr.scale.setScalar(1.25);G[6].add(wl,wr);
+  let Z0=5,W=1,H=1;
+  return {scene,cam,resize(w,h){W=w;H=h;cam.aspect=w/h;Z0=fitZ(cam,1.45,1.45,MOB()?.42:.62,MOB()?.86:.42);cam.updateProjectionMatrix();},
+    update(p,t){const ue=PQ_U(p);pqUI(ue);pqLab(ue);const {k,f}=segU(p);const ex=eIO(sg(f,.62,1));
+      G.forEach((g,i)=>{const on=i===k||i===k+1;g.visible=on;if(!on)return;const x=i===k?-2.6*ex:2.6*(1-ex);g.position.x=x;g.rotation.y=Math.sin(t*.3+i)*.15;});
+      const A=i=>i===k?eIO(sg(f,.04,.5)):(i<k?1:0);
+      c0.rotation.set(t*.25,t*.35,0);
+      {const a=A(1),gp=.55*(1-a);a1.position.x=-gp;b1.position.x=gp;s1.material.opacity=a>.6&&a<.999?Math.sin(Math.PI*sg(a,.6,1))*.9:0;}
+      {const a=A(2);lidG.position.y=H2/2-T/2+.9*(1-a);lidG.rotation.z=.5*(1-a);lidG.rotation.x=.2*(1-a);inL.intensity=(1-a)*3;inG.material.opacity=(1-a)*.8;}
+      {const a=A(3),ins=sg(a,0,.75),rt=sg(a,.8,1);key.position.x=.45-.62+1.4*(1-eIO(ins));key.position.x=.45-.62*eIO(ins)+.9*(1-eIO(ins));key.rotation.x=rt*Math.PI/2;}
+      {const a=A(4);jM.position.x=lerp(.95,.34,eIO(a));okG.material.opacity=a>.98?.8+.2*Math.sin(t*6):0;}
+      {const a=A(5),dn=eIO(sg(a,0,.7));plug.position.y=BH*1.6*(1-dn);ring.material.opacity=Math.sin(Math.PI*sg(a,.6,1))*.9;const dm=sg(a,.75,1);plug.material.color.setRGB(lerp(.80,.42,dm),lerp(.79,.42,dm),lerp(.76,.43,dm),THREE.SRGBColorSpace);}
+      {const a=k===5?sg(ex,.3,1):(k>=6?1:A(6));wl.position.x=-.9*(1-eIO(a));wr.position.x=.9*(1-eIO(a));}
+      pqCam(cam,W,H,.55+mouse.sx*.15,.32-mouse.sy*.08,Z0);}};
+}};
+
+/* 2 · UNA LÁMINA, SIN CORTES */
+C.lamina={grp:'pq',dur:24,html:PQ+'<span class="lab" id="lab"></span>',make(){
+  const scene=new THREE.Scene();scene.environment=studio();const cam=new THREE.PerspectiveCamera(30,1,.05,100);
+  const NU=140,NV=70,geo=new THREE.PlaneGeometry(1,1,NU,NV),pos=geo.attributes.position,N=pos.count;
+  const UV=new Float32Array(N*2);for(let i=0;i<N;i++){UV[i*2]=pos.getX(i)+.5;UV[i*2+1]=pos.getY(i)+.5;}
+  const mat=tiM({side:THREE.DoubleSide,flatShading:true,roughness:.28});const mesh=new THREE.Mesh(geo,mat);const grp=new THREE.Group();grp.add(mesh);scene.add(grp);
+  const tri=x=>Math.abs(x-Math.floor(x)-.5)*2-.5;
+  const a0=P(24,20),a1=P(60,20),a2=P(96.2,172),b0=P(176,20),b1=P(140,20),b2=P(103.8,172);
+  const F=[
+    (u,v,t)=>[(u-.5)*2,(v-.5)*1.2,.06*Math.sin(u*5+t)*Math.sin(v*4-t*.7)],
+    (u,v)=>{const x0=(u-.5)*1.7,th=.95;return [x0*Math.sin(th),(v-.5)*1.25,-Math.abs(x0)*Math.cos(th)+.3];},
+    (u,v)=>{const L=u*4,sd=Math.min(3,Math.floor(L)),q=L-sd,h=.3,c=[[-h,h],[h,h],[h,-h],[-h,-h],[-h,h]];const x=lerp(c[sd][0],c[sd+1][0],q),z=lerp(c[sd][1],c[sd+1][1],q);return [x,(v-.5)*1.25,z];},
+    (u,v)=>{const ph=(u-.5)*Math.PI*1.35,r=v*1.05;return [r*Math.sin(ph),r*Math.cos(ph)-.5,.13*tri(u*18)*v*2];},
+    (u,v)=>[(u-.5)*1.5+.07*tri(v*7),(v-.5)*1.15,.15*tri(u*11)+.04*tri(v*7)],
+    (u,v)=>[(u-.5)*.3+.012*tri(v*7),(v-.5)*.45,.05*tri(u*44)],
+    (u,v)=>{if(u<.5){const s=u/.5;const top=[lerp(a0[0],a1[0],v),lerp(a0[1],a1[1],v)];return [lerp(top[0],a2[0],s*s*0+s)*1.15,lerp(top[1],a2[1],s)*1.15,0];}
+      const s=(1-u)/.5;const top=[lerp(b0[0],b1[0],v),lerp(b0[1],b1[1],v)];return [lerp(top[0],b2[0],s)*1.15,lerp(top[1],b2[1],s)*1.15,0];}];
+  /* en el isotipo la lámina se dobla: la mitad izquierda va al lado izquierdo, la derecha al derecho, y se unen en el vértice */
+  let Z0=5,W=1,H=1;
+  return {scene,cam,resize(w,h){W=w;H=h;cam.aspect=w/h;Z0=fitZ(cam,1.7,1.9,MOB()?.42:.62,MOB()?.86:.42);cam.updateProjectionMatrix();},
+    update(p,t){const ue=PQ_U(p);pqUI(ue);pqLab(ue);const k=Math.min(5,Math.floor(ue)),m=ue-k;
+      for(let i=0;i<N;i++){const u=UV[i*2],v=UV[i*2+1];const A=F[k](u,v,t),mm=k<5||m<1?m:1;const ms=cl(mm*1.35-(u*.25+v*.1),0,1),e=ms*ms*(3-2*ms);
+        if(e<=0)pos.setXYZ(i,A[0],A[1],A[2]);else{const B=F[k+1](u,v,t);pos.setXYZ(i,lerp(A[0],B[0],e),lerp(A[1],B[1],e),lerp(A[2],B[2],e));}}
+      pos.needsUpdate=true;geo.computeBoundingSphere();
+      grp.rotation.y=Math.sin(t*.25)*.35+(ue>5.5?0:.0);grp.rotation.x=Math.sin(t*.2)*.08;
+      pqCam(cam,W,H,.3+mouse.sx*.15,.12-mouse.sy*.08,Z0);}};
+}};
+
+/* 3 · EL HILO */
+C.hilo={grp:'pq',dur:24,html:PQ+'<span class="lab" id="lab"></span>',make(){
+  const scene=new THREE.Scene();scene.environment=studio();const cam=new THREE.PerspectiveCamera(30,1,.05,100);
+  const NP=480,V=(x,y,z)=>new THREE.Vector3(x,y,z);
+  const resample=(pts,closed)=>{const P2=closed?[...pts,pts[0]]:pts;const L=[0];for(let i=1;i<P2.length;i++)L.push(L[i-1]+P2[i].distanceTo(P2[i-1]));const T=L[L.length-1],out=[];let j=1;
+    for(let i=0;i<NP;i++){const d=T*i/(NP-1);while(j<P2.length-1&&L[j]<d)j++;const q=(d-L[j-1])/Math.max(1e-9,L[j]-L[j-1]);out.push(P2[j-1].clone().lerp(P2[j],cl(q,0,1)));}return out;};
+  const smooth=(n,f)=>[...Array(n)].map((_,i)=>f(i/(n-1)));
+  const C0=resample(smooth(200,s=>V((s-.5)*2.4,Math.sin(s*9)*.06,Math.cos(s*7)*.05)));
+  const C1=resample(smooth(600,s=>{const a=s*Math.PI*2;return V((Math.sin(a)+2*Math.sin(2*a))*.2,(Math.cos(a)-2*Math.cos(2*a))*.2,-Math.sin(3*a)*.2);}));
+  const cv=[0,1,3,2,0,4,5,1,5,7,3,7,6,2,6,4].map(i=>V((i&1?.5:-.5),(i&2?.5:-.5),(i&4?.5:-.5)));const C2=resample(cv);
+  const st=[];for(let i=0;i<14;i++){const ph=Math.acos(1-2*(i+.5)/14),th=i*2.399;st.push(V(0,0,0),V(Math.sin(ph)*Math.cos(th)*.75,Math.cos(ph)*.75,Math.sin(ph)*Math.sin(th)*.75));}st.push(V(0,0,0));const C3=resample(st);
+  const C4=resample(smooth(800,s=>{const a=s*Math.PI*2*8;return V(Math.cos(a)*.35,(s-.5)*1.3,Math.sin(a)*.35);}));
+  const C5=resample(smooth(300,s=>{const a=s*Math.PI*2*3;return V(Math.cos(a)*.03,Math.sin(a)*.03,(s-.5)*.02);}));
+  const iso=[[96.2,172],[24,20],[60,20],[96.2,172],[103.8,172],[140,20],[176,20],[103.8,172]].map(q=>{const [x,y]=P(q[0],q[1]);return V(x*1.5,y*1.5,0);});const C6=resample(iso);
+  const CS=[C0,C1,C2,C3,C4,C5,C6];
+  const mat=tiM({roughness:.2});let mesh=null;const tmp=[...Array(NP)].map(()=>new THREE.Vector3());const grp=new THREE.Group();scene.add(grp);
+  const dot=new THREE.Mesh(new THREE.SphereGeometry(.02,16,8),new THREE.MeshBasicMaterial({color:new THREE.Color(2.5,2.5,2.5),toneMapped:false}));grp.add(dot);
+  let Z0=5,W=1,H=1;
+  return {scene,cam,resize(w,h){W=w;H=h;cam.aspect=w/h;Z0=fitZ(cam,1.7,1.9,MOB()?.42:.62,MOB()?.86:.42);cam.updateProjectionMatrix();},
+    update(p,t){const ue=PQ_U(p);pqUI(ue);pqLab(ue);const k=Math.min(5,Math.floor(ue)),m=ue-k,A=CS[k],B=CS[k+1];
+      for(let i=0;i<NP;i++){const q=cl(m*1.6-i/NP*.6,0,1),e=q*q*(3-2*q);tmp[i].copy(A[i]).lerp(B[i],e);}
+      const curve=new THREE.CatmullRomCurve3(tmp,false,'catmullrom',.1);const g=new THREE.TubeGeometry(curve,NP*1.4|0,.011,8,false);
+      if(mesh){mesh.geometry.dispose();mesh.geometry=g;}else{mesh=new THREE.Mesh(g,mat);grp.add(mesh);}
+      dot.position.copy(tmp[NP-1]);grp.rotation.y=t*.2*(ue>5.6?0:1)+(ue>5.6?Math.sin(t*.4)*.2:0);grp.rotation.x=Math.sin(t*.17)*.15*(ue>5.6?0:1);
+      pqCam(cam,W,H,.2+mouse.sx*.15,.1-mouse.sy*.08,Z0);}};
+}};
+
+/* 4 · DESPIECE */
+C.despiece={grp:'pq',dur:24,html:PQ+'<span class="lab" id="lab"></span>',make(){
+  const scene=new THREE.Scene();scene.environment=studio();const cam=new THREE.PerspectiveCamera(30,1,.05,100);
+  const WW=1.5,DD=1,ex=(sh,d,m,b=.012)=>{const g=new THREE.ExtrudeGeometry(sh,{depth:d,bevelEnabled:true,bevelThickness:b,bevelSize:b,bevelSegments:3,curveSegments:12});g.rotateX(-Math.PI/2);return new THREE.Mesh(g,m);};
+  const mk=c=>tiM({color:new THREE.Color().setRGB(c,c,c*.98,THREE.SRGBColorSpace),emissive:0xffffff,emissiveIntensity:0});
+  const mBase=mk(.78),mBoard=new THREE.MeshPhysicalMaterial({color:0x111214,metalness:.4,roughness:.5,emissive:0xffffff,emissiveIntensity:0,envMapIntensity:.6}),mFrame=mk(.86),mCover=mk(.8),mDial=mk(.9);
+  /* tapa con el isotipo grabado */
+  const cc=D.createElement('canvas');cc.width=cc.height=1024;const cx=cc.getContext('2d');cx.fillStyle='rgb(150,150,150)';cx.fillRect(0,0,1024,1024);cx.fillStyle='rgb(40,40,40)';cx.filter='blur(2px)';
+  [LT,RT].forEach(T=>{cx.beginPath();T.forEach(([a,b],i)=>{const X=512+(a-100)/152*300,Y=512+(b-96)/152*300;i?cx.lineTo(X,Y):cx.moveTo(X,Y);});cx.closePath();cx.fill();});
+  const ct=new THREE.CanvasTexture(cc);ct.repeat.set(1/WW,1/DD);ct.offset.set(.5,.5);mCover.bumpMap=ct;mCover.bumpScale=2;
+  const L=[];
+  const base=ex(rrect(WW,DD,.12),.1,mBase,.02);L.push(base);
+  const board=ex(rrect(WW-.16,DD-.16,.06),.02,mBoard,.004);L.push(board);
+  const pins=new THREE.InstancedMesh(new THREE.CylinderGeometry(.018,.018,.03,12),new THREE.MeshBasicMaterial({color:0xffffff,toneMapped:false}),48);const o3=new THREE.Object3D();
+  for(let i=0;i<48;i++){o3.position.set(-.55+(i%8)*.157,.04,-.32+Math.floor(i/8)*.128);o3.updateMatrix();pins.setMatrixAt(i,o3.matrix);pins.setColorAt(i,new THREE.Color(.05,.05,.05));}
+  board.add(pins);
+  const fs=rrect(WW,DD,.12);fs.holes.push(rrect(WW-.12,DD-.12,.07));const frame=ex(fs,.05,mFrame,.008);L.push(frame);
+  const cover=ex(rrect(WW,DD,.12),.05,mCover,.015);L.push(cover);
+  const dial=new THREE.Mesh(new THREE.CylinderGeometry(.13,.13,.06,64),mDial);const dg=new THREE.Group();dg.add(dial);dg.position.set(.52,0,.28);
+  const knurl=new THREE.Mesh(new THREE.TorusGeometry(.13,.006,8,64),mDial);knurl.rotation.x=Math.PI/2;dial.add(knurl);L.push(dg);
+  const dev=new THREE.Group();L.forEach(o=>dev.add(o));scene.add(dev);
+  const Y0=[0,.12,.15,.21,.29],SP=[0,.38,.72,1.06,1.36];
+  const mats=[mBase,mBoard,mFrame,mCover,mDial];
+  const HL=[[-1,0,0,0,0,0,-2],[0,1,0,0,0,0,0]];/* sin usar */
+  let Z0=5,W=1,H=1;
+  return {scene,cam,resize(w,h){W=w;H=h;cam.aspect=w/h;Z0=fitZ(cam,2,2,MOB()?.44:.66,MOB()?.86:.44);cam.updateProjectionMatrix();},
+    update(p,t){const ue=PQ_U(p);pqUI(ue);pqLab(ue);
+      const open=cl(ue,0,1)*(1-cl(ue-4,0,1));const e=eIO(open);
+      L.forEach((o,i)=>{o.position.y=Y0[i]+SP[i]*e-.45-.25*e;});
+      const hi=[0,0,2,4,1,-1,-1];const w=j=>{let s=0;for(let q=1;q<=4;q++){const tgt=[0,0,2,4,1][q];if(tgt===j)s=Math.max(s,1-Math.min(1,Math.abs(ue-q)*1.6));}return s;};
+      mats.forEach((m,j)=>{const hv=w(j);m.envMapIntensity=(j===1?.6:1.15)*(lerp(1,.32,Math.min(1,open*1.5))+hv*.9)*(1-.8*cl(ue-4.5,0,1)*(ue<5.6?1:0));m.emissiveIntensity=hv*(j===1?0:.04);});
+      const tp=w(1);for(let i=0;i<48;i++){const on=((t*6+i*.37)%3)<tp*3?1:0;const c=lerp(.05,2.4,on*tp);pins.setColorAt(i,new THREE.Color(c,c,c));}pins.instanceColor.needsUpdate=true;
+      dial.rotation.y=w(4)*t*1.4;
+      const dk=cl(ue-4.4,0,1)*(1-cl(ue-5.5,0,1)*1);[mBase,mFrame,mCover,mDial].forEach(m=>m.color.setRGB(lerp(.8,.06,dk),lerp(.79,.06,dk),lerp(.76,.065,dk),THREE.SRGBColorSpace));
+      dev.rotation.y=-.5+Math.sin(t*.25)*.2+(ue>5.4?Math.sin(t*.3)*.1:0);
+      const fin=cl(ue-5,0,1);pqCam(cam,W,H,.15+mouse.sx*.15,lerp(.62,.95,fin)-mouse.sy*.08,Z0*lerp(1,.85,fin));}};
+}};
+
+/* 5 · PULSO */
+C.pulso={grp:'pq',dur:24,html:PQ+'<span class="lab" id="lab"></span>',make(){
+  const scene=new THREE.Scene();const cam=new THREE.PerspectiveCamera(32,1,.05,200);
+  const mat=new THREE.ShaderMaterial({uniforms:{uR:{value:0},uR2:{value:0},uG:{value:0}},side:THREE.DoubleSide,
+    vertexShader:'varying vec3 vW;varying vec3 vN;void main(){vec4 w=modelMatrix*vec4(position,1.);vW=w.xyz;vN=normalize(mat3(modelMatrix)*normal);gl_Position=projectionMatrix*viewMatrix*w;}',
+    fragmentShader:`uniform float uR,uR2,uG;varying vec3 vW;varying vec3 vN;
+    float band(float d,float r){float x=d-r;return exp(-x*x/.03)*1.5+exp(-max(-x,0.)*1.4)*step(x,0.)*.5*step(0.,r);}
+    void main(){float d=length(vW.xz);float b=max(band(d,uR),band(d,uR2)*.7);float sh=.35+.65*abs(dot(normalize(vN),normalize(vec3(.4,.8,.3))));
+     float gr=0.;if(vN.y>.9&&vW.y<.001){vec2 g=abs(fract(vW.xz*2.)-.5);gr=smoothstep(.47,.5,max(g.x,g.y))*.6;}
+     float fade=smoothstep(5.2,2.2,d);vec3 c=vec3(.93,.95,1.)*(b*(sh*.9+gr*(vN.y>.9&&vW.y<.001?1.:0.))*(vW.y>.001?1.5:.55)+.02*sh)*fade+vec3(.008)*uG;gl_FragColor=vec4(c,1.);}`});
+  const floor=new THREE.Mesh(new THREE.PlaneGeometry(16,16),mat);floor.rotation.x=-Math.PI/2;scene.add(floor);
+  const G=[...Array(7)].map(()=>{const g=new THREE.Group();scene.add(g);return g;});
+  const add=(g,geo,x,y,z,ry=0)=>{const m=new THREE.Mesh(geo,mat);m.position.set(x,y,z);m.rotation.y=ry;g.add(m);return m;};
+  for(let i=0;i<14;i++){const a=i/14*Math.PI*2;add(G[0],new THREE.BoxGeometry(.18,.08+((i*7)%5)*.05,.18),Math.cos(a)*(1.4+(i%3)*.6),.06,Math.sin(a)*(1.4+(i%4)*.5));}
+  const tor=add(G[1],new THREE.TorusGeometry(1.05,.22,48,128),0,1.27,0);
+  for(let i=0;i<28;i++){const a=i/28*Math.PI*2;add(G[2],new THREE.BoxGeometry(.32,1.1,.06),Math.cos(a)*1.6,.55,Math.sin(a)*1.6,-a+Math.PI/2);}add(G[2],new THREE.BoxGeometry(.35,.35,.35),0,.175,0);
+  for(let i=0;i<20;i++){const a=i/20*Math.PI*2;const m=add(G[3],new THREE.BoxGeometry(1.7,.12,.035),Math.cos(a)*1.15,.06,Math.sin(a)*1.15,-a);}add(G[3],new THREE.CylinderGeometry(.07,.07,1.6,24),0,.8,0);
+  for(let i=0;i<9;i++)for(let j=0;j<9;j++)add(G[4],new THREE.BoxGeometry(.09,.7,.09),(i-4)*.36,.35,(j-4)*.36);
+  const {gL,gR}=wedges(.16);const smallI=new THREE.Group();[gL,gR].forEach(g=>{const m=new THREE.Mesh(g,mat);smallI.add(m);});smallI.scale.setScalar(.22);smallI.position.y=.12;G[5].add(smallI);
+  const bigI=new THREE.Group();[gL,gR].forEach(g=>{const m=new THREE.Mesh(g,mat);bigI.add(m);});bigI.scale.setScalar(1.9);bigI.position.y=.98;G[6].add(bigI);
+  let Z0=5,W=1,H=1,lastK=-1,t0=0;
+  return {scene,cam,resize(w,h){W=w;H=h;cam.aspect=w/h;Z0=MOB()?13:10;cam.updateProjectionMatrix();},
+    update(p,t){const ue=PQ_U(p);pqUI(ue);pqLab(ue);const k=Math.round(ue);G.forEach((g,i)=>g.visible=i===k);
+      if(k!==lastK){lastK=k;t0=t;}const per=2.6,ph=((t-t0)+per*.85)%per;mat.uniforms.uR.value=ph/per*7;mat.uniforms.uR2.value=ph/per*7-3.5;
+      tor.rotation.y=t*.2;bigI.rotation.y=Math.sin(t*.3)*.2;
+      pqCam(cam,W,H,.45+mouse.sx*.15,.62-mouse.sy*.06,Z0,.5);}};
 }};
 
 /* ——— motor ——— */
