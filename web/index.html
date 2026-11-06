@@ -1571,7 +1571,8 @@ else {
             S.x = lerp(c.a[0], c.b[0], tt); S.y = lerp(c.a[1], c.b[1], tt); S.z = zf; S.vx = Math.cos(a) * v * .55; S.vy = Math.abs(Math.sin(a)) * v * .6 + .2; S.vz = .2 + Math.random() * 1.3; S.l = S.L = .7 + Math.random() * 1.1; } } }
       });
       flash.intensity = fl * 1.1; bloom.strength = .5 + fl * .15;
-      for (let i = 0; i < NS; i++) { const s = sv[i], o = i * 6; if (s.l > 0) { s.l -= dt; s.vy -= 3.2 * dt; s.x += s.vx * dt; s.y += s.vy * dt; s.z += s.vz * dt; if (s.y < FY + .004 && s.vy < 0) { s.y = FY + .004; s.vy *= -.32; s.vx *= .7; s.vz *= .7; } }
+      const dr = Math.min(.25, (now - (HX.lastS || now)) / 1000); HX.lastS = now; const late = T > 5.2;
+      for (let i = 0; i < NS; i++) { const s = sv[i], o = i * 6; if (late) s.l = 0; if (s.l > 0) { s.l -= dr; s.vy -= 3.2 * dr; s.x += s.vx * dr; s.y += s.vy * dr; s.z += s.vz * dr; if (s.y < FY + .004 && s.vy < 0) { s.y = FY + .004; s.vy *= -.32; s.vx *= .7; s.vz *= .7; } }
         const k = Math.max(0, s.l / s.L), b = k * k * 3; sp[o] = s.x; sp[o + 1] = s.y; sp[o + 2] = s.z; sp[o + 3] = s.x - s.vx * .028; sp[o + 4] = s.y - s.vy * .028; sp[o + 5] = s.z - s.vz * .028; sc[o] = sc[o + 1] = b; sc[o + 2] = b * .93; sc[o + 3] = sc[o + 4] = sc[o + 5] = 0; }
       sgeo.attributes.position.needsUpdate = true; sgeo.attributes.color.needsUpdate = true;
       /* 3 · el material sobrante se aleja a cámara lenta */
