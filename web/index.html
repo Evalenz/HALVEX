@@ -881,7 +881,7 @@ footer .bot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;m
   var intro = $('intro'), deep = location.hash.length > 1 && D.querySelector(location.hash);
   function ready() {
     root.classList.add('is-ready'); if (!W.HX.go) W.HX.go = performance.now();
-    /* el titular del hero entra cuando termina el corte (lo marca la escena 3D); si no hay 3D, ya */
+    /* el titular del hero entra cuando se enciende la luz (lo marca la escena 3D); si no hay 3D, ya */
     if (!W.HX.cut || RM) root.classList.add('hero-in'); else setTimeout(function () { root.classList.add('hero-in'); }, 9000);
   }
   if (RM || deep || !intro) {
@@ -1431,10 +1431,10 @@ else {
 </script>
 
 <script type="module">
-/* Hero · El corte. Un bloque macizo de titanio liso aparece en la oscuridad; cuatro cuchillas de luz
-   lo atraviesan, con destello y chispas que rebotan en un suelo espejo; el material sobrante se aleja
-   a cámara lenta y queda el isotipo. Con el scroll, las dos cuñas se abren y dejan una línea de luz
-   (la firma que se cierra en Hablemos). La secuencia del corte se reproduce sola al entrar. */
+/* Hero · La linterna. Todo está a oscuras: el isotipo de titanio liso está ahí, pero no se ve. El cursor es
+   una luz que lo va descubriendo por sus reflejos, con un círculo tenue sobre la pared del fondo. Si nadie
+   mueve el ratón (o en el móvil), la luz pasea sola sobre la pieza. Con el scroll, la luz se abre del todo
+   y el isotipo queda entero, en titanio, mientras entra «Precisión. Sin margen.». */
 const D = document, W = window, stage = D.getElementById('stage'), canvas = D.getElementById('gl'), root = D.documentElement, HX = W.HX;
 const heroIn = () => root.classList.add('hero-in');
 const fail = () => { root.classList.add('no-gl'); heroIn(); };
@@ -1443,11 +1443,11 @@ else {
   HX.cut = true;
   try {
     const THREE = await import('three');
-    const [{ Reflector }, { EffectComposer }, { RenderPass }, { UnrealBloomPass }, { OutputPass }] = await Promise.all([
-      import('three/addons/objects/Reflector.js'), import('three/addons/postprocessing/EffectComposer.js'), import('three/addons/postprocessing/RenderPass.js'),
+    const [{ EffectComposer }, { RenderPass }, { UnrealBloomPass }, { OutputPass }] = await Promise.all([
+      import('three/addons/postprocessing/EffectComposer.js'), import('three/addons/postprocessing/RenderPass.js'),
       import('three/addons/postprocessing/UnrealBloomPass.js'), import('three/addons/postprocessing/OutputPass.js')]);
     const cl = (v, a, b) => v < a ? a : v > b ? b : v, sg = (v, a, b) => cl((v - a) / (b - a), 0, 1), lerp = (a, b, t) => a + (b - a) * t;
-    const eIO = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2, eo = t => 1 - Math.pow(1 - t, 4), ss = t => t * t * (3 - 2 * t);
+    const eIO = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2, eo = t => 1 - Math.pow(1 - t, 4);
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
     renderer.setPixelRatio(Math.min(W.devicePixelRatio || 1, 2)); renderer.setClearColor(0, 1);
     renderer.outputColorSpace = THREE.SRGBColorSpace; renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 1.05;
@@ -1458,125 +1458,68 @@ else {
       pan(7, 7, 0, 7, 1, 1.1); pan(14, 6, 0, 3, 9, .55); pan(6, 10, -7, 1, -2, .35); pan(6, 10, 7, 1, -2, .3); pan(1.1, 9, -6, 1, 1.5, 2.2); pan(.5, 9, 6, .5, 2.5, 2.6);
       pan(12, 4, 0, 2.4, 7, 1.05); pan(3, 7, -5, 0, 5, .5); pan(9, 1.2, 0, -2.5, 7, .35); pan(9, .35, 0, 2.2, -6, 2); pan(.35, 6, 3.5, 1, -5, 1.6); pan(2.5, .25, -2, 4.2, 4, 2);
       const pm = new THREE.PMREMGenerator(renderer), t = pm.fromScene(s, 0).texture; pm.dispose(); return t; })();
-    const scene = new THREE.Scene(); scene.environment = env; scene.fog = new THREE.Fog(0, 5.2, 9.5);
+    const scene = new THREE.Scene(); scene.environment = env;
     const cam = new THREE.PerspectiveCamera(30, 1, .02, 100);
-    const TI = new THREE.Color().setRGB(.80, .79, .76, THREE.SRGBColorSpace);
-    const ti = () => new THREE.MeshPhysicalMaterial({ color: TI, metalness: 1, roughness: .2, clearcoat: .5, clearcoatRoughness: .1, envMapIntensity: 0 });
-    const bm = ti(), wm = ti();
+    /* la luz: un círculo en pantalla (centro uC, radio uR) que enciende el titanio; uA es la luz de fondo */
+    const U = { uC: { value: new THREE.Vector2() }, uR: { value: 1 }, uA: { value: 0 }, uW: { value: 1 } };
+    const mat = new THREE.MeshPhysicalMaterial({ color: new THREE.Color().setRGB(.80, .79, .76, THREE.SRGBColorSpace), metalness: 1, roughness: .2, clearcoat: .5, clearcoatRoughness: .1, envMapIntensity: 1.35 });
+    mat.onBeforeCompile = sh => { Object.assign(sh.uniforms, U);
+      sh.fragmentShader = sh.fragmentShader.replace('#include <common>', '#include <common>\nuniform vec2 uC;uniform float uR,uA;')
+        .replace('#include <opaque_fragment>', 'float lm_=smoothstep(uR,uR*.12,distance(gl_FragCoord.xy,uC));outgoingLight*=uA+lm_*lm_*(1.-uA);\n#include <opaque_fragment>'); };
     const P = (x, y) => [(x - 100) / 152, (96 - y) / 152];
     const shapeOf = pts => { const s = new THREE.Shape(); pts.forEach((p, i) => { const [x, y] = P(p[0], p[1]); if (i) s.lineTo(x, y); else s.moveTo(x, y); }); s.closePath(); return s; };
-    const LT = [[24, 20], [60, 20], [96.2, 172]], RT = [[176, 20], [140, 20], [103.8, 172]];
-    const DEP = .2, EXB = { depth: DEP, bevelEnabled: true, bevelThickness: .012, bevelSize: .012, bevelSegments: 6, curveSegments: 1 }, EXc = { depth: DEP, bevelEnabled: false, curveSegments: 1 };
-    const geo = (pts, ex) => { const g = new THREE.ExtrudeGeometry(shapeOf(pts), ex); g.translate(0, 0, -DEP / 2); g.computeVertexNormals(); return g; };
-    const rootG = new THREE.Group(); scene.add(rootG);
-    const block = new THREE.Mesh(geo([[24, 20], [176, 20], [176, 172], [24, 172]], EXB), bm); rootG.add(block);
-    const isoG = new THREE.Group(); rootG.add(isoG);
-    const piece = (pts, m, ex, par) => { const q = pts.map(p => P(p[0], p[1])), cx = q.reduce((a, p) => a + p[0], 0) / q.length, cy = q.reduce((a, p) => a + p[1], 0) / q.length;
-      const me = new THREE.Mesh(geo(pts, ex), m); me.position.set(-cx, -cy, 0); const g = new THREE.Group(); g.add(me); g.position.set(cx, cy, 0); g.userData.c = [cx, cy]; g.visible = false; par.add(g); return g; };
-    const WL = piece(LT, wm, EXB, isoG), WR = piece(RT, wm, EXB, isoG);
-    const offs = [piece([[24, 20], [96.2, 172], [24, 172]], bm, EXc, rootG), piece([[60, 20], [140, 20], [103.8, 172], [96.2, 172]], bm, EXc, rootG), piece([[176, 20], [176, 172], [103.8, 172]], bm, EXc, rootG)];
-    const drift = [[-1.05, -.2, -2.2, .5, .9, .35], [0, -.62, -2.6, -1, 0, 0], [1.05, -.2, -2.2, .45, -.9, -.35]];
-    /* suelo espejo que se funde con la oscuridad */
-    const FY = -.86, mir = new Reflector(new THREE.PlaneGeometry(30, 30), { textureWidth: mob() ? 512 : 1024, textureHeight: mob() ? 512 : 1024, color: 0x8c8c8c, clipBias: .003 });
-    mir.rotation.x = -Math.PI / 2; mir.position.y = FY; rootG.add(mir);
-    const fc = D.createElement('canvas'); fc.width = fc.height = 512; const fx = fc.getContext('2d'), gr = fx.createRadialGradient(256, 256, 20, 256, 256, 256);
-    gr.addColorStop(0, 'rgba(0,0,0,.45)'); gr.addColorStop(.55, 'rgba(0,0,0,.8)'); gr.addColorStop(1, 'rgba(0,0,0,1)'); fx.fillStyle = gr; fx.fillRect(0, 0, 512, 512);
-    const fade = new THREE.Mesh(new THREE.PlaneGeometry(9, 9), new THREE.MeshBasicMaterial({ map: new THREE.CanvasTexture(fc), transparent: true, depthWrite: false, fog: false }));
-    fade.rotation.x = -Math.PI / 2; fade.position.y = FY + .003; rootG.add(fade);
-    const hide = new THREE.Mesh(new THREE.PlaneGeometry(40, 40), new THREE.MeshBasicMaterial({ color: 0, transparent: true, opacity: 0, depthWrite: false, fog: false })); hide.rotation.x = -Math.PI / 2; hide.position.y = FY + .006; rootG.add(hide);
-    const key = new THREE.DirectionalLight(0xffffff, 0); key.position.set(-3, 3, 3); const sweep = new THREE.DirectionalLight(0xffffff, 0); scene.add(key, sweep);
-    /* tiras de luz: la costura de cada corte y su filo incandescente */
-    const ribbon = (a, b, w) => { const l = Math.hypot(b[0] - a[0], b[1] - a[1]), n = Math.ceil(l / .008), dx = (b[0] - a[0]) / l, dy = (b[1] - a[1]) / l, nx = -dy * w / 2, ny = dx * w / 2, pos = [], s = [], idx = [];
-      for (let i = 0; i <= n; i++) { const t = i / n, x = a[0] + (b[0] - a[0]) * t, y = a[1] + (b[1] - a[1]) * t; pos.push(x + nx, y + ny, 0, x - nx, y - ny, 0); s.push(t, t); if (i < n) idx.push(i * 2, i * 2 + 1, i * 2 + 2, i * 2 + 1, i * 2 + 3, i * 2 + 2); }
-      const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3)); g.setAttribute('aS', new THREE.Float32BufferAttribute(s, 1)); g.setIndex(idx); return g; };
-    const vs = 'attribute float aS;varying float vS;void main(){vS=aS;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}';
-    const TC = [1.8, 2.35, 2.9, 3.45], DUR = .2, zf = DEP / 2 + .013;
-    const cuts = [[[24, 20], [96.2, 172]], [[60, 20], [96.2, 172]], [[140, 20], [103.8, 172]], [[176, 20], [103.8, 172]]].map(c => {
-      const a = P(c[0][0], c[0][1]), b = P(c[1][0], c[1][1]);
-      const seam = new THREE.Mesh(ribbon(a, b, .006), new THREE.ShaderMaterial({ uniforms: { uC: { value: 0 }, uO: { value: 1 } }, transparent: true, depthWrite: false, vertexShader: vs,
-        fragmentShader: 'uniform float uC,uO;varying float vS;void main(){if(vS>uC)discard;gl_FragColor=vec4(vec3(.004),.95*uO);}' }));
-      const hot = new THREE.Mesh(ribbon(a, b, .016), new THREE.ShaderMaterial({ uniforms: { uC: { value: 0 }, uH: { value: 0 } }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, vertexShader: vs,
-        fragmentShader: 'uniform float uC,uH;varying float vS;void main(){if(vS>uC)discard;float tip=exp(-(uC-vS)*14.);gl_FragColor=vec4(vec3(1.,.97,.93)*(uH*2.6+tip*uH*4.),1.);}' }));
-      seam.position.z = DEP / 2 + .0125; hot.position.z = zf; seam.renderOrder = 2; hot.renderOrder = 3; rootG.add(seam, hot);
-      const len = Math.hypot(b[0] - a[0], b[1] - a[1]), ang = Math.atan2(b[1] - a[1], b[0] - a[0]);
-      const sheet = new THREE.Mesh(new THREE.PlaneGeometry(len * 1.3, 1.6), new THREE.ShaderMaterial({ uniforms: { uO: { value: 0 }, uC: { value: 0 } }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, side: THREE.DoubleSide,
-        vertexShader: 'varying vec2 vU;void main(){vU=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
-        fragmentShader: 'uniform float uO,uC;varying vec2 vU;void main(){float al=1.-smoothstep(uC-.02,uC+.02,vU.x);float d=abs(vU.y-.5)*2.;gl_FragColor=vec4(vec3(1.,.98,.95)*pow(1.-d,3.)*al*uO*.9,1.);}' }));
-      sheet.position.set((a[0] + b[0]) / 2, (a[1] + b[1]) / 2, 0); sheet.rotation.set(0, 0, ang); sheet.rotateX(Math.PI / 2); rootG.add(sheet);
-      return { seam, hot, sheet, a, b };
-    });
-    const flash = new THREE.PointLight(0xffffff, 0, 3, 1.4); rootG.add(flash);
-    /* chispas: segmentos de luz con gravedad que rebotan en el suelo */
-    const NS = 900, sp = new Float32Array(NS * 6), sc = new Float32Array(NS * 6), sv = []; for (let i = 0; i < NS; i++) sv.push({ x: 0, y: 0, z: 0, vx: 0, vy: 0, vz: 0, l: 0, L: 1 });
-    const sgeo = new THREE.BufferGeometry(); sgeo.setAttribute('position', new THREE.BufferAttribute(sp, 3)); sgeo.setAttribute('color', new THREE.BufferAttribute(sc, 3));
-    const sparks = new THREE.LineSegments(sgeo, new THREE.LineBasicMaterial({ vertexColors: true, transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, toneMapped: false, fog: false }));
-    sparks.frustumCulled = false; rootG.add(sparks);
-    /* la línea de luz que queda entre las dos mitades al abrirse */
-    const lc = D.createElement('canvas'); lc.width = 64; lc.height = 256; const lx = lc.getContext('2d'), id = lx.createImageData(64, 256);
-    for (let y = 0; y < 256; y++) for (let x = 0; x < 64; x++) { const gx = Math.exp(-Math.pow((x - 31.5) / 9, 2)), gy = Math.pow(Math.sin(Math.PI * y / 255), 1.6), o = (y * 64 + x) * 4; id.data[o] = id.data[o + 1] = id.data[o + 2] = 255; id.data[o + 3] = Math.round(255 * gx * gy); }
-    lx.putImageData(id, 0, 0); const ltex = new THREE.CanvasTexture(lc); ltex.colorSpace = THREE.SRGBColorSpace;
-    const lmat = new THREE.MeshBasicMaterial({ map: ltex, transparent: true, opacity: 0, depthWrite: false, toneMapped: false, blending: THREE.AdditiveBlending, fog: false });
-    const line = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), lmat), glow = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), lmat.clone()); line.position.z = glow.position.z = .02; isoG.add(glow, line);
+    const DEP = .2, EXB = { depth: DEP, bevelEnabled: true, bevelThickness: .012, bevelSize: .012, bevelSegments: 6, curveSegments: 1 };
+    const iso = new THREE.Group(); scene.add(iso);
+    [[[24, 20], [60, 20], [96.2, 172]], [[176, 20], [140, 20], [103.8, 172]]].forEach(T => { const g = new THREE.ExtrudeGeometry(shapeOf(T), EXB); g.translate(0, 0, -DEP / 2); g.computeVertexNormals(); iso.add(new THREE.Mesh(g, mat)); });
+    /* el círculo de luz sobre la pared negra del fondo */
+    const wall = new THREE.Mesh(new THREE.PlaneGeometry(60, 60), new THREE.ShaderMaterial({ uniforms: U, depthWrite: false, toneMapped: false,
+      vertexShader: 'void main(){gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+      fragmentShader: 'uniform vec2 uC;uniform float uR,uW;void main(){float d=distance(gl_FragCoord.xy,uC)/uR;gl_FragColor=vec4(vec3(.055*exp(-d*d*1.6)+.012*exp(-d*d*.25))*uW,1.);}' }));
+    wall.position.z = -2.5; wall.renderOrder = -1; wall.frustumCulled = false; scene.add(wall);
+    /* una luz puntual delante, donde apunta el cursor, para los brillos; y la del estudio para el final */
+    const pl = new THREE.PointLight(0xffffff, 0, 0, 0), key = new THREE.DirectionalLight(0xffffff, 0), sweep = new THREE.DirectionalLight(0xffffff, 0);
+    key.position.set(-3, 3, 3); scene.add(pl, key, sweep);
     const comp = new EffectComposer(renderer); comp.addPass(new RenderPass(scene, cam));
     const bloom = new UnrealBloomPass(new THREE.Vector2(256, 256), .5, .42, 1.3); comp.addPass(bloom); comp.addPass(new OutputPass());
-    let Z0 = 5, BASE = .3, SPL = .78;
+    let Z0 = 5, BASE = .3, Wd = 1, Hd = 1, AX = .2, AY = .3;
     function size() {
       const w = stage.clientWidth, h = stage.clientHeight; renderer.setSize(w, h, false); cam.aspect = w / h;
       const t = Math.tan(THREE.MathUtils.degToRad(15)); Z0 = Math.max(1 / (mob() ? .27 : .31) / (2 * t), 1 / (mob() ? .56 : .58) / (2 * t * cam.aspect));
-      BASE = (mob() ? .12 : .135) * 2 * Z0 * t; SPL = .78 * Math.min(1, Math.max(.4, (w / h) / 1.6));
-      scene.fog.near = Z0 + .7; scene.fog.far = Z0 + 5; cam.updateProjectionMatrix(); comp.setPixelRatio(renderer.getPixelRatio()); comp.setSize(w, h);
+      BASE = (mob() ? .12 : .135) * 2 * Z0 * t; cam.updateProjectionMatrix(); comp.setPixelRatio(renderer.getPixelRatio()); comp.setSize(w, h);
+      const pr = renderer.getPixelRatio(); Wd = w * pr; Hd = h * pr; AX = .5 / (Z0 * t * cam.aspect); AY = .5 / (Z0 * t);
     }
     size(); W.addEventListener('resize', size);
     let vis = true; new IntersectionObserver(es => { vis = es[0].isIntersecting; }).observe(stage);
     root.classList.add('gl-on');
-    let last = 0, Tl = -1, si = 0, sx = 0, sy = 0, shown = false; const far = new THREE.Vector3(), near = new THREE.Vector3();
+    /* ¿hay un ratón moviéndose? Si no (o en pantallas táctiles), la luz pasea sola */
+    let lastIn = -1e9; const fine = W.matchMedia('(hover:hover) and (pointer:fine)').matches;
+    W.addEventListener('pointermove', e => { if (e.pointerType === 'mouse') lastIn = performance.now(); }, { passive: true });
+    let last = 0, cx = 0, cy = 0, shown = false, sx = 0; const ray = new THREE.Vector3(), c0 = new THREE.Vector3();
     function tick(now) {
       requestAnimationFrame(tick);
       const dt = Math.min(.05, (now - (last || now)) / 1000); last = now;
-      const p = HX.p, tg = HX.go ? (now - HX.go) / 1000 : 0;
-      const T = Math.max(tg, 7 * sg(p, 0, .12));                    /* el scroll adelanta el corte si hace falta */
-      if (!shown && T > 4.6) { shown = true; heroIn(); }
-      if (!vis) { Tl = T; return; }
-      const jump = T - Tl > .35; Tl = T;
-      sx += (HX.mx - sx) * .05; sy += (HX.my - sy) * .05;
-      /* 1 · el bloque aparece: la cámara sale del canto y lo descubre entero */
-      const rev = eo(sg(T, .1, 1.4)); bm.envMapIntensity = wm.envMapIntensity = 1.35 * rev; key.intensity = .7 * rev;
-      /* 2 · cuatro cortes de luz */
-      let fl = 0;
-      cuts.forEach((c, j) => {
-        const s = sg(T, TC[j] - DUR / 2, TC[j] + DUR / 2), h = T >= TC[j] - DUR / 2 ? Math.exp(-Math.max(0, T - TC[j]) / .45) : 0, off = 1 - sg(T, 3.9, 4.4);
-        c.seam.material.uniforms.uC.value = c.hot.material.uniforms.uC.value = s; c.hot.material.uniforms.uH.value = h * off; c.seam.material.uniforms.uO.value = off;
-        const st = Math.sin(Math.PI * s); c.sheet.material.uniforms.uO.value = st; c.sheet.material.uniforms.uC.value = s * 1.15; c.sheet.visible = st > .001; fl += st;
-        if (s > 0 && s < 1) { flash.position.set(lerp(c.a[0], c.b[0], s), lerp(c.a[1], c.b[1], s), .3);
-          if (!jump) { const n = Math.round(dt * 5200); for (let q = 0; q < n; q++) { const S = sv[si]; si = (si + 1) % NS; const tt = Math.random() * s, a = Math.random() * Math.PI * 2, v = .5 + Math.random() * 1.8;
-            S.x = lerp(c.a[0], c.b[0], tt); S.y = lerp(c.a[1], c.b[1], tt); S.z = zf; S.vx = Math.cos(a) * v * .55; S.vy = Math.abs(Math.sin(a)) * v * .6 + .2; S.vz = .2 + Math.random() * 1.3; S.l = S.L = .7 + Math.random() * 1.1; } } }
-      });
-      flash.intensity = fl * 1.1; bloom.strength = .5 + fl * .15;
-      const dr = Math.min(.25, (now - (HX.lastS || now)) / 1000); HX.lastS = now; const late = T > 5.2;
-      for (let i = 0; i < NS; i++) { const s = sv[i], o = i * 6; if (late) s.l = 0; if (s.l > 0) { s.l -= dr; s.vy -= 3.2 * dr; s.x += s.vx * dr; s.y += s.vy * dr; s.z += s.vz * dr; if (s.y < FY + .004 && s.vy < 0) { s.y = FY + .004; s.vy *= -.32; s.vx *= .7; s.vz *= .7; } }
-        const k = Math.max(0, s.l / s.L), b = k * k * 3; sp[o] = s.x; sp[o + 1] = s.y; sp[o + 2] = s.z; sp[o + 3] = s.x - s.vx * .028; sp[o + 4] = s.y - s.vy * .028; sp[o + 5] = s.z - s.vz * .028; sc[o] = sc[o + 1] = b; sc[o + 2] = b * .93; sc[o + 3] = sc[o + 4] = sc[o + 5] = 0; }
-      sgeo.attributes.position.needsUpdate = true; sgeo.attributes.color.needsUpdate = true;
-      /* 3 · el material sobrante se aleja a cámara lenta */
-      const rel = T >= 3.95; block.visible = !rel; WL.visible = WR.visible = rel;
-      const q = eIO(sg(T, 4, 6.2)); offs.forEach((g, i) => { const d = drift[i]; g.visible = rel && q < .995; g.position.set(g.userData.c[0] + d[0] * q, g.userData.c[1] + d[1] * q, d[2] * q); g.rotation.set(d[3] * q, d[4] * q, d[5] * q); });
-      /* 4 · el isotipo gira y la luz lo recorre; después, el scroll lo abre */
-      const tw = sg(T, 4.2, 6.8), front = 1 - cl(p / .45, 0, 1), done = sg(T, 6, 7);
-      const spl = ss(sg(p, .5, .92)), ln = sg(p, .48, .78), k = sg(p, .05, .55);
-      isoG.rotation.y = Math.sin(Math.PI * tw) * -.42 + done * front * (Math.sin(now / 1000 * .42) * .12 + sx * .3);
-      isoG.rotation.x = done * front * sy * .12;
-      sweep.position.set(lerp(4, -4, tw), 2, 2.5); sweep.intensity = 1.2 * Math.sin(Math.PI * tw);
-      WL.position.set(WL.userData.c[0] - .03 * tw - SPL * spl, WL.userData.c[1], -.12 * spl); WR.position.set(WR.userData.c[0] + .03 * tw + SPL * spl, WR.userData.c[1], -.12 * spl);
-      WL.rotation.y = .42 * spl; WR.rotation.y = -.42 * spl;
-      line.scale.set(.018, .04 + 2.5 * eo(ln), 1); line.material.opacity = Math.min(1, ln * 1.6);
-      glow.scale.set(.34, .04 + 1.9 * eo(ln), 1); glow.material.opacity = .22 * ln; line.visible = glow.visible = ln > .001;
-      rootG.scale.setScalar(1 + .22 * k); rootG.position.y = .06 * k;
-      hide.material.opacity = sg(T, 5, 7.5); mir.visible = hide.material.opacity < .99;
-      /* cámara: del macro del canto al plano entero */
-      const e = eIO(sg(T, 0, 1.6)), yaw = lerp(.22, -.06, eIO(sg(T, 3.9, 6.8)));
-      far.set(Math.sin(yaw) * Z0, .14, Math.cos(yaw) * Z0).multiplyScalar(1 - .06 * sg(T, 3.9, 6.8));
-      near.set(-.15, .62, 1.05); near.lerp(far, e);
-      if (fl > 0) { near.x += (Math.random() - .5) * .012 * fl; near.y += (Math.random() - .5) * .012 * fl; }
-      cam.position.copy(near); cam.lookAt(lerp(-.36, 0, e), lerp(.46, -.04 - BASE, e), 0);
+      const p = HX.p, T = HX.go ? (now - HX.go) / 1000 : 0;
+      if (!shown && T > 1.7) { shown = true; heroIn(); }
+      if (!vis) return;
+      /* la cámara: de frente, con el isotipo por encima del titular */
+      cam.position.set(0, .14, Z0); cam.lookAt(0, -.04 - BASE, 0);
+      /* el centro del isotipo en pantalla (coordenadas de -1 a 1), alrededor del cual pasea la luz */
+      c0.set(0, 0, 0).project(cam); const ox = c0.x, oy = -c0.y;
+      const live = fine && now - lastIn < 3500, open = eIO(sg(p, .04, .46));
+      let tx, ty;
+      if (live) { tx = HX.mx; ty = HX.my; }
+      else { const w = 1 - open, a = T * .62; tx = ox + (Math.sin(a) * .85 + Math.sin(a * .37 + 1.3) * .25) * AX * w; ty = oy + Math.sin(a * .81 + .6) * .55 * AY * w; }
+      const k = 1 - Math.exp(-dt * (live ? 7 : 3)); cx += (tx - cx) * k; cy += (ty - cy) * k;
+      U.uC.value.set((cx * .5 + .5) * Wd, (1 - (cy * .5 + .5)) * Hd);
+      /* se enciende al entrar; el scroll la abre hasta descubrir la pieza entera */
+      const on = eo(sg(T, .15, 1.3));
+      U.uR.value = Hd * lerp(mob() ? .2 : .25, 1.6, open) * on; U.uA.value = .02 + .55 * open; U.uW.value = 1 - open;
+      ray.set(cx, -cy, .5).unproject(cam).sub(cam.position).normalize(); pl.position.copy(cam.position).addScaledVector(ray, Z0 * .55); pl.intensity = .28 * on * (1 - open);
+      key.intensity = .5 * open; const sw = sg(p, .3, .9); sweep.position.set(lerp(4, -4, sw), 2, 2.5); sweep.intensity = 1.1 * Math.sin(Math.PI * sw);
+      /* la pieza se inclina hacia la luz; abierta, crece un poco */
+      sx += ((live ? HX.mx : 0) - sx) * .05;
+      iso.rotation.set(-(cy - oy) * .08 * (1 - open), (cx - ox) * .14 * (1 - open) + open * (Math.sin(now / 1000 * .4) * .08 + sx * .2), 0);
+      const g = sg(p, .05, .6); iso.scale.setScalar(1 + .18 * g); iso.position.y = .05 * g;
       comp.render();
     }
     requestAnimationFrame(tick);

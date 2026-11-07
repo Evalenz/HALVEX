@@ -30,11 +30,9 @@ python3 -m http.server 8000
 - Respeta `prefers-reduced-motion`.
 - El formulario de contacto es de maqueta: valida, pero no envía.
 
-## Hero · «El corte»
+## Hero · «La linterna»
 
-El isotipo se esculpe en directo en un bloque macizo de titanio liso (three.js 0.160, sin compilación). Tras la apertura, la cámara sale de un macro del canto del bloque y lo descubre entero; cuatro cuchillas de luz lo atraviesan, cada una con su destello y una lluvia de chispas que rebotan en un suelo espejo; el material sobrante se aleja a cámara lenta y queda el isotipo, que gira mientras la luz del estudio lo recorre. El titular entra cuando termina el corte (unos 4,6 s) y el scroll adelanta la secuencia si hace falta. Después, con el scroll, las dos cuñas se abren y dejan una línea de luz («Precisión. Sin margen.»). Iluminación de estudio propia (paneles de luz en un PMREM) y resplandor con UnrealBloomPass. Si el dispositivo no tiene WebGL o pide movimiento reducido, se muestra `img/hero-poster.jpg`.
-
-Tipografía: la del sistema de Apple (SF Pro en Mac, iPhone e iPad) con Inter (Google Fonts) como equivalente en el resto.
+Todo empieza a oscuras: el isotipo de titanio liso está ahí, pero no se ve. El cursor es una luz que lo va descubriendo por sus reflejos (un círculo en pantalla que enciende el metal, una luz puntual para los brillos y un halo tenue sobre la pared del fondo); la pieza se inclina un poco hacia la luz. Si nadie mueve el ratón, o en pantallas táctiles, la luz pasea sola sobre el isotipo. El titular entra cuando se enciende la luz (unos 1,7 s tras la apertura). Con el scroll, la luz se abre hasta descubrir la pieza entera y entra «Precisión. Sin margen.». three.js 0.160 sin compilación, iluminación de estudio propia (paneles de luz en un PMREM) y resplandor con UnrealBloomPass. Si el dispositivo no tiene WebGL o pide movimiento reducido, se muestra `img/hero-poster.jpg`.
 
 ## Lenguaje de movimiento
 
