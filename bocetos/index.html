@@ -55,6 +55,19 @@ header p{margin:0;font-size:13px;color:var(--mute);max-width:52ch}
 .info dd{margin:2px 0 0;font-size:13.5px;line-height:1.5;color:#C7C7CC}
 
 /* ——— capas de texto dentro de la escena (simulan la web) ——— */
+.fb{position:absolute;inset:0;background:#000;opacity:0}
+.lb{position:absolute;left:0;right:0;height:11cqh;background:#000}
+.lb.t{top:0}.lb.b{bottom:0}
+#tc{position:absolute;inset:0;width:100%;height:100%}
+.ed{position:absolute;left:6cqw;top:50%;transform:translateY(-50%);width:40cqw;opacity:0}
+.ed .k{font-size:max(9px,.9cqw);letter-spacing:.14em;text-transform:uppercase;color:#86868B;margin:0 0 2.6cqh}
+.ed h3{margin:0;font-weight:600;font-size:4.5cqw;line-height:1.02;letter-spacing:-.035em;color:#fff}
+.ed h3 span{color:#86868B;display:block}
+.ed p{font-size:max(10px,1.12cqw);line-height:1.55;color:#A1A1A6;margin:2.8cqh 0 0;max-width:31cqw}
+.ed .bt{display:flex;gap:1.8cqw;margin-top:3.8cqh;align-items:center}
+.ed .bt b{font-weight:500;font-size:max(9px,1cqw);background:#fff;color:#000;border-radius:99px;padding:1.2cqh 1.7cqw}
+.ed .bt i{font-style:normal;font-size:max(9px,1cqw);color:#fff}
+@media (max-width:700px){.ed{left:7cqw;right:7cqw;width:auto;top:auto;bottom:6cqh;transform:none}.ed h3{font-size:9.4cqw}.ed p{font-size:3.4cqw;max-width:none}.ed .bt b,.ed .bt i{font-size:3.3cqw}.ed .bt b{padding:1cqh 3.6cqw}.ed .k{font-size:2.6cqw}}
 .hh{position:absolute;left:6cqw;bottom:8cqh;margin:0;font-weight:600;letter-spacing:-.035em;line-height:1.02;font-size:5.2cqw;color:#fff;opacity:0;will-change:opacity,transform,filter}
 .hh span{color:#86868B;display:block}
 .hh small{display:block;font-size:max(10px,1.05cqw);letter-spacing:.02em;font-weight:500;color:#A1A1A6;margin-top:2.2cqh}
@@ -98,6 +111,12 @@ header p{margin:0;font-size:13px;color:var(--mute);max-width:52ch}
   </header>
 
   <nav class="tabs" role="tablist" aria-label="Bocetos" id="tabs">
+    <div class="grp"><span>Hero · enfoques</span>
+      <button role="tab" data-id="foto">1 · Una foto fija</button>
+      <button role="tab" data-id="titular">2 · El titular manda</button>
+      <button role="tab" data-id="pelicula">3 · Película de producto</button>
+      <button role="tab" data-id="editorial">4 · Maqueta editorial</button>
+    </div>
     <div class="grp"><span>Hero · simple</span>
       <button role="tab" data-id="atravesar">1 · Atravesar la V</button>
       <button role="tab" data-id="linterna">2 · La linterna</button>
@@ -190,6 +209,18 @@ const PQ='<div class="pq" id="pq">'+
 
 /* textos que acompañan a cada boceto */
 const INFO={
+ foto:{k:'Hero · enfoque 1 de 4',t:'Una foto fija perfecta',d:'Sin animación de entrada. El isotipo en titanio, enorme y recortado por el borde de arriba: solo se ve cómo baja hasta su vértice. El titular, a su lado. Lo único que se mueve es la luz, que resbala muy despacio por el metal.',
+  s:[['0–12 %','La pieza aparece.'],['5–20 %','El titular entra.'],['0–100 %','La luz resbala despacio por el titanio.']],
+  f:'La seguridad de no necesitar efectos: así lo hacen las marcas de lujo.',r:'Depende de que el render sea impecable; en la web lo afinaría con más detalle de luz.'},
+ titular:{k:'Hero · enfoque 2 de 4',t:'El titular manda',d:'El hero es solo el titular, gigante, en blanco y gris sobre negro. Al bajar, las dos mitades del texto se apartan y dejan un hueco en forma de V; dentro está el isotipo de titanio. La marca aparece dentro del mensaje.',
+  s:[['2–14 %','Aparece el titular a pantalla completa.'],['16–68 %','El texto se abre en V.'],['40–95 %','Un reflejo recorre el titanio.']],
+  f:'Muy editorial y nada visto: el mensaje y la forma de la marca son la misma cosa.',r:'En la web la apertura iría ligada al scroll.'},
+ pelicula:{k:'Hero · enfoque 3 de 4',t:'Película de producto',d:'Cuatro planos, como un anuncio: un macro de la luz corriendo por el bisel, el vértice desde abajo, el perfil que enseña el grosor del titanio y el plano final del isotipo entero. Fundidos a negro entre planos y bandas de cine que se retiran al final.',
+  s:[['0–22 %','Macro: la luz por el bisel.'],['22–44 %','El vértice, desde abajo.'],['44–66 %','De perfil: el grosor.'],['66–100 %','El isotipo entero; las bandas se retiran.'],['84–94 %','El titular entra.']],
+  f:'El máximo impacto visual, y fluido en cualquier móvil si va como vídeo.',r:'Este boceto va en tiempo real para enseñar los planos; la versión final se renderizaría como vídeo con calidad de cine.'},
+ editorial:{k:'Hero · enfoque 4 de 4',t:'Maqueta editorial',d:'Pantalla partida: a la izquierda el titular, una frase y los botones, con mucho aire; a la derecha el isotipo de titanio grande, quieto y algo girado. Al bajar, gira solo unos grados y la luz se desplaza.',
+  s:[['4–20 %','Entra el texto.'],['30–92 %','El isotipo gira unos grados y la luz se mueve.']],
+  f:'Sobrio y profesional, muy de consultora de alto nivel.',r:'Es el menos sorprendente: su fuerza es el orden.'},
  atravesar:{k:'Hero simple · idea 1 de 4',t:'Atravesar la V',d:'El isotipo aparece de frente y, por su hueco central, asoma una luz. La cámara avanza y lo atraviesa: las dos piezas pasan a los lados como dos monolitos de titanio. Al otro lado se da la vuelta y lo mira desde detrás, a contraluz, con el titular.',
   s:[['0–14 %','El isotipo aparece de frente.'],['12–40 %','Una luz asoma por el hueco.'],['30–51 %','La cámara avanza hacia el hueco.'],['51 %','Lo atraviesa: los cantos brillan.'],['60–94 %','Se da la vuelta y lo mira desde detrás.'],['84–94 %','El titular entra.']],
   f:'Una sola idea, en un solo movimiento de cámara, y nadie la tiene.',r:'En la web, el vuelo iría ligado al scroll.'},
@@ -288,7 +319,7 @@ const INFO={
   f:'El más sobrio y elegante. Muy de producto, muy de Apple. Ligero en cualquier dispositivo.',r:'Menos espectacular que A o B; su fuerza está en la calma.'}
 };
 
-let THREE, ENV, RoomEnvironment, MeshSurfaceSampler, Reflector, EffectComposer, RenderPass, UnrealBloomPass, OutputPass, renderer;
+let BokehPass, THREE, ENV, RoomEnvironment, MeshSurfaceSampler, Reflector, EffectComposer, RenderPass, UnrealBloomPass, OutputPass, renderer;
 const MOB=()=>stage.clientWidth/stage.clientHeight<.9;
 const mouse={x:0,y:0,sx:0,sy:0};
 stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect();mouse.x=(e.clientX-r.left)/r.width*2-1;mouse.y=(e.clientY-r.top)/r.height*2-1;},{passive:true});
@@ -1512,6 +1543,80 @@ C.objeto={grp:'hero',dur:14,html:HERO,make(){const B=tiBase({env:softbox()});B.k
       B.orbit(.0,lerp(.16,.05,eIO(sg(p,0,.9))),lerp(.86,1,eIO(sg(p,0,.9))),-.02);hero(p,.82,.94);}};
 }};
 
+/* ——— Hero · cuatro enfoques sin truco: la pieza y la luz ——— */
+/* 1 · UNA FOTO FIJA PERFECTA: el isotipo enorme, recortado por arriba; solo se mueve la luz */
+C.foto={grp:'hero',dur:16,html:HERO,make(){const B=tiBase();
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
+    update(p,t){const m=MOB(),rev=eo(sg(p,0,.12));B.mat.envMapIntensity=1.35*rev;B.key.intensity=.6*rev;
+      B.iso.scale.setScalar(m?1.75:2.35);B.iso.position.set(m?0:.66,m?.6:.62,0);
+      B.iso.rotation.set(0,-.14+.04*Math.sin(p*Math.PI*2)+mouse.sx*.03,0);
+      /* la luz resbala muy despacio por el metal */
+      const a=p*Math.PI*2;B.sweep.position.set(Math.cos(a)*4.5,2.4+Math.sin(a*2)*.6,2.6);B.sweep.intensity=1.1;
+      B.orbit(.04*Math.sin(a),.03,1,-.04);hero(p,.05,.2);}};
+}};
+
+/* 2 · EL TITULAR MANDA: el titular a pantalla completa se abre en V y dentro está el titanio */
+C.titular={grp:'hero',dur:12,html:'<canvas id="tc" aria-hidden="true"></canvas>',make(){const B=tiBase();
+  const c=$('tc'),x=c.getContext('2d');let cw=1,ch=1;
+  B.onResize=(w,h)=>{const d=Math.min(2,W.devicePixelRatio||1);cw=c.width=Math.round(w*d);ch=c.height=Math.round(h*d);};
+  const FONT=s=>`700 ${s}px -apple-system,"SF Pro Display","Helvetica Neue",Arial,sans-serif`;
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
+    update(p,t){const m=MOB(),o=eIO(sg(p,.16,.68));
+      B.iso.scale.setScalar(m?lerp(.55,.62,o):lerp(.7,.8,o));B.iso.position.y=m?.02:.12;B.iso.rotation.y=Math.sin(t*.3)*.05*o;
+      const sw=sg(p,.4,.95);B.sweep.position.set(lerp(4,-4,sw),2,2.5);B.sweep.intensity=1.4*Math.sin(Math.PI*sw);B.orbit(0,.04,1,-.02);
+      /* el titular, por palabras: cada línea se parte por el hueco entre palabras más cercano al centro y las dos mitades se apartan, dejando un hueco en V */
+      const lines=m?['Decisiones','que no','admiten','error.']:['Decisiones que','no admiten error.'];
+      x.font=FONT(100);const mw=Math.max(...lines.map(s=>x.measureText(s).width));
+      const fs=Math.min(ch*(m?.1:.19),cw*(m?.62:.5)*100/mw),lh=fs*1.04;x.font=FONT(fs);
+      x.globalCompositeOperation='source-over';x.fillStyle='#000';x.fillRect(0,0,cw,ch);
+      const VG=ch*.2,cx=cw/2,ty=m?ch/2-VG*o*.95:ch*.04,ay=m?ch/2+VG*o*.95:ch*.9,HW=o*(m?cw*.3:ch*.3),hw=y=>y>ay||y<ty-fs*.2?0:HW*(ay-Math.max(y,ty))/Math.max(1,ay-ty);
+      const top=(ch-lh*lines.length)/2+fs*.76,fade=eo(sg(p,.02,.14)),sp=x.measureText(' ').width;let wi=0;
+      lines.forEach((s,li)=>{const y=top+li*lh,ws=s.split(' '),wd=ws.map(w=>x.measureText(w).width),tw=wd.reduce((a,b)=>a+b,0)+sp*(ws.length-1);
+        let px=cx-tw/2;const xs=ws.map((w,k)=>{const v=px;px+=wd[k]+sp;return v;});
+        /* dónde se parte: el hueco entre palabras más cercano al centro (una sola palabra: entera a un lado) */
+        let cut=ws.length===1?(li%2?0:1):1,best=1e9;for(let k=1;k<ws.length;k++){const g=xs[k]-sp/2,dd=Math.abs(g-cx);if(dd<best){best=dd;cut=k;}}
+        const h=hw(y-fs*.78)+fs*.16,Lr=cut>0?xs[cut-1]+wd[cut-1]:cx,Rl=cut<ws.length?xs[cut]:cx;
+        const ww=eIO(sg(p,.1,.34))*(hw(y-fs*.78)>0?1:0),dL=((cx-h)-Lr)*ww,dR=((cx+h)-Rl)*ww;
+        /* en móvil no hay sitio a los lados: el bloque se abre hacia arriba y hacia abajo */
+        const vy=m?(li<2?-1:1)*VG*o:0,mx=m?0:1;
+        ws.forEach((w,k)=>{x.fillStyle=(wi<2?`rgba(245,245,247,${fade})`:`rgba(134,134,139,${fade})`);x.fillText(w,xs[k]+(k<cut?dL:dR)*mx,y+vy);wi++;});});
+      x.globalCompositeOperation='destination-out';x.beginPath();x.moveTo(cx-HW,ty);x.lineTo(cx+HW,ty);x.lineTo(cx,ay);x.closePath();x.fill();
+      x.globalCompositeOperation='source-over';}};
+}};
+
+/* 3 · PELÍCULA DE PRODUCTO: planos macro con profundidad de campo, como un anuncio (aquí en tiempo real; la versión final iría renderizada) */
+C.pelicula={grp:'hero',dur:15,html:HERO+'<div class="fb" id="fb"></div><div class="lb t" id="lbt"></div><div class="lb b" id="lbb"></div>',make(){const B=tiBase();
+  const bok=new BokehPass(B.scene,B.cam,{focus:1,aperture:.004,maxblur:.012});B.comp.insertPass(bok,1);
+  const tg=new THREE.Vector3(),CUT=[0,.22,.44,.66,1];
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose(){B.dispose();bok.dispose&&bok.dispose();},
+    update(p,t){const k=p<CUT[1]?0:p<CUT[2]?1:p<CUT[3]?2:3,f=(p-CUT[k])/(CUT[k+1]-CUT[k]);let ap=.006;B.iso.rotation.set(0,0,0);
+      if(k===0){/* macro: la luz corre por el bisel del canto superior */
+        B.cam.position.set(lerp(-.64,-.36,f),.6,.32);tg.set(lerp(-.5,-.3,f),.49,.1);B.sweep.position.set(lerp(-3,3,f),3,2);B.sweep.intensity=2.2;}
+      else if(k===1){/* el vértice, desde abajo */
+        B.cam.position.set(lerp(.18,.06,f),lerp(-.7,-.62,f),lerp(.55,.42,f));tg.set(0,-.47,.05);B.sweep.position.set(lerp(3,-3,f),-1,2);B.sweep.intensity=2;}
+      else if(k===2){/* de perfil: el grosor del titanio */
+        B.iso.rotation.y=lerp(.82,1.12,f);B.cam.position.set(.05,lerp(.32,.22,f),lerp(1.75,1.55,f));tg.set(0,-.02,0);ap=.004;B.sweep.position.set(lerp(-3,2,f),2,-1.5);B.sweep.intensity=2.4;}
+      else{/* el plano final: el isotipo entero */
+        const e=eIO(sg(f,0,.7));B.cam.position.set(0,.14,lerp(B.Z0*.72,B.Z0,e));tg.set(0,-.04,0);ap=.0015*(1-e);
+        B.sweep.position.set(lerp(4,-4,f),2,2.5);B.sweep.intensity=1.6*Math.sin(Math.PI*f);}
+      B.cam.lookAt(tg);bok.uniforms.focus.value=B.cam.position.distanceTo(tg);bok.uniforms.aperture.value=ap;
+      /* fundidos a negro entre planos y bandas de cine que se retiran al final */
+      const dip=Math.max(1-sg(p,0,.04),...[CUT[1],CUT[2],CUT[3]].map(b=>Math.exp(-Math.pow((p-b)/.012,2))));$('fb').style.opacity=dip.toFixed(3);
+      const lb=eIO(sg(p,.7,.86));$('lbt').style.transform=`translateY(${(-100*lb).toFixed(1)}%)`;$('lbb').style.transform=`translateY(${(100*lb).toFixed(1)}%)`;
+      hero(p,.84,.94);}};
+}};
+
+/* 4 · MAQUETA EDITORIAL: texto a la izquierda, el isotipo grande y quieto a la derecha */
+C.editorial={grp:'hero',dur:12,html:'<div class="ed" id="ed"><p class="k">HALVEX</p><h3>Decisiones que<span>no admiten error.</span></h3><p>Inteligencia artificial, seguridad y software para organizaciones en las que una decisión tardía o un dato expuesto tienen consecuencias reales.</p><div class="bt"><b>Hablar con el equipo</b><i>Descubrir HALVEX ›</i></div></div>',make(){const B=tiBase();
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
+    update(p,t){const m=MOB(),rev=eo(sg(p,0,.14));B.mat.envMapIntensity=1.35*rev;B.key.intensity=.6*rev;
+      /* al bajar, gira solo unos grados y la luz se desplaza */
+      const s=eIO(sg(p,.3,.92));B.iso.scale.setScalar(m?1.25:1.55);B.iso.rotation.set(.04,-.36+.27*s+mouse.sx*.04,0);
+      B.sweep.position.set(lerp(3.5,-3.5,s),2.2,2.6);B.sweep.intensity=1.3;B.key.position.set(lerp(-3,1,s),3,3);
+      B.orbit(0,.05,1,0);if(m)setOffset(B.cam,B.W,B.H,0,.2);else setOffset(B.cam,B.W,B.H,.21,0);
+      const e=$('ed'),v=eo(sg(p,.04,.2));if(e){e.style.opacity=v.toFixed(3);e.style.filter=v>.99?'none':'blur('+((1-v)*10).toFixed(1)+'px)';}}};
+}};
+
 /* ——— motor ——— */
 let cur=null,curId=null,p=0,playing=!RM,hold=0,t=0,last=0,visible=true,ok=false;
 const scrub=$('scrub'),pct=$('pct'),play=$('play'),ico=$('ico');
@@ -1528,7 +1633,7 @@ function steps(){const I=INFO[curId],li=D.querySelectorAll('#iS li');if(!li.leng
   else{on=Math.round(PQ_U(p));if(I.s[0][0]!=='Inicio')on=on-1;}
   li.forEach((l,i)=>l.classList.toggle('on',i===on));}
 function size(){if(!cur)return;const w=stage.clientWidth,h=stage.clientHeight;renderer.setPixelRatio(Math.min(W.devicePixelRatio||1,cur.pr||2));renderer.setSize(w,h,false);cur.resize&&cur.resize(w,h);}
-function load(id){if(!C[id])id='atravesar';
+function load(id){if(!C[id])id='foto';
   if(cur){cur.dispose&&cur.dispose();disposeScene(cur.scene);}
   curId=id;ov.innerHTML=C[id].html||'';info(id);
   D.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.id===id?'true':'false'));
@@ -1551,7 +1656,7 @@ try{
   ({MeshSurfaceSampler}=await import('three/addons/math/MeshSurfaceSampler.js'));
   ({Reflector}=await import('three/addons/objects/Reflector.js'));
   ({EffectComposer}=await import('three/addons/postprocessing/EffectComposer.js'));({RenderPass}=await import('three/addons/postprocessing/RenderPass.js'));
-  ({UnrealBloomPass}=await import('three/addons/postprocessing/UnrealBloomPass.js'));({OutputPass}=await import('three/addons/postprocessing/OutputPass.js'));
+  ({UnrealBloomPass}=await import('three/addons/postprocessing/UnrealBloomPass.js'));({OutputPass}=await import('three/addons/postprocessing/OutputPass.js'));({BokehPass}=await import('three/addons/postprocessing/BokehPass.js'));
   renderer=new THREE.WebGLRenderer({canvas:cv,antialias:true,powerPreference:'high-performance'});
   renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.05;renderer.setClearColor(0x000000,1);
   const pm=new THREE.PMREMGenerator(renderer);ENV=pm.fromScene(new RoomEnvironment(renderer),.035).texture;
