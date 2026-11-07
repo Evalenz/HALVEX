@@ -21,13 +21,17 @@ sc.render.engine = 'CYCLES'
 sc.cycles.device = 'CPU'
 sc.cycles.samples = SPP
 sc.cycles.use_denoising = True
-sc.cycles.use_adaptive_sampling = True; sc.cycles.adaptive_threshold = 0.03
+sc.cycles.use_adaptive_sampling = True; sc.cycles.adaptive_threshold = float(os.environ.get('UMBRAL', '0.03'))
+sc.cycles.adaptive_min_samples = int(os.environ.get('MIN_SPP', '0'))
+try: sc.cycles.denoising_prefilter = 'ACCURATE'; sc.cycles.denoising_input_passes = 'RGB_ALBEDO_NORMAL'
+except Exception: pass
 try: sc.cycles.denoiser = 'OPENIMAGEDENOISE'
 except Exception: pass
 sc.cycles.max_bounces = 6; sc.cycles.glossy_bounces = 4; sc.cycles.diffuse_bounces = 2; sc.cycles.transmission_bounces = 0
 sc.cycles.caustics_reflective = False; sc.cycles.caustics_refractive = False
 sc.cycles.blur_glossy = 0.5
-sc.render.resolution_x = int(1920 * RES); sc.render.resolution_y = int(1080 * RES); sc.render.resolution_percentage = 100
+V = os.environ.get('ORIENT') == 'v'      # versión vertical para el móvil
+sc.render.resolution_x = int((1080 if V else 1920) * RES); sc.render.resolution_y = int((1920 if V else 1080) * RES); sc.render.resolution_percentage = 100
 sc.render.image_settings.file_format = 'PNG'
 sc.render.film_transparent = False
 try:
@@ -81,7 +85,7 @@ fb.inputs['Base Color'].default_value = (0.004, 0.004, 0.004, 1); fb.inputs['Rou
 nt = fm.node_tree
 tc = nt.nodes.new('ShaderNodeTexCoord'); gr = nt.nodes.new('ShaderNodeTexGradient'); gr.gradient_type = 'SPHERICAL'
 mp = nt.nodes.new('ShaderNodeMapping'); mp.inputs['Scale'].default_value = (0.62, 0.62, 0.62)
-cr = nt.nodes.new('ShaderNodeValToRGB'); cr.color_ramp.elements[0].position = 0.0; cr.color_ramp.elements[1].position = 0.55
+cr = nt.nodes.new('ShaderNodeValToRGB'); cr.color_ramp.elements[0].position = 0.0; cr.color_ramp.elements[1].position = 0.8   # el reflejo se apaga poco a poco, sin horizonte
 nt.links.new(tc.outputs['Object'], mp.inputs['Vector']); nt.links.new(mp.outputs[0], gr.inputs['Vector']); nt.links.new(gr.outputs['Fac'], cr.inputs['Fac'])
 mx = nt.nodes.new('ShaderNodeMixShader'); dk = nt.nodes.new('ShaderNodeBsdfDiffuse'); dk.inputs['Color'].default_value = (0, 0, 0, 1)
 out = nt.nodes['Material Output']; nt.links.new(cr.outputs['Color'], mx.inputs['Fac']); nt.links.new(dk.outputs[0], mx.inputs[1]); nt.links.new(fb.outputs[0], mx.inputs[2]); nt.links.new(mx.outputs[0], out.inputs['Surface'])
@@ -111,7 +115,9 @@ cam_d = bpy.data.cameras.new('cam'); cam = bpy.data.objects.new('cam', cam_d); s
 cam_d.sensor_fit = 'HORIZONTAL'; cam_d.sensor_width = 36; cam_d.clip_start = 0.01; cam_d.dof.use_dof = True
 foc = bpy.data.objects.new('foco', None); sc.collection.objects.link(foc); cam_d.dof.focus_object = foc
 
+KEEP = [.6, .5, .46, .5]; SHIFT = [0, 0, 0, 0]; CUR = [0]
 def look(loc, tgt, lens, fstop, roll=0.0):
+    if V: lens = lens / KEEP[CUR[0]]; cam_d.shift_y = SHIFT[CUR[0]]
     cam.location = Vector(loc); foc.location = Vector(tgt)
     d = (Vector(tgt) - Vector(loc)).normalized(); q = d.to_track_quat('-Z', 'Y'); cam.rotation_euler = q.to_euler()
     cam.rotation_euler.rotate_axis('Z', roll)
@@ -123,7 +129,7 @@ def place_sweep(x, y, z, strength, tgt=(0, 0, 0)):
 def set_frame(f):
     k = 0
     while k < 3 and f >= START[k + 1]: k += 1
-    t = (f - START[k]) / (SHOTS[k] - 1)
+    t = (f - START[k]) / (SHOTS[k] - 1); CUR[0] = k
     iso.rotation_euler = (0, 0, 0); floor.hide_render = k != 3
     eTop.inputs['Strength'].default_value = 3.5; eFront.inputs['Strength'].default_value = 2.6
     eSL.inputs['Strength'].default_value = 10; eSR.inputs['Strength'].default_value = 12; eBack.inputs['Strength'].default_value = 14
@@ -147,8 +153,8 @@ def set_frame(f):
         eBack.inputs['Strength'].default_value = 22
     else:
         # el plano final: la cámara se aleja y queda el isotipo entero sobre el suelo negro
-        e = eio(sg(t, 0, .75)); d = lerp(3.2, 4.7, e)
-        look((0, -d, lerp(.05, .18, e)), (0, 0, lerp(-.1, -.32, e)), 40, lerp(2.2, 5.6, e))
+        e = eio(sg(t, 0, .75)); d = lerp(3.2, 5.0, e)
+        look((0, -d, lerp(.05, .18, e)), (0, 0, lerp(-.1, -.2, e)), 40, lerp(2.2, 5.6, e))
         place_sweep(lerp(3.2, -3.2, sg(t, .15, .85)), -3.0, .9, 34 * math.sin(math.pi * sg(t, .15, .85)))
 
 frames = []

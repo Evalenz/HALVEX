@@ -30,9 +30,11 @@ python3 -m http.server 8000
 - Respeta `prefers-reduced-motion`.
 - El formulario de contacto es de maqueta: valida, pero no envía.
 
-## Hero · «La linterna»
+## Hero · «La película»
 
-Todo empieza a oscuras: el isotipo de titanio liso está ahí, pero no se ve. El cursor es una luz que lo va descubriendo por sus reflejos (un círculo en pantalla que enciende el metal, una luz puntual para los brillos y un halo tenue sobre la pared del fondo); la pieza se inclina un poco hacia la luz. Si nadie mueve el ratón, o en pantallas táctiles, la luz pasea sola sobre el isotipo. El titular entra cuando se enciende la luz (unos 1,7 s tras la apertura). Con el scroll, la luz se abre hasta descubrir la pieza entera y entra «Precisión. Sin margen.». three.js 0.160 sin compilación, iluminación de estudio propia (paneles de luz en un PMREM) y resplandor con UnrealBloomPass. Si el dispositivo no tiene WebGL o pide movimiento reducido, se muestra `img/hero-poster.jpg`.
+Una película de producto del isotipo en titanio, renderizada con Blender / Cycles (`marca/pelicula/film.py`) y recorrida con el scroll. Al entrar se enciende la luz y corre por el bisel superior (los primeros 2,4 s se reproducen solos); al bajar, el vértice a contraluz, la pieza en tres cuartos enseñando el grosor y el plano final con el isotipo entero sobre un suelo negro que lo refleja, mientras entra «Precisión. Sin margen.». Son 145 fotogramas WebP en `web/film/d/` (1920×1080, escritorio) y `web/film/m/` (1080×1920, pantallas más altas que anchas) pintados en un canvas con ajuste «cover»; entre dos fotogramas se funden para que el movimiento sea continuo. Se cargan a saltos (el primero, el último, uno de cada 32 y luego los huecos), así que se puede recorrer desde el primer momento; con «ahorro de datos» solo se carga uno de cada cuatro. Con movimiento reducido, o si los fotogramas no llegan, se muestra `img/hero-poster.jpg` (el plano final).
+
+Para regenerarla: `python film.py SALIDA FOTOGRAMAS 1.0 256` con `UMBRAL=0.01` (y `ORIENT=v` para la vertical), y `python3 seq.py SALIDA web/film/d 1920 1080 90` para la secuencia.
 
 ## Lenguaje de movimiento
 
