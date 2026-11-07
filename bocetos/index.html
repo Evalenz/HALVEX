@@ -98,6 +98,12 @@ header p{margin:0;font-size:13px;color:var(--mute);max-width:52ch}
   </header>
 
   <nav class="tabs" role="tablist" aria-label="Bocetos" id="tabs">
+    <div class="grp"><span>Hero · simple</span>
+      <button role="tab" data-id="atravesar">1 · Atravesar la V</button>
+      <button role="tab" data-id="linterna">2 · La linterna</button>
+      <button role="tab" data-id="sombra">3 · La sombra</button>
+      <button role="tab" data-id="objeto">4 · Solo el objeto</button>
+    </div>
     <div class="grp"><span>Hero · sin corte</span>
       <button role="tab" data-id="emerge">1 · Emerge</button>
       <button role="tab" data-id="eclipse">2 · Eclipse</button>
@@ -184,6 +190,18 @@ const PQ='<div class="pq" id="pq">'+
 
 /* textos que acompañan a cada boceto */
 const INFO={
+ atravesar:{k:'Hero simple · idea 1 de 4',t:'Atravesar la V',d:'El isotipo aparece de frente y, por su hueco central, asoma una luz. La cámara avanza y lo atraviesa: las dos piezas pasan a los lados como dos monolitos de titanio. Al otro lado se da la vuelta y lo mira desde detrás, a contraluz, con el titular.',
+  s:[['0–14 %','El isotipo aparece de frente.'],['12–40 %','Una luz asoma por el hueco.'],['30–51 %','La cámara avanza hacia el hueco.'],['51 %','Lo atraviesa: los cantos brillan.'],['60–94 %','Se da la vuelta y lo mira desde detrás.'],['84–94 %','El titular entra.']],
+  f:'Una sola idea, en un solo movimiento de cámara, y nadie la tiene.',r:'En la web, el vuelo iría ligado al scroll.'},
+ linterna:{k:'Hero simple · idea 2 de 4',t:'La linterna',d:'La pantalla está en negro y el cursor es una luz. Al moverla, va descubriendo el isotipo de titanio por los reflejos que deja, con un círculo de luz tenue en el fondo. Si nadie la mueve, la luz pasea sola y al final se abre del todo.',
+  s:[['2–12 %','Se enciende la luz.'],['20 %','Invitación a moverla.'],['70–90 %','La luz se abre y descubre el isotipo entero.'],['80–92 %','El titular entra.']],
+  f:'El visitante descubre la marca él mismo: simple y memorable.',r:'En móvil se mueve con el dedo, o sola.'},
+ sombra:{k:'Hero simple · idea 3 de 4',t:'La sombra',d:'Una luz muy cerca del isotipo proyecta su sombra enorme sobre la pared del fondo: una V negra que llena la pantalla, con la pieza recortada delante. La luz se aleja y la sombra encoge hasta quedar justo detrás de la pieza. Al final la pared se apaga y queda el titanio.',
+  s:[['2–16 %','Se enciende la pared: la sombra lo llena todo.'],['26–72 %','La luz se aleja y la sombra encoge.'],['60–90 %','El titanio se enciende.'],['78–95 %','La pared se apaga.'],['80–92 %','El titular entra.']],
+  f:'Gráfica, rotunda y en blanco y negro puro.',r:'Las sombras en tiempo real piden algo más al móvil.'},
+ objeto:{k:'Hero simple · idea 4 de 4',t:'Solo el objeto',d:'El isotipo gira despacio sobre negro, con una sola luz suave desde arriba y dos líneas de luz detrás, como en una foto de producto. Da una vuelta completa y frena hasta quedar de frente. Nada más: la fuerza está en el material.',
+  s:[['0–18 %','Se enciende la luz de arriba.'],['4–86 %','Gira despacio, una vuelta completa.'],['86 %','Queda de frente.'],['82–94 %','El titular entra.']],
+  f:'Lo más simple posible: la pieza y la luz.',r:'Su impacto depende del acabado; es la menos sorprendente.'},
  emerge:{k:'Hero sin corte · idea 1 de 6',t:'Emerge',d:'Toda la pantalla es una lámina de titanio pulido que ondula despacio. El isotipo la empuja desde detrás: primero un bulto blando, luego sus cantos. Cuando el relieve llega arriba, la pieza se suelta y flota hacia delante, mientras la lámina rebota y una onda corre por el metal.',
   s:[['0–10 %','Una lámina de titanio que ondula.'],['10–46 %','El isotipo la empuja desde detrás.'],['36–50 %','Un destello recorre el relieve.'],['50 %','Se suelta: la lámina rebota y ondula.'],['50–72 %','El isotipo flota hacia delante.'],['78–90 %','El titular entra.']],
   f:'El isotipo nace del propio material, sin romper nada.',r:'Es el que más pide a la gráfica (la lámina tiene muchos vértices); en móvil iría más ligera.'},
@@ -1398,6 +1416,102 @@ C.temira={grp:'hero',dur:10,html:HERO+'<p class="hint3" id="h3"></p>',make(){con
       if(h)h.style.opacity=p>.3&&!live?(.55+.3*Math.sin(t*3)).toFixed(2):p>.3?'.25':'0';hero(p,.22,.36);}};
 }};
 
+/* ——— Hero simple: cuatro ideas con el isotipo de titanio ——— */
+/* 1 · ATRAVESAR LA V: la cámara pasa por el hueco del isotipo, hacia la luz, y se da la vuelta */
+C.atravesar={grp:'hero',dur:12,html:HERO,make(){const B=tiBase();
+  const far=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));far.position.set(0,.2,-14);far.scale.set(11,11,1);B.scene.add(far);
+  const halo=new THREE.Sprite(new THREE.SpriteMaterial({map:glowTex(),transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false,toneMapped:false}));halo.position.set(0,.05,2.5);halo.scale.set(3.2,3.2,1);B.scene.add(halo);
+  const back=new THREE.DirectionalLight(0xffffff,0);back.position.set(0,.4,-4);B.scene.add(back);
+  const v=new THREE.Vector3(),dir=new THREE.Vector3(),q1=new THREE.Quaternion(),q2=new THREE.Quaternion();
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
+    update(p,t){const Z0=B.Z0;
+      /* de frente: el isotipo, y una luz que asoma por el hueco */
+      const rev=eo(sg(p,0,.14));B.mat.envMapIntensity=1.35*rev;B.key.intensity=.7*rev;
+      far.material.opacity=sg(p,.12,.4)*(1-sg(p,.56,.68))*(.9+.6*sg(p,.4,.55));
+      /* el vuelo: avanza por el hueco (a la altura donde es más ancho) */
+      const a=eIO(sg(p,.3,.62)),b=eIO(sg(p,.54,.92));
+      const z=lerp(Z0*1.02,-1.1,a),y=lerp(.12,.22,Math.sin(Math.PI*a));
+      /* al otro lado, se da la vuelta y mira el isotipo desde detrás */
+      const yaw=Math.PI*b;v.set(.7*Math.sin(Math.PI*b),lerp(y,.12,b),lerp(z,-Z0*1.02,b));
+      dir.set(-Math.sin(yaw),lerp(0,-.02,b),-Math.cos(yaw));
+      B.cam.position.copy(v);B.cam.lookAt(v.x,v.y,v.z-5);q1.copy(B.cam.quaternion);B.cam.lookAt(0,-.04,0);q2.copy(B.cam.quaternion);
+      B.cam.quaternion.copy(q1).slerp(q2,eIO(sg(p,.5,.76)));
+      halo.material.opacity=b*.55;B.mat.envMapIntensity=1.35*rev*(1+.8*b);
+      /* al cruzar: los cantos interiores brillan y la luz de detrás estalla */
+      const cross=Math.exp(-Math.pow((p-.51)/.035,2));B.bloom.strength=.5+cross*.6;back.intensity=cross*3;
+      const sw=sg(p,.7,.97);B.sweep.position.set(lerp(-4,4,sw),2,-2.5);B.sweep.intensity=.9*Math.sin(Math.PI*sw);
+      B.key.position.set(b>.5?3:-3,3,b>.5?-3:3);
+      B.iso.rotation.y=mouse.sx*.12*sg(p,.85,.95);hero(p,.84,.94);}};
+}};
+
+/* 2 · LA LINTERNA: todo negro; el cursor es la luz que descubre el titanio */
+C.linterna={grp:'hero',dur:12,html:HERO+'<p class="hint3" id="h3"></p>',make(){
+  const U={uC:{value:new THREE.Vector2()},uR:{value:200},uA:{value:.0},uW:{value:1}};
+  const mat=new THREE.MeshPhysicalMaterial({color:TIc(),metalness:1,roughness:.2,clearcoat:.5,clearcoatRoughness:.1,envMapIntensity:1.5});
+  mat.onBeforeCompile=sh=>{Object.assign(sh.uniforms,U);sh.fragmentShader=sh.fragmentShader.replace('#include <common>','#include <common>\nuniform vec2 uC;uniform float uR,uA;')
+    .replace('#include <opaque_fragment>','float lm_=smoothstep(uR,uR*.12,distance(gl_FragCoord.xy,uC));outgoingLight*=uA+lm_*lm_*(1.-uA);\n#include <opaque_fragment>');};
+  const B=tiBase({mat});B.key.intensity=0;
+  /* el círculo de luz sobre la pared negra del fondo */
+  const wall=new THREE.Mesh(new THREE.PlaneGeometry(40,40),new THREE.ShaderMaterial({uniforms:U,depthWrite:false,toneMapped:false,
+    vertexShader:'void main(){gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
+    fragmentShader:'uniform vec2 uC;uniform float uR,uW;void main(){float d=distance(gl_FragCoord.xy,uC)/uR;gl_FragColor=vec4(vec3(.055*exp(-d*d*1.6)+.012*exp(-d*d*.25))*uW,1.);}'}));
+  wall.position.z=-2.5;wall.renderOrder=-1;wall.frustumCulled=false;B.scene.add(wall);
+  const pl=new THREE.PointLight(0xffffff,0,0,0);B.scene.add(pl);
+  let lastIn=-9,cx=0,cy=0;const mv=()=>{lastIn=performance.now();};stage.addEventListener('pointermove',mv);
+  const h=$('h3');if(h)h.textContent=MOB()?'Desliza el dedo':'Mueve el ratón';const ray=new THREE.Vector3();
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose(){B.dispose();stage.removeEventListener('pointermove',mv);},
+    update(p,t,dt){const live=performance.now()-lastIn<3000;
+      /* sin nadie, la luz pasea sola y al final se abre del todo */
+      let tx,ty;if(live){tx=mouse.x;ty=mouse.y;}else{const w=1-sg(p,.6,.78);tx=(Math.sin(t*.7)*.55+Math.sin(t*.23)*.15)*w;ty=(Math.sin(t*.53+1)*.32)*w;}
+      const k=1-Math.exp(-(dt||.016)*6);cx+=(tx-cx)*k;cy+=(ty-cy)*k;
+      const pr=renderer.getPixelRatio(),Wd=B.W*pr,Hd=B.H*pr;U.uC.value.set((cx*.5+.5)*Wd,(1-(cy*.5+.5))*Hd);
+      const open=eIO(sg(p,.7,.9));U.uR.value=Hd*lerp(.26,1.5,live?open*.35:open)*eo(sg(p,.02,.12));U.uA.value=.02+.5*open;U.uW.value=1-open;
+      /* una luz puntual delante, donde apunta el cursor, para los brillos */
+      ray.set(cx,-cy,.5).unproject(B.cam).sub(B.cam.position).normalize();pl.position.copy(B.cam.position).addScaledVector(ray,B.Z0*.55);pl.intensity=1.1*eo(sg(p,.02,.12))*(1-.6*open);
+      B.iso.rotation.set(-cy*.08,cx*.14,0);B.orbit(0,.04,1,-.02);
+      if(h)h.style.opacity=p>.2&&!live&&p<.7?(.5+.3*Math.sin(t*3)).toFixed(2):'0';hero(p,.8,.92);}};
+}};
+
+/* 3 · LA SOMBRA: una luz muy cerca proyecta una sombra enorme; al alejarse, la sombra encoge hasta la pieza */
+C.sombra={grp:'hero',dur:12,html:HERO,make(){
+  const UD={uDS:{value:.1}};const smat=new THREE.MeshPhysicalMaterial({color:TIc(),metalness:1,roughness:.2,clearcoat:.5,clearcoatRoughness:.1,envMapIntensity:1.35});
+  smat.onBeforeCompile=sh=>{Object.assign(sh.uniforms,UD);sh.fragmentShader=sh.fragmentShader.replace('#include <common>','#include <common>\nuniform float uDS;').replace('#include <lights_fragment_end>','#include <lights_fragment_end>\nreflectedLight.directSpecular*=uDS;reflectedLight.directDiffuse*=uDS;');};
+  const B=tiBase({mat:smat});
+  renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFShadowMap;
+  B.iso.children.forEach(m=>m.castShadow=true);
+  const WZ=-1.6,wm=new THREE.MeshStandardMaterial({color:0x8e8e8e,roughness:.92,metalness:0,envMapIntensity:0});
+  const wall=new THREE.Mesh(new THREE.PlaneGeometry(30,30),wm);wall.position.z=WZ;wall.receiveShadow=true;B.scene.add(wall);
+  const sp=new THREE.SpotLight(0xffffff,0,0,.9,.55,0);sp.castShadow=true;sp.shadow.mapSize.set(2048,2048);sp.shadow.camera.near=.05;sp.shadow.bias=-.0004;sp.shadow.radius=3;
+  sp.target.position.set(0,0,WZ);B.scene.add(sp,sp.target);
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose(){B.dispose();renderer.shadowMap.enabled=false;},
+    update(p,t){
+      /* la luz enciende la pared: el isotipo es una silueta y su sombra lo llena todo */
+      const on=eo(sg(p,.02,.16)),a=eIO(sg(p,.26,.72));
+      const d=lerp(.32,7,a);sp.position.set(lerp(.02,.5,a),lerp(.12,.9,a),d);sp.angle=lerp(1.05,.32,a);sp.shadow.camera.updateProjectionMatrix();
+      sp.intensity=on*lerp(2.4,2.6,a)*(1-sg(p,.76,.95));UD.uDS.value=lerp(.08,1,sg(p,.8,.95));wm.color.setScalar(.27*(1-sg(p,.76,.95)));
+      /* al final la pared se apaga y queda el titanio */
+      B.mat.envMapIntensity=1.35*eIO(sg(p,.6,.9));B.key.intensity=.7*eIO(sg(p,.6,.9));
+      const sw=sg(p,.74,.98);B.sweep.position.set(lerp(4,-4,sw),2,2.5);B.sweep.intensity=1.5*Math.sin(Math.PI*sw);
+      B.iso.rotation.set(0,Math.sin(t*.35)*.05+mouse.sx*.12,0);B.iso.position.y=.015*Math.sin(t*.8);
+      B.orbit(.0,.04,lerp(1.08,1,eIO(sg(p,0,1))),-.02);hero(p,.8,.92);}};
+}};
+
+/* 4 · SOLO EL OBJETO: gira despacio sobre negro, con una sola luz suave, como una foto de producto */
+let SOFTBOX=null;
+function softbox(){if(SOFTBOX)return SOFTBOX;const s=new THREE.Scene();s.background=new THREE.Color(0);
+  const pan=(w,h,x,y,z,k)=>{const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),new THREE.MeshBasicMaterial({color:new THREE.Color(k,k,k),side:THREE.DoubleSide}));m.position.set(x,y,z);m.lookAt(0,0,0);s.add(m);};
+  pan(9,9,0,7,0,1.7);pan(.6,10,-6,1,-3,2.4);pan(.6,10,6,1,-3,2.4);pan(16,6,0,1.8,8,.8);pan(14,3,0,-1.5,8,.1);pan(10,.3,0,1.2,7,1.4);
+  const pm=new THREE.PMREMGenerator(renderer);SOFTBOX=pm.fromScene(s,0).texture;pm.dispose();return SOFTBOX;}
+C.objeto={grp:'hero',dur:14,html:HERO,make(){const B=tiBase({env:softbox()});B.key.intensity=0;
+  const top=new THREE.DirectionalLight(0xffffff,0);top.position.set(0,5,1);B.scene.add(top);
+  return {scene:B.scene,cam:B.cam,resize:B.resize,render:B.render,dispose:B.dispose,
+    update(p,t){const rev=eo(sg(p,0,.18));B.mat.envMapIntensity=1.5*rev;top.intensity=1.2*rev;
+      /* una vuelta y cuarto, frenando hasta quedar de frente */
+      const r=eIO(sg(p,.04,.86));B.iso.rotation.set(.05*Math.sin(Math.PI*r),r*Math.PI*2+mouse.sx*.12*sg(p,.86,.95),0);
+      B.iso.position.y=.012*Math.sin(t*.7);
+      B.orbit(.0,lerp(.16,.05,eIO(sg(p,0,.9))),lerp(.86,1,eIO(sg(p,0,.9))),-.02);hero(p,.82,.94);}};
+}};
+
 /* ——— motor ——— */
 let cur=null,curId=null,p=0,playing=!RM,hold=0,t=0,last=0,visible=true,ok=false;
 const scrub=$('scrub'),pct=$('pct'),play=$('play'),ico=$('ico');
@@ -1414,7 +1528,7 @@ function steps(){const I=INFO[curId],li=D.querySelectorAll('#iS li');if(!li.leng
   else{on=Math.round(PQ_U(p));if(I.s[0][0]!=='Inicio')on=on-1;}
   li.forEach((l,i)=>l.classList.toggle('on',i===on));}
 function size(){if(!cur)return;const w=stage.clientWidth,h=stage.clientHeight;renderer.setPixelRatio(Math.min(W.devicePixelRatio||1,cur.pr||2));renderer.setSize(w,h,false);cur.resize&&cur.resize(w,h);}
-function load(id){if(!C[id])id='emerge';
+function load(id){if(!C[id])id='atravesar';
   if(cur){cur.dispose&&cur.dispose();disposeScene(cur.scene);}
   curId=id;ov.innerHTML=C[id].html||'';info(id);
   D.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.id===id?'true':'false'));
