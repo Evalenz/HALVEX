@@ -55,6 +55,7 @@ header p{margin:0;font-size:13px;color:var(--mute);max-width:52ch}
 .info dd{margin:2px 0 0;font-size:13.5px;line-height:1.5;color:#C7C7CC}
 
 /* ——— capas de texto dentro de la escena (simulan la web) ——— */
+.vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;background:#000}
 .fb{position:absolute;inset:0;background:#000;opacity:0}
 .lb{position:absolute;left:0;right:0;height:11cqh;background:#000}
 .lb.t{top:0}.lb.b{bottom:0}
@@ -114,6 +115,7 @@ header p{margin:0;font-size:13px;color:var(--mute);max-width:52ch}
     <div class="grp"><span>Hero · enfoques</span>
       <button role="tab" data-id="foto">1 · Una foto fija</button>
       <button role="tab" data-id="titular">2 · El titular manda</button>
+      <button role="tab" data-id="film">Película · render final</button>
       <button role="tab" data-id="pelicula">3 · Película de producto</button>
       <button role="tab" data-id="editorial">4 · Maqueta editorial</button>
     </div>
@@ -209,6 +211,9 @@ const PQ='<div class="pq" id="pq">'+
 
 /* textos que acompañan a cada boceto */
 const INFO={
+ film:{k:'Hero · película renderizada',t:'Película de producto',d:'La película de verdad, renderizada con trazado de rayos (Blender, Cycles) como un anuncio: la oscuridad se rompe con una línea de luz que corre por el bisel; las dos puntas del vértice con contraluz rasante; la pieza en tres cuartos enseñando el grosor del titanio; y el plano final, el isotipo entero sobre un suelo negro que lo refleja.',
+  s:[['0–25 %','Macro: la luz corre por el bisel.'],['25–46 %','El vértice, a contraluz.'],['46–67 %','Tres cuartos: el grosor del titanio.'],['67–100 %','El isotipo entero sobre el suelo negro.'],['84–94 %','El titular entra.']],
+  f:'Calidad de anuncio, imposible en tiempo real, y fluida en cualquier móvil porque es un vídeo.',r:'Para el móvil haría una versión vertical; aquí se recorta del vídeo horizontal.'},
  foto:{k:'Hero · enfoque 1 de 4',t:'Una foto fija perfecta',d:'Sin animación de entrada. El isotipo en titanio, enorme y recortado por el borde de arriba: solo se ve cómo baja hasta su vértice. El titular, a su lado. Lo único que se mueve es la luz, que resbala muy despacio por el metal.',
   s:[['0–12 %','La pieza aparece.'],['5–20 %','El titular entra.'],['0–100 %','La luz resbala despacio por el titanio.']],
   f:'La seguridad de no necesitar efectos: así lo hacen las marcas de lujo.',r:'Depende de que el render sea impecable; en la web lo afinaría con más detalle de luz.'},
@@ -1617,6 +1622,14 @@ C.editorial={grp:'hero',dur:12,html:'<div class="ed" id="ed"><p class="k">HALVEX
       const e=$('ed'),v=eo(sg(p,.04,.2));if(e){e.style.opacity=v.toFixed(3);e.style.filter=v>.99?'none':'blur('+((1-v)*10).toFixed(1)+'px)';}}};
 }};
 
+
+/* 3b · PELÍCULA RENDERIZADA: vídeo de verdad (Blender/Cycles); la barra lo recorre como el scroll */
+C.film={grp:'hero',dur:12,html:'<video class="vid" id="vid" src="pelicula.mp4" muted playsinline preload="auto"></video>'+HERO,make(){
+  const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(30,1,.1,10),v=$('vid');let want=0;
+  return {scene,cam,resize(){},render(){renderer.clear();},
+    update(p){const d=v.duration||12;want=Math.min(d-.04,p*d);if(v.readyState>=1&&Math.abs(v.currentTime-want)>.03&&!v.seeking)v.currentTime=want;hero(p,.84,.94);}};
+}};
+
 /* ——— motor ——— */
 let cur=null,curId=null,p=0,playing=!RM,hold=0,t=0,last=0,visible=true,ok=false;
 const scrub=$('scrub'),pct=$('pct'),play=$('play'),ico=$('ico');
@@ -1633,7 +1646,7 @@ function steps(){const I=INFO[curId],li=D.querySelectorAll('#iS li');if(!li.leng
   else{on=Math.round(PQ_U(p));if(I.s[0][0]!=='Inicio')on=on-1;}
   li.forEach((l,i)=>l.classList.toggle('on',i===on));}
 function size(){if(!cur)return;const w=stage.clientWidth,h=stage.clientHeight;renderer.setPixelRatio(Math.min(W.devicePixelRatio||1,cur.pr||2));renderer.setSize(w,h,false);cur.resize&&cur.resize(w,h);}
-function load(id){if(!C[id])id='foto';
+function load(id){if(!C[id])id='film';
   if(cur){cur.dispose&&cur.dispose();disposeScene(cur.scene);}
   curId=id;ov.innerHTML=C[id].html||'';info(id);
   D.querySelectorAll('#tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.id===id?'true':'false'));
