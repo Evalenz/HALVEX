@@ -1624,9 +1624,11 @@ C.editorial={grp:'hero',dur:12,html:'<div class="ed" id="ed"><p class="k">HALVEX
 
 
 /* 3b · PELÍCULA RENDERIZADA: vídeo de verdad (Blender/Cycles); la barra lo recorre como el scroll */
-C.film={grp:'hero',dur:12,html:'<video class="vid" id="vid" src="pelicula.mp4" muted playsinline preload="auto"></video>'+HERO,make(){
-  const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(30,1,.1,10),v=$('vid');let want=0;
-  return {scene,cam,resize(){},render(){renderer.clear();},
+C.film={grp:'hero',dur:12,html:'<video class="vid" id="vid" muted playsinline preload="auto"></video>'+HERO,make(){
+  const scene=new THREE.Scene(),cam=new THREE.PerspectiveCamera(30,1,.1,10),v=$('vid');let want=0,url=null,dead=false;
+  /* el vídeo entero en memoria: así se puede saltar a cualquier fotograma aunque el servidor no sirva por rangos */
+  fetch('pelicula.mp4').then(r=>r.blob()).then(b=>{if(dead)return;url=URL.createObjectURL(b);v.src=url;}).catch(()=>{if(!dead)v.src='pelicula.mp4';});
+  return {scene,cam,resize(){},render(){renderer.clear();},dispose(){dead=true;v.removeAttribute('src');v.load();if(url)URL.revokeObjectURL(url);},
     update(p){const d=v.duration||12;want=Math.min(d-.04,p*d);if(v.readyState>=1&&Math.abs(v.currentTime-want)>.03&&!v.seeking)v.currentTime=want;hero(p,.84,.94);}};
 }};
 
